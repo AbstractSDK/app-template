@@ -83,7 +83,6 @@ fn update_config(
 }
 
 /// Add allowed assets
-/// TODO: add a check to make sure the asset is not already supported
 fn add_allowed_assets(
     deps: DepsMut,
     msg_info: MessageInfo,
