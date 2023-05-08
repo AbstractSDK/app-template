@@ -1,8 +1,8 @@
 use abstract_dex_api::api::DexInterface;
 use abstract_sdk::{
-    core::objects::{AnsAsset, AssetEntry, LpToken},
-    features::{AbstractNameService, AbstractResponse, AccountIdentification},
-    AbstractSdkError, AbstractSdkResult, ApiInterface, Resolve, TransferInterface,
+    core::objects::{AnsAsset, AssetEntry},
+    features::AbstractResponse,
+    AbstractSdkResult, TransferInterface,
 };
 
 use cosmwasm_std::{Decimal, DepsMut, Env, MessageInfo, Response, SubMsg};
@@ -96,7 +96,7 @@ fn add_allowed_assets(
 
     for asset in assets {
         if asset == config.fee_asset {
-            return Err(crate::error::FeeCollectorError::FeeAssetNotAllowed {  });
+            return Err(crate::error::FeeCollectorError::FeeAssetNotAllowed {});
         }
 
         if !supported_assets.contains(&asset) {

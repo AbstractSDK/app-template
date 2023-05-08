@@ -5,7 +5,7 @@ use cosmwasm_std::{DepsMut, Env, MessageInfo, Response};
 use crate::contract::{FeeCollectorApp, FeeCollectorResult};
 use crate::msg::FeeCollectorInstantiateMsg;
 // use crate::replies::INSTANTIATE_REPLY_ID;
-use crate::state::{Config, CONFIG, ALLOWED_ASSETS};
+use crate::state::{Config, ALLOWED_ASSETS, CONFIG};
 
 pub fn instantiate_handler(
     deps: DepsMut,

@@ -3,7 +3,9 @@ use crate::{
     dependencies::FEE_COLLECTOR_DEPS,
     error::FeeCollectorError,
     handlers,
-    msg::{FEE_COLLECTOR,FeeCollectorExecuteMsg, FeeCollectorInstantiateMsg, FeeCollectorQueryMsg},
+    msg::{
+        FeeCollectorExecuteMsg, FeeCollectorInstantiateMsg, FeeCollectorQueryMsg, FEE_COLLECTOR,
+    },
     replies::{self, INSTANTIATE_REPLY_ID, SWAPPED_REPLY_ID},
 };
 use abstract_app::AppContract;
@@ -34,7 +36,7 @@ const TEMPLATE_APP: FeeCollectorApp = FeeCollectorApp::new(FEE_COLLECTOR, MODULE
     .with_replies(&[
         (INSTANTIATE_REPLY_ID, replies::instantiate_reply),
         (SWAPPED_REPLY_ID, replies::swapped_reply),
-        ])
+    ])
     .with_dependencies(FEE_COLLECTOR_DEPS);
 
 // Export handlers

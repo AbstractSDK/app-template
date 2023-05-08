@@ -1,4 +1,7 @@
-use crate::{contract::{FeeCollectorApp, FeeCollectorResult}, state::CONFIG};
+use crate::{
+    contract::{FeeCollectorApp, FeeCollectorResult},
+    state::CONFIG,
+};
 
 use abstract_sdk::{features::AbstractResponse, TransferInterface};
 use cosmwasm_std::{DepsMut, Env, Reply, Response};

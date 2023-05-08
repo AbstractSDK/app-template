@@ -13,4 +13,3 @@ pub struct Config {
 
 pub const CONFIG: Item<Config> = Item::new("config");
 pub const ALLOWED_ASSETS: Item<Vec<AssetEntry>> = Item::new("supported_assets");
-

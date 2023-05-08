@@ -1,6 +1,6 @@
-use crate::{contract::{FeeCollectorApp, FeeCollectorResult}, state::CONFIG};
+use crate::contract::{FeeCollectorApp, FeeCollectorResult};
 
-use abstract_sdk::{features::AbstractResponse, TransferInterface};
+use abstract_sdk::features::AbstractResponse;
 use cosmwasm_std::{DepsMut, Env, Reply, Response};
 
 /// An example of a reply handler mapped to a reply id.

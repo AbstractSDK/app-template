@@ -9,9 +9,9 @@ use abstract_sdk::core::api::InstantiateMsg;
 use abstract_testing::prelude::{EUR, USD};
 use boot_core::ContractInstance;
 use boot_core::*;
-use boot_cw_plus::Cw20Base;
+
 use cosmwasm_std::{coin, Decimal};
-use cw_multi_test::ContractWrapper;
+
 use fee_collector_app::{interface::FeeCollector, msg::FEE_COLLECTOR};
 use fee_collector_app::{
     msg::{FeeCollectorExecuteMsgFns, FeeCollectorQueryMsgFns},
@@ -83,7 +83,7 @@ fn init_fee_collector(
     _version: Option<String>,
 ) -> Result<FeeCollector<Mock>, AbstractBootError> {
     let mut fee_collector = FeeCollector::new(FEE_COLLECTOR, chain);
-    
+
     fee_collector.as_instance_mut().set_mock(Box::new(
         cw_multi_test::ContractWrapper::new_with_empty(
             ::fee_collector_app::contract::execute,
@@ -96,10 +96,7 @@ fn init_fee_collector(
 
     deployment
         .version_control
-        .register_apps(
-            vec![fee_collector.as_instance()],
-            &"1.0.0".parse().unwrap()
-        )
+        .register_apps(vec![fee_collector.as_instance()], &"1.0.0".parse().unwrap())
         .unwrap();
     Ok(fee_collector)
 }
@@ -174,8 +171,8 @@ fn create_fee_collector(
     // set allowed assets
     if allowed_assets.len() != 0 {
         fee_collector
-        .call_as(&account.manager.address()?)
-        .add_allowed_assets(allowed_assets)?;
+            .call_as(&account.manager.address()?)
+            .add_allowed_assets(allowed_assets)?;
     }
 
     Ok(App {
@@ -192,11 +189,11 @@ fn test_update_config() -> AResult {
     let owner = Addr::unchecked(OWNER);
     let commission_addr = Addr::unchecked(COMMISSION_ADDR);
     let (_state, mock) = instantiate_default_mock_env(&owner)?;
-    let mut app = create_fee_collector(mock.clone(), vec![])?;
+    let app = create_fee_collector(mock.clone(), vec![])?;
 
     let eur_asset = AssetEntry::new(EUR);
     let usd_asset = AssetEntry::new(USD);
-    
+
     let wynd_asset = AssetEntry::new(WYNDEX_TOKEN);
 
     app.fee_collector
@@ -215,12 +212,16 @@ fn test_update_config() -> AResult {
     assert_that!(config.commission_addr).is_equal_to(commission_addr);
 
     // Adding fee asset is not allowed
-    let err = app.fee_collector
+    let _err = app
+        .fee_collector
         .call_as(&app.account.manager.address()?)
-        .add_allowed_assets(vec![eur_asset.clone(), usd_asset.clone()]).unwrap_err();
+        .add_allowed_assets(vec![eur_asset.clone(), usd_asset.clone()])
+        .unwrap_err();
 
     // Adding non fee assets
-    app.fee_collector.call_as(&app.account.manager.address()?).add_allowed_assets(vec![eur_asset.clone()])?;
+    app.fee_collector
+        .call_as(&app.account.manager.address()?)
+        .add_allowed_assets(vec![eur_asset.clone()])?;
     let allowed_assets: Vec<AssetEntry> = app.fee_collector.allowed_assets()?;
     assert_that!(allowed_assets.len()).is_equal_to(1);
     assert_that!(allowed_assets).contains(eur_asset.clone());
@@ -242,10 +243,10 @@ fn test_collect_fees() -> AResult {
     let owner = Addr::unchecked(OWNER);
     let (_state, mock) = instantiate_default_mock_env(&owner)?;
 
-    let eur_asset = AssetEntry::new(EUR);
+    let _eur_asset = AssetEntry::new(EUR);
     let usd_asset = AssetEntry::new(USD);
     let wynd_token = AssetEntry::new(WYND_TOKEN);
-    let mut app = create_fee_collector(mock.clone(), vec![usd_asset.clone(), wynd_token.clone()])?;
+    let app = create_fee_collector(mock.clone(), vec![usd_asset.clone(), wynd_token.clone()])?;
 
     mock.set_balance(
         &app.account.proxy.address()?,

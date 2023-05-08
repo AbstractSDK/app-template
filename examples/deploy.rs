@@ -8,7 +8,7 @@ use abstract_boot::{
 use semver::Version;
 
 use clap::Parser;
-use fee_collector_app::{interface::FeeCollector};
+use fee_collector_app::interface::FeeCollector;
 use fee_collector_app::msg::FEE_COLLECTOR;
 use tokio::runtime::Runtime;
 
