@@ -6,11 +6,11 @@ use cw_storage_plus::Item;
 #[cosmwasm_schema::cw_serde]
 pub struct Config {
     pub commission_addr: Addr,
-    pub max_swap_spread: Decimal,
     pub fee_asset: AssetEntry,
     pub dex: String,
+    pub max_swap_spread: Decimal,
 }
 
 pub const CONFIG: Item<Config> = Item::new("config");
-pub const SUPPORTED_ASSETS: Item<Vec<AssetEntry>> = Item::new("supported_assets");
+pub const ALLOWED_ASSETS: Item<Vec<AssetEntry>> = Item::new("supported_assets");
 

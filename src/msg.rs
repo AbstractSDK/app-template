@@ -36,12 +36,13 @@
 //!
 //! ## Migration
 //! Migrating this contract is done by calling `ExecuteMsg::Upgrade` on [`crate::manager`] with `crate::ETF` as module.
-use abstract_core::app;
+use abstract_core::{app, objects::AssetEntry};
 use abstract_sdk::base::{ExecuteEndpoint, InstantiateEndpoint, MigrateEndpoint, QueryEndpoint};
 use cosmwasm_schema::QueryResponses;
 use cosmwasm_std::Decimal;
 
-use crate::contract::FeeCollectorApp;
+pub const FEE_COLLECTOR: &str = "4t2:fee-collector";
+use crate::{contract::FeeCollectorApp, state::Config};
 
 /// Abstract App instantiate msg
 pub type InstantiateMsg = <FeeCollectorApp as InstantiateEndpoint>::InstantiateMsg;
@@ -55,10 +56,10 @@ impl app::AppQueryMsg for FeeCollectorQueryMsg {}
 /// FeeCollector instantiate message
 #[cosmwasm_schema::cw_serde]
 pub struct FeeCollectorInstantiateMsg {
-    pub max_swap_spread: Decimal,
     pub commission_addr: String,
     pub fee_asset: String,
     pub dex: String,
+    pub max_swap_spread: Decimal,
 }
 
 /// FeeCollector execute messages
@@ -67,7 +68,15 @@ pub struct FeeCollectorInstantiateMsg {
 #[cfg_attr(feature = "interface", impl_into(ExecuteMsg))]
 pub enum FeeCollectorExecuteMsg {
     // TODO: add attrs to update
-    UpdateConfig {max_swap_spread: Option<Decimal>, commission_addr: Option<String>, fee_asset: Option<String>, dex: Option<String>},
+    UpdateConfig {
+        commission_addr: Option<String>,
+        fee_asset: Option<String>,
+        dex: Option<String>,
+        max_swap_spread: Option<Decimal>,
+    },
+    AddAllowedAssets {
+        assets: Vec<AssetEntry>,
+    },
     Collect {},
 }
 
@@ -79,8 +88,12 @@ pub enum FeeCollectorExecuteMsg {
 pub enum FeeCollectorQueryMsg {
     /// Query the configuration
     /// Returns [`ConfigResponse`]
-    #[returns(ConfigResponse)]
+    #[returns(Config)]
     Config {},
+    /// Query the list of allowed assets
+    /// Returns [`Vec<String>`]
+    #[returns(Vec<AssetEntry>)]
+    AllowedAssets {},
 }
 
 /// FeeCollector migrate msg

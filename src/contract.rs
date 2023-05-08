@@ -3,9 +3,8 @@ use crate::{
     dependencies::FEE_COLLECTOR_DEPS,
     error::FeeCollectorError,
     handlers,
-    msg::{FeeCollectorExecuteMsg, FeeCollectorInstantiateMsg, FeeCollectorQueryMsg},
+    msg::{FEE_COLLECTOR,FeeCollectorExecuteMsg, FeeCollectorInstantiateMsg, FeeCollectorQueryMsg},
     replies::{self, INSTANTIATE_REPLY_ID, SWAPPED_REPLY_ID},
-    TEMPLATE_MOD_ID,
 };
 use abstract_app::AppContract;
 use cosmwasm_std::Response;
@@ -26,7 +25,7 @@ pub type FeeCollectorApp = AppContract<
     Cw20ReceiveMsg,
 >;
 
-const TEMPLATE_APP: FeeCollectorApp = FeeCollectorApp::new(TEMPLATE_MOD_ID, MODULE_VERSION, None)
+const TEMPLATE_APP: FeeCollectorApp = FeeCollectorApp::new(FEE_COLLECTOR, MODULE_VERSION, None)
     .with_instantiate(handlers::instantiate_handler)
     .with_execute(handlers::execute_handler)
     .with_query(handlers::query_handler)

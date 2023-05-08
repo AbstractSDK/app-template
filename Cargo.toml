@@ -51,6 +51,7 @@ abstract-app = { version = "0.14" }
 abstract-sdk = { version = "0.14" }
 # TODO: once stable, this should be updated to the stable release
 boot-core = { version = "0.10", optional = true }
+boot-cw-plus = { git = "https://github.com/AbstractSDK/cw-orchestrator.git", tag = "v0.10.2" }
 
 abstract-boot = { version = "0.14", optional = true }
 abstract-dex-api = { git = "https://github.com/AbstractSDK/apis.git", tag = "v0.14.2", default-features = false }
@@ -69,3 +70,13 @@ dotenv = "0.15.0"
 env_logger = "0.10.0"
 clap = { version = "4.0.32", features = ["derive"] }
 abstract-sdk = { version = "0.14", features = ["test-utils"] }
+wyndex-bundle = { git = "https://github.com/AbstractSDK/integration-bundles.git", tag = "v0.3.1" }
+cw-multi-test = "0.16"
+abstract-dex-api = { git = "https://github.com/AbstractSDK/apis.git", tag = "v0.14.2", features = [
+  "juno",
+  "boot",
+] }
+abstract-cw-staking-api = { git = "https://github.com/AbstractSDK/apis.git", tag = "v0.14.2", features = [
+  "juno",
+  "boot",
+] }
