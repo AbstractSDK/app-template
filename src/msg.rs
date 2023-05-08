@@ -41,7 +41,7 @@ use abstract_sdk::base::{ExecuteEndpoint, InstantiateEndpoint, MigrateEndpoint, 
 use cosmwasm_schema::QueryResponses;
 use cosmwasm_std::Decimal;
 
-pub const FEE_COLLECTOR: &str = "4t2:fee-collector";
+pub const FEE_COLLECTOR: &str = "4t2:feecollector";
 use crate::{contract::FeeCollectorApp, state::Config};
 
 /// Abstract App instantiate msg

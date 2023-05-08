@@ -21,7 +21,7 @@ use speculoos::iter::ContainingIteratorAssertions;
 use speculoos::{assert_that, prelude::ContainingIntoIterAssertions, vec::VecAssertions};
 use wyndex_bundle::{WynDex, WYNDEX, WYND_TOKEN};
 
-const COMMISSION_ADDR: &str = "commission-addr";
+const COMMISSION_ADDR: &str = "commission_addr";
 const OWNER: &str = "owner";
 const TEST_NAMESPACE: &str = "4t2";
 pub type AResult = anyhow::Result<()>;
@@ -79,21 +79,27 @@ pub(crate) fn init_exchange(
 fn init_fee_collector(
     chain: Mock,
     deployment: &Abstract<Mock>,
-    version: Option<String>,
+    _version: Option<String>,
 ) -> Result<FeeCollector<Mock>, AbstractBootError> {
     let mut fee_collector = FeeCollector::new(FEE_COLLECTOR, chain);
+    
     fee_collector.as_instance_mut().set_mock(Box::new(
         cw_multi_test::ContractWrapper::new_with_empty(
             ::fee_collector_app::contract::execute,
             ::fee_collector_app::contract::instantiate,
             ::fee_collector_app::contract::query,
-        ),
+        )
+        .with_reply_empty(fee_collector_app::contract::reply),
     ));
     fee_collector.upload()?;
 
     deployment
         .version_control
-        .register_apps(vec![fee_collector.as_instance()], &"1.0.0".parse().unwrap())?;
+        .register_apps(
+            vec![fee_collector.as_instance()],
+            &"1.0.0".parse().unwrap()
+        )
+        .unwrap();
     Ok(fee_collector)
 }
 
@@ -146,6 +152,7 @@ fn create_fee_collector(
             },
         },
     )?;
+
     // get its address
     let fee_collector_addr = account
         .manager

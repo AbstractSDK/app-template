@@ -1,16 +1,17 @@
 use abstract_core::objects::AssetEntry;
-use cosmwasm_std::{wasm_execute, DepsMut, Env, MessageInfo, Response, SubMsg};
+use abstract_sdk::AbstractResponse;
+use cosmwasm_std::{DepsMut, Env, MessageInfo, Response};
 
 use crate::contract::{FeeCollectorApp, FeeCollectorResult};
 use crate::msg::FeeCollectorInstantiateMsg;
-use crate::replies::INSTANTIATE_REPLY_ID;
+// use crate::replies::INSTANTIATE_REPLY_ID;
 use crate::state::{Config, CONFIG};
 
 pub fn instantiate_handler(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _app: FeeCollectorApp,
+    app: FeeCollectorApp,
     _msg: FeeCollectorInstantiateMsg,
 ) -> FeeCollectorResult {
     let FeeCollectorInstantiateMsg { max_swap_spread, commission_addr , fee_asset, dex } = _msg;
@@ -21,9 +22,5 @@ pub fn instantiate_handler(
 
     CONFIG.save(deps.storage, &config)?;
 
-    // Example reply that doesn't do anything
-    Ok(Response::new().add_submessage(SubMsg::reply_on_success(
-        wasm_execute(_env.contract.address, &cosmwasm_std::Empty {}, vec![])?,
-        INSTANTIATE_REPLY_ID,
-    )))
+    Ok(app.custom_tag_response(Response::new(), "instantiate", vec![("4t2", "/FC/instantiate")]))
 }
