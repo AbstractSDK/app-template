@@ -93,8 +93,13 @@ fn add_allowed_assets(
     // Only the admin should be able to call this
     app.admin.assert_admin(deps.as_ref(), &msg_info.sender)?;
     let mut supported_assets = ALLOWED_ASSETS.load(deps.storage)?;
+    let config = CONFIG.load(deps.storage)?;
 
     for asset in assets {
+        if asset == config.fee_asset {
+            return Err(crate::error::FeeCollectorError::FeeAssetNotAllowed {  });
+        }
+
         if !supported_assets.contains(&asset) {
             supported_assets.push(asset);
         }

@@ -61,4 +61,7 @@ pub enum FeeCollectorError {
 
     #[error("The actual amount of tokens transfered is different from the claimed amount.")]
     InvalidAmount {},
+
+    #[error("The provided asset is the fee asset and cannot be added to the allowed assets")]
+    FeeAssetNotAllowed {},
 }

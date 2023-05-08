@@ -1,6 +1,6 @@
 use crate::contract::{FeeCollectorApp, FeeCollectorResult};
 use crate::msg::{ConfigResponse, FeeCollectorQueryMsg};
-use crate::state::{CONFIG, ALLOWED_ASSETS};
+use crate::state::{CONFIG, ALLOWED_ASSETS, Config};
 use abstract_core::objects::AssetEntry;
 use cosmwasm_std::{to_binary, Binary, Deps, Env, StdResult};
 
@@ -17,9 +17,9 @@ pub fn query_handler(
     .map_err(Into::into)
 }
 
-fn query_config(deps: Deps) -> StdResult<ConfigResponse> {
-    let _config = CONFIG.load(deps.storage)?;
-    Ok(ConfigResponse {})
+fn query_config(deps: Deps) -> StdResult<Config> {
+    let config = CONFIG.load(deps.storage)?;
+    Ok(config)
 }
 
 fn query_allowed_assets(deps: Deps) -> StdResult<Vec<AssetEntry>> {

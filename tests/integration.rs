@@ -23,6 +23,7 @@ use wyndex_bundle::{WynDex, WYNDEX, WYND_TOKEN};
 
 const COMMISSION_ADDR: &str = "commission_addr";
 const OWNER: &str = "owner";
+const WYNDEX_TOKEN: &str = "wyndex_token";
 const TEST_NAMESPACE: &str = "4t2";
 pub type AResult = anyhow::Result<()>;
 
@@ -168,12 +169,14 @@ fn create_fee_collector(
         .call_as(&account.manager.address()?)
         .update_authorized_addresses(vec![fee_collector_addr.clone()], vec![])?;
 
-    let fee_collector_config = fee_collector.config()?;
+    let _fee_collector_config = fee_collector.config()?;
 
     // set allowed assets
-    fee_collector
+    if allowed_assets.len() != 0 {
+        fee_collector
         .call_as(&account.manager.address()?)
         .add_allowed_assets(allowed_assets)?;
+    }
 
     Ok(App {
         account,
@@ -187,39 +190,37 @@ fn create_fee_collector(
 #[test]
 fn test_update_config() -> AResult {
     let owner = Addr::unchecked(OWNER);
+    let commission_addr = Addr::unchecked(COMMISSION_ADDR);
     let (_state, mock) = instantiate_default_mock_env(&owner)?;
     let mut app = create_fee_collector(mock.clone(), vec![])?;
 
-    let new_config = Config {
-        commission_addr: Addr::unchecked(COMMISSION_ADDR),
-        max_swap_spread: Decimal::percent(10),
-        fee_asset: USD.into(),
-        dex: WYNDEX.into(),
-    };
-
     let eur_asset = AssetEntry::new(EUR);
     let usd_asset = AssetEntry::new(USD);
+    
+    let wynd_asset = AssetEntry::new(WYNDEX_TOKEN);
 
     app.fee_collector
         .call_as(&app.account.manager.address()?)
         .update_config(
             Some(COMMISSION_ADDR.to_string()),
-            Some(USD.to_string()),
             Some(WYNDEX.to_string()),
-            Some(new_config.max_swap_spread),
+            Some(USD.to_string()),
+            Some(Decimal::from_str("0.1")?),
         )?;
 
     let config: Config = app.fee_collector.config()?;
-    assert_that!(config.fee_asset).is_equal_to(new_config.fee_asset);
-    assert_that!(config.dex).is_equal_to(new_config.dex);
-    assert_that!(config.max_swap_spread).is_equal_to(new_config.max_swap_spread);
-    assert_that!(config.commission_addr).is_equal_to(new_config.commission_addr);
+    assert_that!(config.fee_asset).is_equal_to(usd_asset.clone());
+    assert_that!(config.dex).is_equal_to(WYNDEX.to_string());
+    assert_that!(config.max_swap_spread).is_equal_to(Decimal::from_str("0.1")?);
+    assert_that!(config.commission_addr).is_equal_to(commission_addr);
 
-    // add assets to allowed_assets lists
-    app.fee_collector
+    // Adding fee asset is not allowed
+    let err = app.fee_collector
         .call_as(&app.account.manager.address()?)
-        .add_allowed_assets(vec![eur_asset.clone()])?;
+        .add_allowed_assets(vec![eur_asset.clone(), usd_asset.clone()]).unwrap_err();
 
+    // Adding non fee assets
+    app.fee_collector.call_as(&app.account.manager.address()?).add_allowed_assets(vec![eur_asset.clone()])?;
     let allowed_assets: Vec<AssetEntry> = app.fee_collector.allowed_assets()?;
     assert_that!(allowed_assets.len()).is_equal_to(1);
     assert_that!(allowed_assets).contains(eur_asset.clone());
@@ -227,11 +228,12 @@ fn test_update_config() -> AResult {
     // update allowed assets
     app.fee_collector
         .call_as(&app.account.manager.address()?)
-        .add_allowed_assets(vec![usd_asset.clone(), eur_asset.clone()])?;
+        .add_allowed_assets(vec![eur_asset.clone(), wynd_asset.clone()])?;
 
+    let allowed_assets: Vec<AssetEntry> = app.fee_collector.allowed_assets()?;
     assert_that!(allowed_assets.len()).is_equal_to(2);
     assert_that!(allowed_assets).contains(eur_asset);
-    assert_that!(allowed_assets).contains(usd_asset);
+    assert_that!(allowed_assets).contains(wynd_asset);
     Ok(())
 }
 
@@ -243,7 +245,7 @@ fn test_collect_fees() -> AResult {
     let eur_asset = AssetEntry::new(EUR);
     let usd_asset = AssetEntry::new(USD);
     let wynd_token = AssetEntry::new(WYND_TOKEN);
-    let mut app = create_fee_collector(mock.clone(), vec![eur_asset.clone(), wynd_token.clone()])?;
+    let mut app = create_fee_collector(mock.clone(), vec![usd_asset.clone(), wynd_token.clone()])?;
 
     mock.set_balance(
         &app.account.proxy.address()?,
@@ -265,7 +267,7 @@ fn test_collect_fees() -> AResult {
     let fee_balances = mock.query_all_balances(&app.account.proxy.address()?)?;
     assert_that!(fee_balances).is_empty();
 
-    let expected_usd_balance = coin(100_000u128, USD);
+    let expected_usd_balance = coin(281322u128, EUR);
     let commission_balances = mock.query_all_balances(&Addr::unchecked(COMMISSION_ADDR))?;
     assert_that!(commission_balances).has_length(1);
 
