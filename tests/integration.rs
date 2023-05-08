@@ -6,7 +6,7 @@ use abstract_core::objects::AssetEntry;
 use abstract_dex_api::msg::DexInstantiateMsg;
 use abstract_dex_api::{boot::DexApi, EXCHANGE};
 use abstract_sdk::core::api::InstantiateMsg;
-use abstract_testing::prelude::{EUR, TEST_NAMESPACE, USD};
+use abstract_testing::prelude::{EUR, USD};
 use boot_core::ContractInstance;
 use boot_core::*;
 use boot_cw_plus::Cw20Base;
@@ -23,6 +23,7 @@ use wyndex_bundle::{WynDex, WYNDEX, WYND_TOKEN};
 
 const COMMISSION_ADDR: &str = "commission-addr";
 const OWNER: &str = "owner";
+const TEST_NAMESPACE: &str = "4t2";
 pub type AResult = anyhow::Result<()>;
 
 // This is where you can do your integration tests for your module
@@ -160,7 +161,6 @@ fn create_fee_collector(
         .call_as(&account.manager.address()?)
         .update_authorized_addresses(vec![fee_collector_addr.clone()], vec![])?;
 
-    // set the vault token address
     let fee_collector_config = fee_collector.config()?;
 
     // set allowed assets

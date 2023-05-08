@@ -50,7 +50,7 @@ abstract-core = { version = "0.14" }
 abstract-app = { version = "0.14" }
 abstract-sdk = { version = "0.14" }
 # TODO: once stable, this should be updated to the stable release
-boot-core = { version = "0.10", optional = true }
+boot-core = { version = "0.10.0", optional = true }
 boot-cw-plus = { git = "https://github.com/AbstractSDK/cw-orchestrator.git", tag = "v0.10.2" }
 
 abstract-boot = { version = "0.14", optional = true }
@@ -59,7 +59,9 @@ abstract-cw-staking-api = { git = "https://github.com/AbstractSDK/apis.git", tag
 
 [dev-dependencies]
 boot-core = { version = "0.10", features = ["daemon"] }
-fee-collector-app = { path = ".", features = ["interface"], package = "fee-collector-app" }
+fee-collector-app = { path = ".", features = [
+  "interface",
+], package = "fee-collector-app" }
 speculoos = "0.11.0"
 abstract-boot = { version = "0.14", features = ["daemon"] }
 abstract-testing = { version = "0.14" }
