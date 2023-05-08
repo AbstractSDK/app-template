@@ -8,7 +8,7 @@ use abstract_boot::{
 use semver::Version;
 
 use clap::Parser;
-use template_app::{interface::Template, TEMPLATE_MOD_ID};
+use fee_collector_app::{interface::FeeCollector, TEMPLATE_MOD_ID};
 use tokio::runtime::Runtime;
 
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -18,7 +18,7 @@ fn deploy_etf(network: NetworkInfo) -> anyhow::Result<()> {
     let rt = Arc::new(Runtime::new()?);
     let options = DaemonOptionsBuilder::default().network(network).build();
     let (_sender, chain) = instantiate_daemon_env(&rt, options?)?;
-    let mut etf = Template::new(TEMPLATE_MOD_ID, chain);
+    let mut etf = FeeCollector::new(TEMPLATE_MOD_ID, chain);
 
     etf.deploy(version)?;
     Ok(())

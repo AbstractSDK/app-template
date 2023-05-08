@@ -1,5 +1,5 @@
 use crate::{
-    contract::{TemplateApp, TemplateResult},
+    contract::{FeeCollectorApp, FeeCollectorResult},
     msg::Cw20HookMsg,
 };
 use abstract_sdk::AbstractResponse;
@@ -13,9 +13,9 @@ pub fn receive_handler(
     _deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    app: TemplateApp,
+    app: FeeCollectorApp,
     cw20_msg: Cw20ReceiveMsg,
-) -> TemplateResult {
+) -> FeeCollectorResult {
     match from_binary(&cw20_msg.msg)? {
         Cw20HookMsg::Deposit {} => {
             // Do nothing, just return

@@ -1,5 +1,5 @@
-use crate::contract::{TemplateApp, TemplateResult};
-use crate::msg::TemplateMigrateMsg;
+use crate::contract::{FeeCollectorApp, FeeCollectorResult};
+use crate::msg::FeeCollectorMigrateMsg;
 use abstract_sdk::AbstractResponse;
 use cosmwasm_std::{DepsMut, Env, Response};
 
@@ -8,8 +8,8 @@ use cosmwasm_std::{DepsMut, Env, Response};
 pub fn migrate_handler(
     _deps: DepsMut,
     _env: Env,
-    app: TemplateApp,
-    _msg: TemplateMigrateMsg,
-) -> TemplateResult {
+    app: FeeCollectorApp,
+    _msg: FeeCollectorMigrateMsg,
+) -> FeeCollectorResult {
     Ok(app.tag_response(Response::default(), "migrate"))
 }

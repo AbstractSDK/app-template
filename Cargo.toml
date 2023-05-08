@@ -1,5 +1,5 @@
 [package]
-name = "template-app"
+name = "fee-collector-app"
 version = "0.0.1"
 authors = [
   "CyberHoward <cyberhoward@protonmail.com>",
@@ -53,10 +53,12 @@ abstract-sdk = { version = "0.14" }
 boot-core = { version = "0.10", optional = true }
 
 abstract-boot = { version = "0.14", optional = true }
+abstract-dex-api = { git = "https://github.com/AbstractSDK/apis.git", tag = "v0.14.2", default-features = false }
+abstract-cw-staking-api = { git = "https://github.com/AbstractSDK/apis.git", tag = "v0.14.2", default-features = false }
 
 [dev-dependencies]
 boot-core = { version = "0.10", features = ["daemon"] }
-template-app = { path = ".", features = ["interface"], package = "template-app" }
+fee-collector-app = { path = ".", features = ["interface"], package = "fee-collector-app" }
 speculoos = "0.11.0"
 abstract-boot = { version = "0.14", features = ["daemon"] }
 abstract-testing = { version = "0.14" }

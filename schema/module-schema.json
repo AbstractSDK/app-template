@@ -5,20 +5,18 @@
   "instantiate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "InstantiateMsg",
-    "description": "Template instantiate message",
+    "description": "FeeCollector instantiate message",
     "type": "object",
     "additionalProperties": false
   },
   "execute": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ExecuteMsg",
-    "description": "Template execute messages",
+    "description": "FeeCollector execute messages",
     "oneOf": [
       {
         "type": "object",
-        "required": [
-          "update_config"
-        ],
+        "required": ["update_config"],
         "properties": {
           "update_config": {
             "type": "object",
@@ -32,14 +30,12 @@
   "query": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "QueryMsg",
-    "description": "Template query messages",
+    "description": "FeeCollector query messages",
     "oneOf": [
       {
         "description": "Query the configuration Returns [`ConfigResponse`]",
         "type": "object",
-        "required": [
-          "config"
-        ],
+        "required": ["config"],
         "properties": {
           "config": {
             "type": "object",
@@ -53,7 +49,7 @@
   "migrate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "MigrateMsg",
-    "description": "Template migrate msg",
+    "description": "FeeCollector migrate msg",
     "type": "string",
     "enum": []
   },

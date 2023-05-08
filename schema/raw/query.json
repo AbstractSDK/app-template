@@ -1,14 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "QueryMsg",
-  "description": "Template query messages",
+  "description": "FeeCollector query messages",
   "oneOf": [
     {
       "description": "Query the configuration Returns [`ConfigResponse`]",
       "type": "object",
-      "required": [
-        "config"
-      ],
+      "required": ["config"],
       "properties": {
         "config": {
           "type": "object",

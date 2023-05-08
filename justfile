@@ -36,13 +36,13 @@ watch:
 check:
   cargo check --all-features
 
-# `just wasm-contract template --features export,terra --no-default-features`
+# `just wasm-contract fee-collector --features export,terra --no-default-features`
 wasm-contract module +args='':
   RUSTFLAGS='-C link-arg=-s' cargo wasm --package {{module}}-app {{args}}
 
 # Wasm all the contracts in the repository for the given chain
 wasm chain_name:
-  just wasm-contract template --features export --no-default-features
+  just wasm-contract fee-collector --features export --no-default-features
 
 # Deploy your module to the chain
 # `just deploy-module dex pisco-1`
@@ -51,6 +51,6 @@ deploy-contract module network +args='':
 
 # Deploy all the apis
 deploy network +args='':
-  just wasm-contract template
-  just deploy-contract template {{network}}
+  just wasm-contract fee-collector
+  just deploy-contract fee-collector {{network}}
 

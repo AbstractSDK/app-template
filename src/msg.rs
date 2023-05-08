@@ -39,46 +39,53 @@
 use abstract_core::app;
 use abstract_sdk::base::{ExecuteEndpoint, InstantiateEndpoint, MigrateEndpoint, QueryEndpoint};
 use cosmwasm_schema::QueryResponses;
+use cosmwasm_std::Decimal;
 
-use crate::contract::TemplateApp;
+use crate::contract::FeeCollectorApp;
 
 /// Abstract App instantiate msg
-pub type InstantiateMsg = <TemplateApp as InstantiateEndpoint>::InstantiateMsg;
-pub type ExecuteMsg = <TemplateApp as ExecuteEndpoint>::ExecuteMsg;
-pub type QueryMsg = <TemplateApp as QueryEndpoint>::QueryMsg;
-pub type MigrateMsg = <TemplateApp as MigrateEndpoint>::MigrateMsg;
+pub type InstantiateMsg = <FeeCollectorApp as InstantiateEndpoint>::InstantiateMsg;
+pub type ExecuteMsg = <FeeCollectorApp as ExecuteEndpoint>::ExecuteMsg;
+pub type QueryMsg = <FeeCollectorApp as QueryEndpoint>::QueryMsg;
+pub type MigrateMsg = <FeeCollectorApp as MigrateEndpoint>::MigrateMsg;
 
-impl app::AppExecuteMsg for TemplateExecuteMsg {}
-impl app::AppQueryMsg for TemplateQueryMsg {}
+impl app::AppExecuteMsg for FeeCollectorExecuteMsg {}
+impl app::AppQueryMsg for FeeCollectorQueryMsg {}
 
-/// Template instantiate message
+/// FeeCollector instantiate message
 #[cosmwasm_schema::cw_serde]
-pub struct TemplateInstantiateMsg {}
+pub struct FeeCollectorInstantiateMsg {
+    pub max_swap_spread: Decimal,
+    pub commission_addr: String,
+    pub fee_asset: String,
+    pub dex: String,
+}
 
-/// Template execute messages
+/// FeeCollector execute messages
 #[cosmwasm_schema::cw_serde]
 #[cfg_attr(feature = "interface", derive(boot_core::ExecuteFns))]
 #[cfg_attr(feature = "interface", impl_into(ExecuteMsg))]
-pub enum TemplateExecuteMsg {
+pub enum FeeCollectorExecuteMsg {
     // TODO: add attrs to update
-    UpdateConfig {},
+    UpdateConfig {max_swap_spread: Option<Decimal>, commission_addr: Option<String>, fee_asset: Option<String>, dex: Option<String>},
+    Collect {},
 }
 
-/// Template query messages
+/// FeeCollector query messages
 #[cosmwasm_schema::cw_serde]
 #[cfg_attr(feature = "interface", derive(boot_core::QueryFns))]
 #[cfg_attr(feature = "interface", impl_into(QueryMsg))]
 #[derive(QueryResponses)]
-pub enum TemplateQueryMsg {
+pub enum FeeCollectorQueryMsg {
     /// Query the configuration
     /// Returns [`ConfigResponse`]
     #[returns(ConfigResponse)]
     Config {},
 }
 
-/// Template migrate msg
+/// FeeCollector migrate msg
 #[cosmwasm_schema::cw_serde]
-pub enum TemplateMigrateMsg {}
+pub enum FeeCollectorMigrateMsg {}
 
 #[cosmwasm_schema::cw_serde]
 pub enum Cw20HookMsg {
