@@ -128,7 +128,7 @@ fn collect(deps: DepsMut, msg_info: MessageInfo, app: FeeCollectorApp) -> FeeCol
         })
         .collect::<FeeCollectorResult<Vec<AnsAsset>>>()?;
 
-    // swap all non-lp balances
+    // swap all non-lp balances to fee asset
     let dex = app.dex(deps.as_ref(), config.dex);
     let mut swap_msgs = vec![];
     swap_assets
