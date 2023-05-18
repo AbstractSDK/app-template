@@ -43,7 +43,7 @@ cw20 = { version = "1.0.1" }
 cw20-base = { version = "1.0.1", features = ["library"] }
 thiserror = { version = "1.0" }
 schemars = "0.8"
-protobuf = { version = "2", features = ["with-bytes"] }
+protobuf = { version = "3", features = ["with-bytes"] }
 cw-asset = { version = "3.0" }
 
 abstract-core = { git = "https://github.com/AbstractSDK/contracts.git", branch = "app_template" }
