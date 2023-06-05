@@ -1,0 +1,13 @@
+# codegen.yml
+#schema: "./__generated__/schema.graphql"
+schema: "https://api.abstract.money/graphql"
+
+documents: ['./**/*.{tsx,ts}', '!__generated__/**/*', '!.next/**/*', '!node_modules/**/*', '!styles/**/*']
+generates:
+  ./__generated__/gql/:
+    preset: client
+    plugins: []
+    presetConfig:
+      gqlTagName: gql
+
+ignoreNoDocuments: true
