@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  subgraph:
+    container_name: abstract-subgraph
+    image: adairrr/abstract-account-subgraph
+    platform: linux/amd64
+    environment:
+      - PORT=${PORT:?err}
+      - NETWORK_CONFIGURATION_MAP=${NETWORK_CONFIGURATION_MAP:?err}
+      - GRAPHQL_BASE_ENDPOINT=${GRAPHQL_BASE_ENDPOINT:?err}
+
+    ports:
+      - "${PORT:?err}:${PORT:?err}"

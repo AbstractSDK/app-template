@@ -46,7 +46,7 @@ const AbstractProvider: FC<PropsWithChildren> = ({ children }) => {
         );
       },
     }),
-    [abstractQueryClient]
+    [abstractQueryClient, address, getSigningCosmWasmClient, isWalletConnected]
   );
 
   return <_AbstractProvider value={contextValue}>{children}</_AbstractProvider>;

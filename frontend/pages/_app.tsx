@@ -1,18 +1,18 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import { defaultTheme, ChainProvider } from '@cosmos-kit/react';
-import { ChakraProvider } from '@chakra-ui/react';
-import { wallets as keplrWallets } from '@cosmos-kit/keplr';
-import { wallets as cosmostationWallets } from '@cosmos-kit/cosmostation';
-import { wallets as leapWallets } from '@cosmos-kit/leap';
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { ChainProvider, defaultTheme } from '@cosmos-kit/react'
+import { ChakraProvider } from '@chakra-ui/react'
+import { wallets as keplrWallets } from '@cosmos-kit/keplr'
+import { wallets as cosmostationWallets } from '@cosmos-kit/cosmostation'
+import { wallets as leapWallets } from '@cosmos-kit/leap'
 
-import { assets, chains } from 'chain-registry';
-import { getSigningCosmosClientOptions } from 'interchain';
-import { GasPrice } from '@cosmjs/stargate';
+import { assets, chains } from 'chain-registry'
+import { getSigningCosmosClientOptions } from 'interchain'
+import { GasPrice } from '@cosmjs/stargate'
 
-import { SignerOptions } from '@cosmos-kit/core';
-import { Chain } from '@chain-registry/types';
-import { AbstractProvider } from '../contexts/AbstractContext';
+import { SignerOptions } from '@cosmos-kit/core'
+import { Chain } from '@chain-registry/types'
+import { AbstractProvider } from '../contexts/AbstractContext'
 
 function CreateCosmosApp({ Component, pageProps }: AppProps) {
   const signerOptions: SignerOptions = {

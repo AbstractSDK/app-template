@@ -79,6 +79,9 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.41.5
+    version: 7.41.5(react@18.2.0)
   react-icons:
     specifier: 4.6.0
     version: 4.6.0(react@18.2.0)
@@ -4429,7 +4432,7 @@ packages:
   /@cosmjs/proto-signing@0.29.4:
     resolution: {integrity: sha512-GdLOhMd54LZgG+kHf7uAWGYDT628yVhXPMWaG/1i3f3Kq4VsZgFBwJhhziM5kWblmFjBOhooGRwLrBnOxMusCg==}
     dependencies:
-      '@cosmjs/amino': 0.29.4
+      '@cosmjs/amino': 0.29.5
       '@cosmjs/crypto': 0.29.5
       '@cosmjs/encoding': 0.29.5
       '@cosmjs/math': 0.29.5
@@ -4511,10 +4514,10 @@ packages:
     resolution: {integrity: sha512-MEzBkOhYX0tdGgJg4mxFDjf7NMJYKNtXHX0Fu4HVACdBrxLlStf630KodmzPFlLOHfiz3CB/mqj3TobZZz8mTw==}
     dependencies:
       '@confio/ics23': 0.6.8
-      '@cosmjs/amino': 0.29.4
+      '@cosmjs/amino': 0.29.5
       '@cosmjs/encoding': 0.29.5
       '@cosmjs/math': 0.29.5
-      '@cosmjs/proto-signing': 0.29.4
+      '@cosmjs/proto-signing': 0.29.5
       '@cosmjs/stream': 0.29.5
       '@cosmjs/tendermint-rpc': 0.29.5
       '@cosmjs/utils': 0.29.5
@@ -11152,6 +11155,15 @@ packages:
       react-clientside-effect: 1.2.6(react@18.2.0)
       use-callback-ref: 1.3.0(@types/react@18.0.25)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.0.25)(react@18.2.0)
+    dev: false
+
+  /react-hook-form@7.41.5(react@18.2.0):
+    resolution: {integrity: sha512-DAKjSJ7X9f16oQrP3TW2/eD9N6HOgrmIahP4LOdFphEWVfGZ2LulFd6f6AQ/YS/0cx/5oc4j8a1PXxuaurWp/Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-icons@4.4.0(react@18.2.0):

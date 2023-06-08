@@ -10,7 +10,7 @@ export const subgraphRequest = <TResult = unknown, V extends Variables = Variabl
   ...variablesAndRequestHeaders: VariablesAndRequestHeadersArgs<V>
 ) =>
   request(
-    'https://abstract-account-subgraph.fly.dev/',
+    'https://api.abstract.money/',
     gqlQuery,
     // @ts-ignore
     ...variablesAndRequestHeaders

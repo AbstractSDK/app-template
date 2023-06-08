@@ -23,6 +23,16 @@ export const AccountId: FC<AccountIdProps> = () => {
 export const AccountPage: FC = () => {
   const { accountQueryClient, accountInfo } = useAccount()
 
-
   return <></>
 }
+
+// export async function getStaticProps() {
+//
+//   return {
+//     props: {
+//       accountInfo: {
+//
+//       }
+//     }
+//   }
+// }
