@@ -49,7 +49,7 @@ cw-asset = { version = "3.0" }
 
 abstract-core = { version = "0.15.3" }
 abstract-app = { version = "0.15.3" }
-abstract-sdk = { version = "0.15.3" }
+abstract-sdk = { version = "0.16.1" }
 
 # Dependencies for interface
 abstract-interface = { version="0.15.3",   optional = true }
@@ -61,7 +61,7 @@ abstract-interface = { version = "0.15.3", features = [
   "daemon",
 ] }
 abstract-testing = { version = "0.15.3"}
-abstract-sdk = { version = "0.15.3", features = [
+abstract-sdk = { version = "0.16.1", features = [
   "test-utils",
 ] }
 speculoos = "0.11.0"
