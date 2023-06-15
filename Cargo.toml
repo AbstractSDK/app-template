@@ -60,7 +60,7 @@ app = { path = ".", features = ["interface"] }
 abstract-interface = { version = "0.15.3", features = [
   "daemon",
 ] }
-abstract-testing = { version = "0.15.3"}
+abstract-testing = { version = "0.16.1"}
 abstract-sdk = { version = "0.15.3", features = [
   "test-utils",
 ] }
