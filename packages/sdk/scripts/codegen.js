@@ -36,7 +36,7 @@ codegen({
      messageComposer: {
        enabled: true,
      },
-     msgBuilder: {
+     messageBuilder: {
        enabled: true,
      },
      abstractApp: {
@@ -46,7 +46,7 @@ codegen({
      types: {
        aliasExecuteMsg: true,
        // aliasQueryMsg: true,
-     }
+     },
   },
 }).then(() => {
   console.log("✨ Typescript code is generated successfully!");
