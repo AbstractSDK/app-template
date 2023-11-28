@@ -1,73 +1,57 @@
 import { AbstractAccountId } from '@abstract-money/abstract.js-react'
 import {
   Button,
-  Input,
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
+  NumberInput,
+  NumberInputField,
   Select,
 } from '@chakra-ui/react'
-import { useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import { useAvailableChainsQuery } from '~/lib/pages/home/hooks/useAvailableChainsQuery'
 
+interface AccountFields {
+  chain: string
+  seq: number
+}
+
 export const AccountInput = () => {
+  const { handleSubmit, register } = useForm<AccountFields>({})
   const { data: chains } = useAvailableChainsQuery()
-  const [accountChain, setAccountChain] = useState<string>()
-  const [accountSeq, setAccountSeq] = useState<number>()
   const navigate = useNavigate()
-  // const { data: chains } =
 
-  const validate = useCallback(() => {
-    if (!accountChain || accountSeq === undefined) return false
+  const onSubmit = ({ chain, seq }: AccountFields): void => {
     try {
-      new AbstractAccountId(accountChain, accountSeq)
-      return true
-    } catch {
-      return false
-    }
-  }, [accountSeq])
+      const accountId = new AbstractAccountId(chain, seq)
 
-
-  const handleClick = useCallback(() => {
-    if (validate()) {
-      navigate(`/account/${accountSeq}`)
-    }
-  }, [accountSeq, navigate, validate])
+      navigate(`/account/${accountId.toStringId()}`)
+    } catch (e) {}
+  }
 
   return (
-    <InputGroup size="md">
-      <InputLeftAddon>
-        <Select
-          placeholder="Chain"
-          onChange={(e) => {
-            setAccountChain(e.target.value)
-          }}
-          value={accountChain}
-          variant="filled"
-        >
-          {chains?.map((chain) => (
-            <option key={chain} value={chain}>
-              {chain}
-            </option>
-          ))}
-        </Select>
-      </InputLeftAddon>
-      <Input
-        aria-label="Account ID"
-        placeholder="Account Id"
-        value={accountSeq}
-        type="number"
-        onChange={(e) => {
-          setAccountSeq(+e.target.value)
-        }}
-      />
-      <InputRightAddon width="4.5rem">
-        <Button size="sm" onClick={handleClick} variant={'transparent'}>
-          Search
-        </Button>
-      </InputRightAddon>
-    </InputGroup>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <InputGroup size="md">
+        <InputLeftAddon>
+          <Select placeholder="Chain" {...register('chain')} variant="filled">
+            {chains?.map((chain) => (
+              <option key={chain} value={chain}>
+                {chain}
+              </option>
+            ))}
+          </Select>
+        </InputLeftAddon>
+        <NumberInput w="full">
+          <NumberInputField placeholder="Sequence" {...register('seq')} />
+        </NumberInput>
+        <InputRightAddon width="4.5rem">
+          <Button size="sm" type="submit" variant="transparent">
+            Search
+          </Button>
+        </InputRightAddon>
+      </InputGroup>
+    </form>
   )
 }

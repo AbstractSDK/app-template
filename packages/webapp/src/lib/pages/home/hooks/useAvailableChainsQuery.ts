@@ -15,7 +15,8 @@ export const chainsQuery = gql(/** GraphQL */ `
 export const useAvailableChainsQuery = () => {
   return useApiQuery(
     {
-      select: ({ chains }) => chains.map((c) => CHAIN_REGISTRY_CLIENT.chainIdToName(c)),
+      select: ({ chains }) =>
+        chains.map((c) => CHAIN_REGISTRY_CLIENT.chainIdToName(c)),
     },
     chainsQuery
   )

@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from './graphql';
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from './graphql'
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,8 +13,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query Chains {\n    chains\n  }\n": types.ChainsDocument,
-};
+  '\nquery AccountQuery($ids: [AccountIdWithChain!]!) {\n  accountsByIds(ids: $ids) {\n    info {\n      name\n      chainId\n      governance {\n        governanceType\n        owner\n      }\n      description\n      link\n    }\n    namespace\n  }\n}\n':
+    types.AccountQueryDocument,
+  '\n  query Chains {\n    chains\n  }\n': types.ChainsDocument,
+}
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -28,15 +30,24 @@ const documents = {
  * The query argument is unknown!
  * Please regenerate the types.
  */
-export function gql(source: string): unknown;
+export function gql(source: string): unknown
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Chains {\n    chains\n  }\n"): (typeof documents)["\n  query Chains {\n    chains\n  }\n"];
+export function gql(
+  source: '\nquery AccountQuery($ids: [AccountIdWithChain!]!) {\n  accountsByIds(ids: $ids) {\n    info {\n      name\n      chainId\n      governance {\n        governanceType\n        owner\n      }\n      description\n      link\n    }\n    namespace\n  }\n}\n'
+): (typeof documents)['\nquery AccountQuery($ids: [AccountIdWithChain!]!) {\n  accountsByIds(ids: $ids) {\n    info {\n      name\n      chainId\n      governance {\n        governanceType\n        owner\n      }\n      description\n      link\n    }\n    namespace\n  }\n}\n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query Chains {\n    chains\n  }\n'
+): (typeof documents)['\n  query Chains {\n    chains\n  }\n']
 
 export function gql(source: string) {
-  return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {}
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never
