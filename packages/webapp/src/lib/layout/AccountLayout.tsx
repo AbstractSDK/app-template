@@ -4,6 +4,7 @@ import {
 } from '@abstract-money/abstract.js-react'
 import type { FC } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
+
 import Page404 from '~/lib/pages/404'
 import { type AccountIdParams } from '~/lib/router/routeParams'
 

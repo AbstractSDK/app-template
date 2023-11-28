@@ -21,7 +21,7 @@
     "push-release": "git push --follow-tags origin main"
   },
   "dependencies": {
-    "@abstract-money/abstract.js-react": "^0.19.17",
+    "@abstract-money/abstract.js-react": "^0.19.18",
     "@chakra-ui/react": "^2.8.2",
     "@cosmos-kit/keplr": "^2.4.12",
     "@cosmos-kit/react": "^2.9.11",

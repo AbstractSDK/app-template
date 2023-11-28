@@ -16,12 +16,8 @@ import { AccountLayout } from '~/lib/layout/AccountLayout'
 import Page404 from '~/lib/pages/404'
 
 import { routes, privateRoutes, accountRoutes } from './routes'
-import { useAbstractQueryClient } from '@abstract-money/abstract.js-react/lib/hooks'
 
 const Routings = () => {
-  const { data: test } = useAbstractQueryClient({ chainName: 'junotestnet' })
-
-  console.log(test)
   return (
     <Suspense>
       <Routes>

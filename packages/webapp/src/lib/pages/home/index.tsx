@@ -1,9 +1,10 @@
 import { Grid } from '@chakra-ui/react'
 
+import { AccountInput } from '~/lib/pages/home/components/AccountInput'
+
 import CTASection from './components/CTASection'
 import SomeImage from './components/SomeImage'
 import SomeText from './components/SomeText'
-import { AccountInput } from '~/lib/pages/home/components/AccountInput'
 
 const Home = () => {
   return (

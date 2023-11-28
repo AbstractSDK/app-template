@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Heading, Image, Link, Text } from '@chakra-ui/react'
+import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FC } from 'react'
 
 const Page404: FC<{ what?: string }> = ({ what = 'Page' }) => {
   const navigate = useNavigate()

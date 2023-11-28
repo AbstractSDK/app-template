@@ -2,16 +2,12 @@ import {
   useAccount,
   useManagerInfoQuery,
 } from '@abstract-money/abstract.js-react'
-import { useAbstractQueryClient } from '@abstract-money/abstract.js-react/lib/hooks'
-import { Flex, Heading, Skeleton, Text } from '@chakra-ui/react'
+import { Heading, Skeleton, Stack, Text } from '@chakra-ui/react'
 
 const AccountHome = () => {
   const { accountQueryClient, accountId } = useAccount()
-  const { data: test } = useAbstractQueryClient({ chainName: 'junotestnet' })
 
-  console.log(accountQueryClient, test)
-
-  // Use a raw query on the account
+  // Query the account's manager for some info
   const { data: accountInfo } = useManagerInfoQuery({
     client: accountQueryClient?.managerQueryClient,
     options: {
@@ -20,14 +16,14 @@ const AccountHome = () => {
   })
 
   return (
-    <Flex>
+    <Stack>
       <Heading>{accountId.toStringId()}</Heading>
-      <Text>{JSON.stringify(accountInfo || {})}</Text>
+      <Text>{JSON.stringify(accountInfo)}</Text>
 
       <Skeleton isLoaded={!!accountInfo}>
         <Text>{accountInfo?.name}</Text>
       </Skeleton>
-    </Flex>
+    </Stack>
   )
 }
 

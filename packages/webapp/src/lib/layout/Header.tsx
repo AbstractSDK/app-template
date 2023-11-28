@@ -1,4 +1,6 @@
-import { Box, Flex, HStack } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton } from '@chakra-ui/react'
+import { FaHome } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 
 import { ConnectButton } from '~/lib/components/wallet/ConnectButton'
 
@@ -14,6 +16,7 @@ const Header = () => {
       justifyContent="center"
       gridGap={2}
     >
+      <IconButton aria-label="Home" icon={<FaHome />} as={NavLink} to="/" />
       <Box marginLeft="auto">
         <HStack>
           <ThemeToggle />

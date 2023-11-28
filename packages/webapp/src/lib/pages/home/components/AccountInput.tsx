@@ -1,10 +1,8 @@
-import { AbstractAccountId } from '@abstract-money/abstract.js-react'
 import {
-  Button,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/react'
+  AbstractAccountId,
+  useAccountClient,
+} from '@abstract-money/abstract.js-react'
+import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import type React from 'react'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
