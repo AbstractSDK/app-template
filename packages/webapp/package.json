@@ -18,7 +18,9 @@
     "up-interactive": "pnpm up -i",
     "up-latest": "pnpm up-interactive -L",
     "release": "standard-version",
-    "push-release": "git push --follow-tags origin main"
+    "push-release": "git push --follow-tags origin main",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen:watch": "graphql-codegen --config codegen.yml --watch"
   },
   "dependencies": {
     "@abstract-money/abstract.js-react": "^0.19.18",
@@ -33,6 +35,7 @@
     "@tanstack/react-query-devtools": "^5.8.9",
     "chain-registry": "^1.20.0",
     "framer-motion": "^10.16.5",
+    "graphql-request": "5",
     "million": "2.6.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -42,6 +45,10 @@
     "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "devDependencies": {
+    "graphql": "^16.8.1",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@julr/vite-plugin-validate-env": "^1.0.0",
     "@types/node": "^20.9.0",
     "@types/react": "18.2.37",

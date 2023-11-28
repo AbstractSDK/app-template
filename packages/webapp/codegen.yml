@@ -1,0 +1,15 @@
+schema: "https://api-testnet.up.railway.app/graphql" # This can be the API URL or the schema document
+
+documents: ['./src/**/*.{tsx,ts}', '!src/__generated__/gql/**/*']
+generates:
+  ./src/__generated__/gql/:
+    preset: client
+    presetConfig:
+      gqlTagName: gql
+      immutableTypes: true
+    config:
+      immutableTypes: true
+      useTypeImports: true
+      scalars:
+        Semver: string
+        Bech32Address: string

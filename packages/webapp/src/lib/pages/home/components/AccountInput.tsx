@@ -1,51 +1,73 @@
+import { AbstractAccountId } from '@abstract-money/abstract.js-react'
 import {
-  AbstractAccountId,
-  useAccountClient,
-} from '@abstract-money/abstract.js-react'
-import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
-import type React from 'react'
+  Button,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  Select,
+} from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useAvailableChainsQuery } from '~/lib/pages/home/hooks/useAvailableChainsQuery'
+
 export const AccountInput = () => {
-  const [accountId, setAccountId] = useState('')
+  const { data: chains } = useAvailableChainsQuery()
+  const [accountChain, setAccountChain] = useState<string>()
+  const [accountSeq, setAccountSeq] = useState<number>()
   const navigate = useNavigate()
+  // const { data: chains } =
 
   const validate = useCallback(() => {
+    if (!accountChain || accountSeq === undefined) return false
     try {
-      AbstractAccountId.fromStringId(accountId)
+      new AbstractAccountId(accountChain, accountSeq)
       return true
     } catch {
       return false
     }
-  }, [accountId])
+  }, [accountSeq])
 
-  const handleInputChange = useCallback(
-    (e: { target: { value: React.SetStateAction<string> } }) => {
-      setAccountId(e.target.value)
-    },
-    []
-  )
 
   const handleClick = useCallback(() => {
     if (validate()) {
-      navigate(`/account/${accountId}`)
+      navigate(`/account/${accountSeq}`)
     }
-  }, [accountId, navigate, validate])
+  }, [accountSeq, navigate, validate])
 
   return (
     <InputGroup size="md">
+      <InputLeftAddon>
+        <Select
+          placeholder="Chain"
+          onChange={(e) => {
+            setAccountChain(e.target.value)
+          }}
+          value={accountChain}
+          variant="filled"
+        >
+          {chains?.map((chain) => (
+            <option key={chain} value={chain}>
+              {chain}
+            </option>
+          ))}
+        </Select>
+      </InputLeftAddon>
       <Input
         aria-label="Account ID"
         placeholder="Account Id"
-        value={accountId}
-        onChange={handleInputChange}
+        value={accountSeq}
+        type="number"
+        onChange={(e) => {
+          setAccountSeq(+e.target.value)
+        }}
       />
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={handleClick}>
+      <InputRightAddon width="4.5rem">
+        <Button size="sm" onClick={handleClick} variant={'transparent'}>
           Search
         </Button>
-      </InputRightElement>
+      </InputRightAddon>
     </InputGroup>
   )
 }

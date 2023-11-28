@@ -6,6 +6,11 @@ import type { FC, PropsWithChildren } from 'react'
 // Import this in your top-level route/layout
 import '@interchain-ui/react/styles'
 
+import { ChainRegistryClient } from '@abstract-money/abstract.js-react'
+
+export const CHAIN_REGISTRY_CLIENT = new ChainRegistryClient(chains, assets)
+
+
 const ChainProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <CosmosChainProvider
