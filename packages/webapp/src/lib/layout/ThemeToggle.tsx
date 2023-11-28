@@ -1,8 +1,8 @@
-import { IconButton, useColorMode } from '@chakra-ui/react';
-import { RiMoonFill, RiSunLine } from 'react-icons/ri';
+import { IconButton, useColorMode } from '@chakra-ui/react'
+import { RiMoonFill, RiSunLine } from 'react-icons/ri'
 
 const ThemeToggle = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <IconButton
@@ -10,7 +10,7 @@ const ThemeToggle = () => {
       icon={colorMode === 'light' ? <RiMoonFill /> : <RiSunLine />}
       onClick={toggleColorMode}
     />
-  );
-};
+  )
+}
 
-export default ThemeToggle;
+export default ThemeToggle

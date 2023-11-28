@@ -1,4 +1,4 @@
-import { Grid, Heading, Text } from '@chakra-ui/react';
+import { Grid, Heading, Text } from '@chakra-ui/react'
 
 const SomeText = () => {
   return (
@@ -10,7 +10,7 @@ const SomeText = () => {
         This is a vite react template with Chakra-UI and TypeScript setup.
       </Text>
     </Grid>
-  );
-};
+  )
+}
 
-export default SomeText;
+export default SomeText

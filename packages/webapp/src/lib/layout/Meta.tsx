@@ -1,6 +1,6 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 
-const APP_NAME = 'vite-react-chakra-starter';
+const APP_NAME = 'vite-react-chakra-starter'
 
 const Meta = () => {
   return (
@@ -19,7 +19,7 @@ const Meta = () => {
       <link rel="shortcut icon" href="/assets/favicon.svg" />
       <link rel="manifest" href="/manifest.json" />
     </Helmet>
-  );
-};
+  )
+}
 
-export default Meta;
+export default Meta

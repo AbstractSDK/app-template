@@ -1,10 +1,10 @@
-import { wallets as keplrWallets } from '@cosmos-kit/keplr';
-import { ChainProvider as CosmosChainProvider } from '@cosmos-kit/react';
-import { chains, assets } from 'chain-registry';
-import type { FC, PropsWithChildren } from 'react';
+import { wallets as keplrWallets } from '@cosmos-kit/keplr'
+import { ChainProvider as CosmosChainProvider } from '@cosmos-kit/react'
+import { chains, assets } from 'chain-registry'
+import type { FC, PropsWithChildren } from 'react'
 
 // Import this in your top-level route/layout
-import '@interchain-ui/react/styles';
+import '@interchain-ui/react/styles'
 
 const ChainProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -15,7 +15,7 @@ const ChainProvider: FC<PropsWithChildren> = ({ children }) => {
     >
       {children}
     </CosmosChainProvider>
-  );
-};
+  )
+}
 
-export default ChainProvider;
+export default ChainProvider

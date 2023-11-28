@@ -1,6 +1,6 @@
-import { Flex, Image } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react'
 
-const ICON_SIZE = 22;
+const ICON_SIZE = 22
 
 const SomeImage = () => {
   return (
@@ -30,7 +30,7 @@ const SomeImage = () => {
         width={ICON_SIZE}
       />
     </Flex>
-  );
-};
+  )
+}
 
-export default SomeImage;
+export default SomeImage
