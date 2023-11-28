@@ -8,7 +8,7 @@ import type { PluginOption } from 'vite';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { Schema, ValidateEnv } from "@julr/vite-plugin-validate-env";
+import { ValidateEnv } from "@julr/vite-plugin-validate-env";
 
 // https://vitejs.dev/config/
 export default defineConfig({

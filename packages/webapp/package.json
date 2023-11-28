@@ -1,5 +1,5 @@
 {
-  "name": "vite-react-chakra-starter",
+  "name": "abstract-app-template",
   "version": "0.1.0",
   "private": true,
   "author": "sozonome",
@@ -30,6 +30,7 @@
     "@fontsource/plus-jakarta-sans": "^5.0.17",
     "@interchain-ui/react": "^1.14.1",
     "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query-devtools": "^5.8.9",
     "chain-registry": "^1.20.0",
     "framer-motion": "^10.16.5",
     "million": "2.6.4",

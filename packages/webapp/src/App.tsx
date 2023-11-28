@@ -1,6 +1,7 @@
 import { AbstractProvider } from '@abstract-money/abstract.js-react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import ChainProvider from '~/lib/contexts/ChainProvider'
@@ -21,6 +22,7 @@ const App = () => (
             </Layout>
           </Router>
         </ChainProvider>
+        <ReactQueryDevtools />
       </AbstractProvider>
     </QueryClientProvider>
   </ChakraProvider>
