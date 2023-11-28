@@ -4,7 +4,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  useToast,
 } from '@chakra-ui/react'
 import type React from 'react'
 import { useCallback, useState } from 'react'
@@ -13,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 export const AccountInput = () => {
   const [accountId, setAccountId] = useState('')
   const navigate = useNavigate()
-  const toast = useToast()
 
   const validate = useCallback(() => {
     try {
@@ -22,7 +20,7 @@ export const AccountInput = () => {
     } catch {
       return false
     }
-  }, [accountId, toast])
+  }, [accountId])
 
   const handleInputChange = useCallback(
     (e: { target: { value: React.SetStateAction<string> } }) => {
