@@ -1,10 +1,10 @@
-import { Box, Button, Flex, HStack } from '@chakra-ui/react'
-import { useChain } from '@cosmos-kit/react'
+import { Box, Flex, HStack } from '@chakra-ui/react'
+
+import { ConnectButton } from '~/lib/components/wallet/ConnectButton'
 
 import ThemeToggle from './ThemeToggle'
 
 const Header = () => {
-  const { connect } = useChain('juno')
   return (
     <Flex
       as="header"
@@ -16,8 +16,8 @@ const Header = () => {
     >
       <Box marginLeft="auto">
         <HStack>
-          <Button onClick={connect}>Connect</Button>
           <ThemeToggle />
+          <ConnectButton />
         </HStack>
       </Box>
     </Flex>
