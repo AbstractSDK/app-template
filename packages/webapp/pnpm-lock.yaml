@@ -5,8 +5,8 @@ overrides:
 
 dependencies:
   '@abstract-money/abstract.js-react':
-    specifier: ^0.19.18
-    version: 0.19.18(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(@cosmjs/stargate@0.32.0)(@cosmjs/tendermint-rpc@0.31.3)(@tanstack/query-core@5.8.7)(@tanstack/react-query@4.36.1)(graphql@16.8.1)(react@18.2.0)
+    specifier: ^0.19.19
+    version: 0.19.19(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(@cosmjs/stargate@0.32.0)(@cosmjs/tendermint-rpc@0.31.3)(@tanstack/query-core@5.8.7)(@tanstack/react-query@4.36.1)(graphql@16.8.1)(react@18.2.0)
   '@chakra-ui/react':
     specifier: ^2.8.2
     version: 2.8.2(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.37)(framer-motion@10.16.5)(react-dom@18.2.0)(react@18.2.0)
@@ -140,15 +140,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@abstract-money/abstract.js-react@0.19.18(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(@cosmjs/stargate@0.32.0)(@cosmjs/tendermint-rpc@0.31.3)(@tanstack/query-core@5.8.7)(@tanstack/react-query@4.36.1)(graphql@16.8.1)(react@18.2.0):
-    resolution: {integrity: sha512-h6OHMCn5QFfRcYZvh7YUc+6w5oFPTlnn3I5oDCmYsB+ejlKNTVoYzEafFAFRPMsqwbWHqdoLzfCtYjTFRYv7/g==}
+  /@abstract-money/abstract.js-react@0.19.19(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(@cosmjs/stargate@0.32.0)(@cosmjs/tendermint-rpc@0.31.3)(@tanstack/query-core@5.8.7)(@tanstack/react-query@4.36.1)(graphql@16.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-c/x2NJECwqfG3r4X2pS/uRzx1CuPHEy/6swhcPtnn9vaY3p8WhIKUoGu8yMX12zVnYvJSC7gzWoEw+jAWWbBQw==}
     peerDependencies:
       '@cosmjs/amino': '>=0.28'
       '@cosmjs/cosmwasm-stargate': '>=0.28'
       '@tanstack/react-query': '>=4'
       react: '>=18'
     dependencies:
-      '@abstract-money/abstract.js': 0.19.18(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(graphql@16.8.1)
+      '@abstract-money/abstract.js': 0.19.19(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(graphql@16.8.1)
       '@abstract-money/cw-query-hooks': 0.2.0(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(@cosmjs/stargate@0.32.0)(@cosmjs/tendermint-rpc@0.31.3)(@tanstack/query-core@5.8.7)(@tanstack/react-query@4.36.1)(react@18.2.0)
       '@cosmjs/amino': 0.32.0
       '@cosmjs/cosmwasm-stargate': 0.32.0
@@ -173,8 +173,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@abstract-money/abstract.js@0.19.18(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(graphql@16.8.1):
-    resolution: {integrity: sha512-BbU23Qt26s46pmcaHX30EzTTMF9WQo10gyHSYW3cjLUsZlKKojNipkgVRcb/nNJ22bg+on9+ILIXddiRlGF6PA==}
+  /@abstract-money/abstract.js@0.19.19(@cosmjs/amino@0.32.0)(@cosmjs/cosmwasm-stargate@0.32.0)(@cosmjs/proto-signing@0.32.0)(graphql@16.8.1):
+    resolution: {integrity: sha512-W+Tq9qoqVaweS3nUdAtNDchfDKyyApCWnQRWHLUxPhmJ0j5q/CFGfPEffJG0BOKlY5iAeOZuqjBXBVGO0mrzew==}
     peerDependencies:
       '@cosmjs/amino': '>=0.31'
       '@cosmjs/cosmwasm-stargate': '>=0.31'

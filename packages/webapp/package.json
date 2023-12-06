@@ -23,7 +23,7 @@
     "codegen:watch": "graphql-codegen --config codegen.yml --watch"
   },
   "dependencies": {
-    "@abstract-money/abstract.js-react": "^0.19.18",
+    "@abstract-money/abstract.js-react": "^0.19.19",
     "@chakra-ui/react": "^2.8.2",
     "@cosmos-kit/keplr": "^2.4.12",
     "@cosmos-kit/react": "^2.9.11",

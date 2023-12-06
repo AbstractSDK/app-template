@@ -1,5 +1,5 @@
 import { useAccount } from '@abstract-money/abstract.js-react'
-import { useApiQuery } from '@abstract-money/abstract.js-react/esm/api'
+import { useApiQuery } from '@abstract-money/abstract.js-react'
 
 import { gql } from '~/__generated__/gql'
 
