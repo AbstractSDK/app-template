@@ -1,4 +1,3 @@
-// vite.config.ts
 import {
   Schema,
   defineConfig,
