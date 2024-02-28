@@ -22,7 +22,7 @@ jobs:
         if: hashFiles('Cargo.lock') == ''
         run: cargo generate-lockfile
       - name: generate artifacts
-        uses: extractions/setup-just@v1
+        uses: extractions/setup-just@v2
         run: just wasm
       - name: cargo test --locked
         run: cargo test --locked --all-features --all-targets
