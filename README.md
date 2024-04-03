@@ -51,11 +51,13 @@ You can see the full list of tasks available by running `just --list`.
 
 ### Compiling
 
+Best to run `cargo update` to have synced versions just in case.
+
 You can compile your module by running the following command:
 ```sh
 just wasm
 ```
-This should result in an artifacts directory being created in your project root. Inside you will find a `my_module.wasm` file that is your module’s binary.
+This should result in an artifacts directory being created in your project root. Inside you will find a `my_module.wasm` file that is your module’s binary. Make sure it's the same name as mentioned in `Cargo.toml` file. If not, just edit it to match.
 
 ### Testing
 
