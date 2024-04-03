@@ -43,11 +43,19 @@ Here are some of the tasks available in the `justfile`:
 - `publish {{chain-id}}`: Publish the App to a network.
 - `wasm`: Optimize the contract.
 - `schema`: Generate the json schemas for the contract
-- `ts-codegen`: Generate the typescript client code for the contract
-- `ts-publish`: Publish the typescript client code to npm
+<!-- - `ts-codegen`: Generate the typescript client code for the contract -->
+<!-- - `ts-publish`: Publish the typescript client code to npm -->
 - `publish-schemas`: Publish the schemas by creating a PR on the Abstract [schemas](https://github.com/AbstractSDK/schemas) repository.
 
 You can see the full list of tasks available by running `just --list`.
+
+### Compiling
+
+You can compile your module by running the following command:
+```sh
+just wasm
+```
+This should result in an artifacts directory being created in your project root. Inside you will find a `my_module.wasm` file that is your module’s binary.
 
 ### Testing
 
@@ -71,7 +79,7 @@ You can now use `just publish {{chain-id}}` to run the [`examples/publish.rs`](.
 
 To publish your module schemas, we provide the `publish-schemas` command, which creates a pull request on the Abstract [schemas](https://github.com/AbstractSDK/schemas) repository.
 
-Please install [github cli](https://cli.github.com/) before proceeding.
+Please install [github cli](https://cli.github.com/) before proceeding. Also login and setup your github auth by `gh auth login`. Now, we're ready to proceed.
 
 ```bash
 just publish-schemas <namespace> <name> <version>
@@ -88,7 +96,7 @@ For this command to work properly, please make sure that your `metadata.json` fi
 Example:
 
 ```bash
-just publish-schemas my-namespace my-module 0.1
+just publish-schemas my-namespace my-module 0.0.1
 ```
 
 In the example above, `my-namespace` is the namespace, `my-module` is the module's name, and `0.1` is the minor version. If you create a patch for your module (e.g., `0.1.1`), you don't need to run `publish-schemas` again unless the schemas have changed.
