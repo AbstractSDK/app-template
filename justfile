@@ -121,4 +121,12 @@ run-script script +CHAINS:
   cargo run --example {{script}} --features="daemon" -- --network-ids {{CHAINS}}
 
 publish +CHAINS:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+
+  if [ -d "artifacts" ]; then
+    echo "Build found ✅";
+  else
+    just wasm
+  fi
   just run-script publish {{CHAINS}}
