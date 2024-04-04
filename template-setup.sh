@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mv example.env .env
+cp example.env .env
 
 # Function to prompt for 'y' input
 prompt_confirmation() {
