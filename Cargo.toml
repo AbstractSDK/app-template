@@ -61,3 +61,14 @@ dotenv = "0.15.0"
 env_logger = "0.10.0"
 cw-orch = { version = "0.20.1" }
 clap = { version = "4.3.7", features = ["derive"] }
+
+[profile.release]
+rpath = false
+lto = true
+overflow-checks = true
+opt-level = 3
+debug = false
+debug-assertions = false
+codegen-units = 1
+panic = 'abort'
+incremental = false
