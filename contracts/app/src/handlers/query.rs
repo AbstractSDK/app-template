@@ -1,12 +1,11 @@
-use crate::contract::{App, AppResult};
-use crate::msg::{AppQueryMsg, ConfigResponse, CountResponse};
-use crate::state::{CONFIG, COUNT};
+use crate::contract::{App, MyAppResult};
+use crate::msg::{ConfigResponse, MyAppQueryMsg};
+use crate::state::CONFIG;
 use cosmwasm_std::{to_json_binary, Binary, Deps, Env, StdResult};
 
-pub fn query_handler(deps: Deps, _env: Env, _app: &App, msg: AppQueryMsg) -> AppResult<Binary> {
+pub fn query_handler(deps: Deps, _env: Env, _app: &App, msg: MyAppQueryMsg) -> MyAppResult<Binary> {
     match msg {
-        AppQueryMsg::Config {} => to_json_binary(&query_config(deps)?),
-        AppQueryMsg::Count {} => to_json_binary(&query_count(deps)?),
+        MyAppQueryMsg::Config {} => to_json_binary(&query_config(deps)?),
     }
     .map_err(Into::into)
 }
@@ -14,9 +13,4 @@ pub fn query_handler(deps: Deps, _env: Env, _app: &App, msg: AppQueryMsg) -> App
 fn query_config(deps: Deps) -> StdResult<ConfigResponse> {
     let _config = CONFIG.load(deps.storage)?;
     Ok(ConfigResponse {})
-}
-
-fn query_count(deps: Deps) -> StdResult<CountResponse> {
-    let count = COUNT.load(deps.storage)?;
-    Ok(CountResponse { count })
 }

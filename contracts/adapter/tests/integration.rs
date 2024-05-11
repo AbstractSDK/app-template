@@ -1,22 +1,19 @@
-use abstract_app::objects::namespace::Namespace;
 use abstract_client::AbstractClient;
 use abstract_client::Application;
+use abstract_std::objects::namespace::Namespace;
 use cosmwasm_std::coins;
 // Use prelude to get all the necessary imports
 use cw_orch::{anyhow, prelude::*};
 
-use my_app::contract::interface::MyAppInterface;
-use my_app::{
-    msg::{ConfigResponse, MyAppInstantiateMsg},
-    *,
-};
-use my_package::app::msg::MyAppQueryMsgFns;
+use my_adapter::MyAdapterInterface;
+use my_adapter::{msg::ConfigResponse, *};
+use my_package::adapter::msg::{MyAdapterInstantiateMsg, MyAdapterQueryMsgFns};
 use my_package::MY_NAMESPACE;
 
 struct TestEnv<Env: CwEnv> {
     env: Env,
     abs: AbstractClient<Env>,
-    app: Application<Env, MyAppInterface<Env>>,
+    adapter: Application<Env, MyAdapterInterface<Env>>,
 }
 
 impl TestEnv<MockBech32> {
@@ -35,16 +32,18 @@ impl TestEnv<MockBech32> {
 
         // Publish both the app and the adapter
         let publisher = abs_client.publisher_builder(namespace).build()?;
-        publisher.publish_app::<MyAppInterface<_>>()?;
+        publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<_>>(
+            MyAdapterInstantiateMsg {},
+        )?;
 
-        let app = publisher
+        let adapter = publisher
             .account()
-            .install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg {}, &[])?;
+            .install_adapter::<MyAdapterInterface<_>>(&[])?;
 
         Ok(TestEnv {
             env: mock,
             abs: abs_client,
-            app,
+            adapter,
         })
     }
 }
@@ -52,9 +51,9 @@ impl TestEnv<MockBech32> {
 #[test]
 fn successful_install() -> anyhow::Result<()> {
     let env = TestEnv::setup()?;
-    let app = env.app;
+    let adapter = env.adapter;
 
-    let config = app.config()?;
+    let config = adapter.config()?;
     assert_eq!(config, ConfigResponse {});
     Ok(())
 }
@@ -65,13 +64,15 @@ mod update_config {
     #[test]
     fn successful_update() -> anyhow::Result<()> {
         let env = TestEnv::setup()?;
-        let app = env.app;
+        let adapter = env.adapter;
 
-        app.update_config()?;
+        adapter
+            .call_as(&adapter.account().manager()?)
+            .update_config()?;
 
-        let config = app.config()?;
+        let config = adapter.config()?;
 
-        let expected_response = my_app::msg::ConfigResponse {};
+        let expected_response = my_adapter::msg::ConfigResponse {};
 
         assert_eq!(config, expected_response);
         Ok(())

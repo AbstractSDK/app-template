@@ -1,11 +1,15 @@
 pub mod contract;
-pub mod error;
 mod handlers;
-pub mod msg;
 mod replies;
-pub mod state;
+
+/// The version of your app
+pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[cfg(feature = "interface")]
-pub use contract::interface::AppInterface;
+pub use contract::interface::MyAppInterface;
 #[cfg(feature = "interface")]
-pub use msg::{AppExecuteMsgFns, AppQueryMsgFns};
+pub use my_package::app::msg::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
+
+pub use my_package::app::error;
+pub use my_package::app::msg;
+pub use my_package::app::state;

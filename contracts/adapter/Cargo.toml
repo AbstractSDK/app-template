@@ -1,5 +1,5 @@
 [package]
-name = "my-app"
+name = "my-adapter"
 version = "0.0.1"
 authors = [
   "CyberHoward <cyberhoward@protonmail.com>",
@@ -34,7 +34,7 @@ required-features = ["daemon"]
 [features]
 default = ["export"]
 export = []
-schema = ["abstract-app/schema"]
+schema = ["abstract-adapter/schema"]
 interface = [
   "export",
   "dep:abstract-interface",
@@ -51,18 +51,19 @@ cw-storage-plus = { workspace = true }
 thiserror = { workspace = true }
 schemars = { workspace = true }
 cw-asset = { workspace = true }
-abstract-app = { workspace = true }
-my-package = { workspace = true }
+abstract-adapter = { workspace = true }
+abstract-sdk = { workspace = true }
+abstract-std = { workspace = true }
 abstract-interface = { workspace = true, optional = true }
+my-package = { workspace = true }
 
 # Dependencies for interface
 cw-orch = { workspace = true, optional = true }
-#app = { workspace = true, optional = true }
 
 [dev-dependencies]
-my-app = { workspace = true, features = ["interface"] }
+my-adapter = { workspace = true, features = ["interface"] }
 abstract-client = { workspace = true }
-abstract-app = { workspace = true, features = ["test-utils"] }
+abstract-adapter = { workspace = true, features = ["test-utils"] }
 speculoos = { workspace = true }
 semver = { workspace = true }
 dotenv = { workspace = true }

@@ -1,5 +1,5 @@
 [workspace]
-members = ["contracts/*"]
+members = ["contracts/*", "packages/my"]
 resolver = "2"
 
 [profile.release]
@@ -12,3 +12,32 @@ debug-assertions = false
 codegen-units = 1
 panic = 'abort'
 incremental = false
+
+[workspace.dependencies]
+cosmwasm-std = { version = "1.5.3" }
+cosmwasm-schema = { version = "1.5.3" }
+cw-controllers = { version = "1.1.2" }
+cw-storage-plus = "1.2.0"
+thiserror = { version = "1.0.50" }
+schemars = "0.8"
+cw-asset = { version = "3.0.0" }
+abstract-app = { version = "0.22.0" }
+abstract-adapter = { version = "0.22.0" }
+abstract-std = { version = "0.22.0" }
+abstract-interface = { version = "0.22.0" }
+abstract-sdk = { version = "0.22.0" }
+lazy_static = "1.4.0"
+
+
+cw-orch = { version = "0.22.2" }
+const_format = "0.2.32"
+
+my-package = { path = "packages/my" }
+my-app = { path = "contracts/app" }
+my-adapter = { path = "contracts/adapter" }
+abstract-client = { version = "0.22.0" }
+speculoos = "0.11.0"
+semver = "1.0"
+dotenv = "0.15.0"
+env_logger = "0.10.0"
+clap = { version = "4.3.7" }

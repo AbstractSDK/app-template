@@ -7,15 +7,16 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
-use abstract_app::objects::namespace::Namespace;
+use abstract_adapter::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use clap::Parser;
 use cw_orch::anyhow;
 use cw_orch::daemon::networks::parse_network;
 use cw_orch::prelude::*;
 use cw_orch::tokio::runtime::Runtime;
-use my_app::MyAppInterface;
-use my_package::MY_APP_ID;
+use my_adapter::MyAdapterInterface;
+use my_package::adapter::msg::MyAdapterInstantiateMsg;
+use my_package::MY_ADAPTER_ID;
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network
@@ -27,7 +28,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .chain(network)
             .build()?;
 
-        let app_namespace = Namespace::from_id(MY_APP_ID)?;
+        let app_namespace = Namespace::from_id(MY_ADAPTER_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;
@@ -40,7 +41,9 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
         }
 
         // Publish the App to the Abstract Platform
-        publisher.publish_app::<MyAppInterface<Daemon>>()?;
+        publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<Daemon>>(
+            MyAdapterInstantiateMsg {},
+        )?;
     }
     Ok(())
 }

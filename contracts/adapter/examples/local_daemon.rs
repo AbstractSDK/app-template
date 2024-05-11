@@ -8,13 +8,13 @@
 //!
 //! `cargo run --example local_daemon`
 
-use abstract_app::objects::namespace::Namespace;
+use abstract_adapter::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_app::{msg::MyAppInstantiateMsg, MyAppInterface, APP_VERSION};
+use my_adapter::{msg::MyAdapterInstantiateMsg, MyAdapterInterface, ADAPTER_VERSION};
 use semver::Version;
 
-use my_package::MY_APP_ID;
+use my_package::MY_ADAPTER_ID;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue app foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -22,7 +22,7 @@ fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
 
-    let _version: Version = APP_VERSION.parse().unwrap();
+    let _version: Version = ADAPTER_VERSION.parse().unwrap();
     let runtime = Runtime::new()?;
 
     let daemon = Daemon::builder()
@@ -32,7 +32,7 @@ fn main() -> anyhow::Result<()> {
         .build()
         .unwrap();
 
-    let app_namespace = Namespace::from_id(MY_APP_ID)?;
+    let app_namespace = Namespace::from_id(MY_ADAPTER_ID)?;
 
     // Create an [`AbstractClient`]
     let abstract_client: AbstractClient<Daemon> = AbstractClient::new(daemon.clone())?;
@@ -47,16 +47,18 @@ fn main() -> anyhow::Result<()> {
     }
 
     // Publish the App to the Abstract Platform
-    publisher.publish_app::<MyAppInterface<Daemon>>()?;
+    publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<Daemon>>(
+        MyAdapterInstantiateMsg {},
+    )?;
 
     // Install the App on a new account
 
     let account = abstract_client.account_builder().build()?;
     // Installs the app on the Account
-    let _app = account.install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg {}, &[])?;
+    let _app = account.install_adapter::<MyAdapterInterface<_>>(&[])?;
 
     // // Import app's endpoint function traits for easy interactions.
-    // use my_app::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
+    // use my_adapter::{MyAdapterExecuteMsgFns, MyAdapterQueryMsgFns};
     // assert_that!(app.count()?.count).is_equal_to(0);
     //
     // // Execute the App

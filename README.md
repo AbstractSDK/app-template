@@ -1,6 +1,6 @@
 # Abstract App Module Template
 
-The Abstract App Module Template is a starting point for developing composable smart-contracts, or "Apps" on the Abstract platform. An App is instantiated for each Account individually and is migratable. Apps are allowed to perform actions on Abstract Accounts and can integrate with other Apps and Adapters installed on the Account. To learn more about Abstract Accounts, please see the [abstract accounts documentation](https://docs.abstract.money/3_framework/3_architecture.html). To read more about apps, please see the [app module documentation](https://docs.abstract.money/3_framework/6_module_types.html).
+The Abstract Module Template is a starting point for developing composable smart-contracts, or "Apps" on the Abstract platform. An App is instantiated for each Account individually and is migratable. Apps are allowed to perform actions on Abstract Accounts and can integrate with other Apps and Adapters installed on the Account. To learn more about Abstract Accounts, please see the [abstract accounts documentation](https://docs.abstract.money/3_framework/3_architecture.html). To read more about apps, please see the [app module documentation](https://docs.abstract.money/3_framework/6_module_types.html).
 
 ## Getting Started
 
@@ -18,6 +18,20 @@ chmod +x ./template-setup.sh
 ```
 
 The setup will suggest you to install a few tools that are used in the template. You can skip this step if you already have them installed or if you're not planning on using them.
+
+### Updating Names
+
+We recommend updating the names of the packages and variables to be custom to your application. You should be able to do this easily with a global replace.
+
+For example: 
+- ~~my-package~~ -> ibcmail
+- ~~my-app~~ -> ibcmail-client
+- ~~my_app~~ -> ibcmail_client
+- ~~MyApp~~ -> IbcMailClient
+- ~~my-adapter~~ -> ibcmail-server
+- ~~my_adapter~~ -> ibcmail_server
+- ~~MyApp~~ -> IbcMailServer
+- 
 
 ## Using the Justfile
 
@@ -43,8 +57,8 @@ Here are some of the tasks available in the `justfile`:
 - `publish {{chain-id}}`: Publish the App to a network.
 - `wasm`: Optimize the contract.
 - `schema`: Generate the json schemas for the contract
-<!-- - `ts-codegen`: Generate the typescript client code for the contract -->
-<!-- - `ts-publish`: Publish the typescript client code to npm -->
+<!-- - `ts-codegen`: Generate the typescript app code for the contract -->
+<!-- - `ts-publish`: Publish the typescript app code to npm -->
 - `publish-schemas`: Publish the schemas by creating a PR on the Abstract [schemas](https://github.com/AbstractSDK/schemas) repository.
 
 You can see the full list of tasks available by running `just --list`.
@@ -98,10 +112,10 @@ For this command to work properly, please make sure that your `metadata.json` fi
 Example:
 
 ```bash
-just publish-schemas my-namespace my-module 0.0.1
+just publish-schemas my my-module 0.0.1
 ```
 
-In the example above, `my-namespace` is the namespace, `my-module` is the module's name, and `0.1` is the minor version. If you create a patch for your module (e.g., `0.1.1`), you don't need to run `publish-schemas` again unless the schemas have changed.
+In the example above, `ibcmail` is the namespace, `my-module` is the module's name, and `0.1` is the minor version. If you create a patch for your module (e.g., `0.1.1`), you don't need to run `publish-schemas` again unless the schemas have changed.
 
 ## Contributing
 
