@@ -2,6 +2,7 @@ use crate::adapter::error::MyAdapterError;
 use crate::adapter::msg::{MyAdapterExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsg};
 use abstract_adapter::AdapterContract;
 
+pub mod api;
 pub mod error;
 pub mod msg;
 pub mod state;
