@@ -27,6 +27,7 @@ abstract_app::export_endpoints!(APP, MyApp);
 abstract_app::cw_orch_interface!(APP, MyApp, MyAppInterface);
 
 // TODO: add to docmuentation
+// https://linear.app/abstract-sdk/issue/ABS-414/add-documentation-on-dependencycreation-trait
 #[cfg(feature = "interface")]
 impl<Chain: cw_orch::environment::CwEnv> abstract_interface::DependencyCreation
     for crate::MyAppInterface<Chain>
