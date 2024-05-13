@@ -21,7 +21,6 @@ struct TestEnv<Env: CwEnv> {
 
 impl TestEnv<MockBech32> {
     /// Set up the test environment with an Account that has the App installed
-    #[allow(clippy::type_complexity)]
     fn setup() -> anyhow::Result<TestEnv<MockBech32>> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");

@@ -114,10 +114,10 @@ For this command to work properly, please make sure that your `metadata.json` fi
 Example:
 
 ```bash
-just publish-schemas my my-module 0.0.1
+just publish-schemas my-namespace my-module 0.0.1
 ```
 
-In the example above, `ibcmail` is the namespace, `my-module` is the module's name, and `0.1` is the minor version. If you create a patch for your module (e.g., `0.1.1`), you don't need to run `publish-schemas` again unless the schemas have changed.
+In the example above, `my-namespace` is the namespace, `my-module` is the module's name, and `0.1` is the minor version. If you create a patch for your module (e.g., `0.1.1`), you don't need to run `publish-schemas` again unless the schemas have changed.
 
 ## Contributing
 
