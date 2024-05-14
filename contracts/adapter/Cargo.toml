@@ -23,25 +23,10 @@ crate-type = ["cdylib", "rlib"]
 name = "schema"
 required-features = ["schema"]
 
-[[example]]
-name = "local_daemon"
-required-features = ["daemon"]
-
-[[example]]
-name = "publish"
-required-features = ["daemon"]
-
 [features]
 default = ["export"]
 export = []
 schema = ["abstract-adapter/schema"]
-interface = [
-  "export",
-  "dep:abstract-interface",
-  "dep:cw-orch",
-  "my-package/interface",
-]
-daemon = ["interface", "cw-orch/daemon"]
 
 [dependencies]
 cosmwasm-std = { workspace = true }
@@ -54,19 +39,19 @@ cw-asset = { workspace = true }
 abstract-adapter = { workspace = true }
 abstract-sdk = { workspace = true }
 abstract-std = { workspace = true }
-abstract-interface = { workspace = true, optional = true }
-my-package = { workspace = true }
+const_format = { workspace = true }
 
 # Dependencies for interface
-cw-orch = { workspace = true, optional = true }
+cw-orch = { workspace = true }
+abstract-interface = { workspace = true }
 
 [dev-dependencies]
-my-adapter = { workspace = true, features = ["interface"] }
+my-adapter = { workspace = true }
 abstract-client = { workspace = true }
 abstract-adapter = { workspace = true, features = ["test-utils"] }
 speculoos = { workspace = true }
 semver = { workspace = true }
 dotenv = { workspace = true }
 env_logger = { workspace = true }
-cw-orch = { workspace = true }
+cw-orch = { workspace = true, features = ["daemon"] }
 clap = { workspace = true, features = ["derive"] }

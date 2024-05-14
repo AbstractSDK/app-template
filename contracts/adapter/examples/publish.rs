@@ -7,16 +7,14 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
+use my_adapter::{
+    contract::interface::MyAdapterInterface, msg::MyAdapterInstantiateMsg, MY_ADAPTER_ID,
+};
+
 use abstract_adapter::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use clap::Parser;
-use cw_orch::anyhow;
-use cw_orch::daemon::networks::parse_network;
-use cw_orch::prelude::*;
-use cw_orch::tokio::runtime::Runtime;
-use my_adapter::MyAdapterInterface;
-use my_package::adapter::msg::MyAdapterInstantiateMsg;
-use my_package::MY_ADAPTER_ID;
+use cw_orch::{anyhow, daemon::networks::parse_network, prelude::*, tokio::runtime::Runtime};
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network

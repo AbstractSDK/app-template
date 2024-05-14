@@ -1,15 +1,17 @@
 pub mod contract;
+pub mod error;
 mod handlers;
+pub mod msg;
 mod replies;
+pub mod state;
+
+pub use error::MyAppError;
 
 /// The version of your app
 pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
-#[cfg(feature = "interface")]
 pub use contract::interface::MyAppInterface;
-#[cfg(feature = "interface")]
-pub use my_package::app::msg::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
 
-pub use my_package::app::error;
-pub use my_package::app::msg;
-pub use my_package::app::state;
+pub const MY_NAMESPACE: &str = "yournamespace";
+pub const MY_APP_NAME: &str = "app-name";
+pub const MY_APP_ID: &str = const_format::formatcp!("{MY_NAMESPACE}:{MY_APP_NAME}");

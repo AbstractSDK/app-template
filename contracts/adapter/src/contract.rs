@@ -1,12 +1,20 @@
-use crate::{handlers, ADAPTER_VERSION};
+use crate::{
+    error::MyAdapterError,
+    handlers,
+    msg::{MyAdapterExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsg},
+    ADAPTER_VERSION, MY_ADAPTER_ID,
+};
 
+use abstract_adapter::AdapterContract;
 use cosmwasm_std::Response;
-use my_package::adapter::error::MyAdapterError;
-use my_package::adapter::msg::MyAdapterInstantiateMsg;
-pub use my_package::adapter::MyAdapter;
-pub use my_package::adapter::MyAdapter as Adapter;
-use my_package::MY_ADAPTER_ID;
 
+/// The type of the adapter that is used to build your app and access the Abstract SDK features.
+pub type MyAdapter = AdapterContract<
+    MyAdapterError,
+    MyAdapterInstantiateMsg,
+    MyAdapterExecuteMsg,
+    MyAdapterQueryMsg,
+>;
 /// The type of the result returned by your app's entry points.
 pub type AppResult<T = Response> = Result<T, MyAdapterError>;
 
@@ -19,7 +27,6 @@ const MY_ADAPTER: MyAdapter = MyAdapter::new(MY_ADAPTER_ID, ADAPTER_VERSION, Non
 #[cfg(feature = "export")]
 abstract_adapter::export_endpoints!(MY_ADAPTER, MyAdapter);
 
-#[cfg(feature = "interface")]
 abstract_adapter::cw_orch_interface!(
     MY_ADAPTER,
     MyAdapter,

@@ -7,14 +7,13 @@
 //! # Run
 //!
 //! `cargo run --example local_daemon`
+use my_adapter::{contract::interface::MyAdapterInterface, MY_ADAPTER_ID};
 
 use abstract_adapter::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_adapter::{msg::MyAdapterInstantiateMsg, MyAdapterInterface, ADAPTER_VERSION};
+use my_adapter::{msg::MyAdapterInstantiateMsg, ADAPTER_VERSION};
 use semver::Version;
-
-use my_package::MY_ADAPTER_ID;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue app foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 

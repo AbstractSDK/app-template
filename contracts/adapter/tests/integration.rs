@@ -1,14 +1,14 @@
-use abstract_client::AbstractClient;
-use abstract_client::Application;
+use my_adapter::{
+    contract::interface::MyAdapterInterface,
+    msg::{ConfigResponse, MyAdapterExecuteMsgFns, MyAdapterInstantiateMsg, MyAdapterQueryMsgFns},
+    MY_NAMESPACE,
+};
+
+use abstract_client::{AbstractClient, Application};
 use abstract_std::objects::namespace::Namespace;
 use cosmwasm_std::coins;
 // Use prelude to get all the necessary imports
 use cw_orch::{anyhow, prelude::*};
-
-use my_adapter::MyAdapterInterface;
-use my_adapter::{msg::ConfigResponse, *};
-use my_package::adapter::msg::{MyAdapterInstantiateMsg, MyAdapterQueryMsgFns};
-use my_package::MY_NAMESPACE;
 
 struct TestEnv<Env: CwEnv> {
     env: Env,
@@ -59,6 +59,7 @@ fn successful_install() -> anyhow::Result<()> {
 }
 
 mod update_config {
+
     use super::*;
 
     #[test]

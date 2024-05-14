@@ -1,9 +1,17 @@
-use crate::contract::{App, MyAppResult};
-use crate::msg::{ConfigResponse, MyAppQueryMsg};
-use crate::state::CONFIG;
+use crate::{
+    contract::{MyApp, MyAppResult},
+    msg::{ConfigResponse, MyAppQueryMsg},
+    state::CONFIG,
+};
+
 use cosmwasm_std::{to_json_binary, Binary, Deps, Env, StdResult};
 
-pub fn query_handler(deps: Deps, _env: Env, _app: &App, msg: MyAppQueryMsg) -> MyAppResult<Binary> {
+pub fn query_handler(
+    deps: Deps,
+    _env: Env,
+    _app: &MyApp,
+    msg: MyAppQueryMsg,
+) -> MyAppResult<Binary> {
     match msg {
         MyAppQueryMsg::Config {} => to_json_binary(&query_config(deps)?),
     }

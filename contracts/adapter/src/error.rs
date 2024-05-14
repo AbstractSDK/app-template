@@ -1,6 +1,4 @@
-use abstract_adapter::sdk::AbstractSdkError;
-use abstract_adapter::std::AbstractError;
-use abstract_adapter::AdapterError as AbstractAdapterError;
+use abstract_adapter::{sdk::AbstractSdkError, std::AbstractError, AdapterError};
 use cosmwasm_std::StdError;
 use cw_asset::AssetError;
 use cw_controllers::AdminError;
@@ -24,7 +22,7 @@ pub enum MyAdapterError {
     Admin(#[from] AdminError),
 
     #[error("{0}")]
-    AdapterError(#[from] AbstractAdapterError),
+    AdapterError(#[from] AdapterError),
 
     #[error("{0} are not implemented")]
     NotImplemented(String),

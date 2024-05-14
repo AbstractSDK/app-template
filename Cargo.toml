@@ -1,5 +1,5 @@
 [workspace]
-members = ["contracts/*", "packages/my"]
+members = ["contracts/*"]
 resolver = "2"
 
 [profile.release]
@@ -32,7 +32,6 @@ lazy_static = "1.4.0"
 cw-orch = { version = "0.22.2" }
 const_format = "0.2.32"
 
-my-package = { path = "packages/my" }
 my-app = { path = "contracts/app" }
 my-adapter = { path = "contracts/adapter" }
 abstract-client = { version = "0.22.0" }

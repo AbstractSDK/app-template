@@ -7,14 +7,13 @@
 //! # Run
 //!
 //! `cargo run --example local_daemon`
+use my_app::MY_APP_ID;
 
 use abstract_app::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
 use my_app::{msg::MyAppInstantiateMsg, MyAppInterface, APP_VERSION};
 use semver::Version;
-
-use my_package::MY_APP_ID;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue app foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 

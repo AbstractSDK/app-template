@@ -1,14 +1,16 @@
-use cosmwasm_std::{DepsMut, Env, MessageInfo, Response};
+use crate::{
+    contract::{MyApp, MyAppResult},
+    msg::MyAppInstantiateMsg,
+    state::{Config, CONFIG},
+};
 
-use crate::contract::{App, MyAppResult};
-use crate::msg::MyAppInstantiateMsg;
-use crate::state::{Config, CONFIG};
+use cosmwasm_std::{DepsMut, Env, MessageInfo, Response};
 
 pub fn instantiate_handler(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _app: App,
+    _app: MyApp,
     _msg: MyAppInstantiateMsg,
 ) -> MyAppResult {
     let config: Config = Config {};

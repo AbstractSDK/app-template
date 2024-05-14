@@ -1,15 +1,20 @@
-use abstract_app::std::manager::ModuleInstallConfig;
+use crate::{
+    error::MyAppError,
+    handlers,
+    msg::{MyAppExecuteMsg, MyAppInstantiateMsg, MyAppMigrateMsg, MyAppQueryMsg},
+    replies::{self, INSTANTIATE_REPLY_ID},
+    APP_VERSION, MY_APP_ID,
+};
+
+use abstract_app::AppContract;
 use cosmwasm_std::Response;
 
-pub use my_package::app::MyApp;
-pub use my_package::app::MyApp as App;
-use my_package::MY_APP_ID;
-
-use crate::replies::INSTANTIATE_REPLY_ID;
-use crate::{error::ClientError, handlers, replies, APP_VERSION};
-
 /// The type of the result returned by your app's entry points.
-pub type MyAppResult<T = Response> = Result<T, ClientError>;
+pub type MyAppResult<T = Response> = Result<T, MyAppError>;
+
+/// The type of the app that is used to build your app and access the Abstract SDK features.
+pub type MyApp =
+    AppContract<MyAppError, MyAppInstantiateMsg, MyAppExecuteMsg, MyAppQueryMsg, MyAppMigrateMsg>;
 
 const APP: MyApp = MyApp::new(MY_APP_ID, APP_VERSION, None)
     .with_instantiate(handlers::instantiate_handler)
@@ -23,20 +28,13 @@ const APP: MyApp = MyApp::new(MY_APP_ID, APP_VERSION, None)
 #[cfg(feature = "export")]
 abstract_app::export_endpoints!(APP, MyApp);
 
-#[cfg(feature = "interface")]
 abstract_app::cw_orch_interface!(APP, MyApp, MyAppInterface);
 
 // TODO: add to docmuentation
 // https://linear.app/abstract-sdk/issue/ABS-414/add-documentation-on-dependencycreation-trait
-#[cfg(feature = "interface")]
+#[cfg(not(target_arch = "wasm32"))]
 impl<Chain: cw_orch::environment::CwEnv> abstract_interface::DependencyCreation
     for crate::MyAppInterface<Chain>
 {
     type DependenciesConfig = cosmwasm_std::Empty;
-
-    fn dependency_install_configs(
-        _configuration: Self::DependenciesConfig,
-    ) -> Result<Vec<ModuleInstallConfig>, abstract_interface::AbstractInterfaceError> {
-        Ok(vec![])
-    }
 }

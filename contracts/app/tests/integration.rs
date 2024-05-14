@@ -1,17 +1,14 @@
+use my_app::{
+    contract::interface::MyAppInterface,
+    msg::{ConfigResponse, MyAppExecuteMsgFns, MyAppInstantiateMsg, MyAppQueryMsgFns},
+    MY_NAMESPACE,
+};
+
 use abstract_app::objects::namespace::Namespace;
-use abstract_client::AbstractClient;
-use abstract_client::Application;
+use abstract_client::{AbstractClient, Application};
 use cosmwasm_std::coins;
 // Use prelude to get all the necessary imports
 use cw_orch::{anyhow, prelude::*};
-
-use my_app::contract::interface::MyAppInterface;
-use my_app::{
-    msg::{ConfigResponse, MyAppInstantiateMsg},
-    *,
-};
-use my_package::app::msg::MyAppQueryMsgFns;
-use my_package::MY_NAMESPACE;
 
 struct TestEnv<Env: CwEnv> {
     env: Env,

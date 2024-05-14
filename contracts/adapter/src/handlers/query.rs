@@ -1,12 +1,15 @@
-use crate::contract::{Adapter, AppResult};
-use crate::state::CONFIG;
+use crate::{
+    contract::{AppResult, MyAdapter},
+    msg::{ConfigResponse, MyAdapterQueryMsg},
+    state::CONFIG,
+};
+
 use cosmwasm_std::{to_json_binary, Binary, Deps, Env, StdResult};
-use my_package::adapter::msg::{ConfigResponse, MyAdapterQueryMsg};
 
 pub fn query_handler(
     deps: Deps,
     _env: Env,
-    _app: &Adapter,
+    _adapter: &MyAdapter,
     msg: MyAdapterQueryMsg,
 ) -> AppResult<Binary> {
     match msg {

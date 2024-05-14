@@ -6,5 +6,5 @@ unit-test = "test --lib"
 # you may end up having multiple packages with those example binaries.
 # You can specify your package with `--package` option
 schema = "run --example schema --features schema"
-publish = "run --example publish --features daemon"
+publish_module = "run --example publish --features daemon"
 local_daemon = "run --example local_daemon --features daemon"
