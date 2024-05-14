@@ -1,13 +1,13 @@
-use abstract_app::abstract_core::AbstractError;
-use abstract_app::abstract_sdk::AbstractSdkError;
-use abstract_app::AppError as AbstractAppError;
+use abstract_app::sdk::AbstractSdkError;
+use abstract_app::std::AbstractError;
+use abstract_app::AppError;
 use cosmwasm_std::StdError;
 use cw_asset::AssetError;
 use cw_controllers::AdminError;
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq)]
-pub enum AppError {
+pub enum MyAppError {
     #[error("{0}")]
     Std(#[from] StdError),
 
@@ -24,5 +24,5 @@ pub enum AppError {
     Admin(#[from] AdminError),
 
     #[error("{0}")]
-    DappError(#[from] AbstractAppError),
+    DappError(#[from] AppError),
 }

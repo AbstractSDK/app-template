@@ -1,22 +1,22 @@
+use crate::contract::MyApp;
+
 use cosmwasm_schema::QueryResponses;
 
-use crate::contract::App;
-
 // This is used for type safety and re-exporting the contract endpoint structs.
-abstract_app::app_msg_types!(App, AppExecuteMsg, AppQueryMsg);
+abstract_app::app_msg_types!(MyApp, MyAppExecuteMsg, MyAppQueryMsg);
 
 /// App instantiate message
 #[cosmwasm_schema::cw_serde]
-pub struct AppInstantiateMsg {
-    /// Initial count
+pub struct MyAppInstantiateMsg {
     pub count: i32,
 }
 
 /// App execute messages
 #[cosmwasm_schema::cw_serde]
-#[cfg_attr(feature = "interface", derive(cw_orch::ExecuteFns))]
-#[cfg_attr(feature = "interface", impl_into(ExecuteMsg))]
-pub enum AppExecuteMsg {
+#[derive(cw_orch::ExecuteFns)]
+#[impl_into(ExecuteMsg)]
+pub enum MyAppExecuteMsg {
+    UpdateConfig {},
     /// Increment count by 1
     Increment {},
     /// Admin method - reset count
@@ -24,23 +24,21 @@ pub enum AppExecuteMsg {
         /// Count value after reset
         count: i32,
     },
-    UpdateConfig {},
 }
+
+#[cosmwasm_schema::cw_serde]
+pub struct MyAppMigrateMsg {}
 
 /// App query messages
 #[cosmwasm_schema::cw_serde]
-#[cfg_attr(feature = "interface", derive(cw_orch::QueryFns))]
-#[cfg_attr(feature = "interface", impl_into(QueryMsg))]
-#[derive(QueryResponses)]
-pub enum AppQueryMsg {
+#[derive(QueryResponses, cw_orch::QueryFns)]
+#[impl_into(QueryMsg)]
+pub enum MyAppQueryMsg {
     #[returns(ConfigResponse)]
     Config {},
     #[returns(CountResponse)]
     Count {},
 }
-
-#[cosmwasm_schema::cw_serde]
-pub enum AppMigrateMsg {}
 
 #[cosmwasm_schema::cw_serde]
 pub struct ConfigResponse {}

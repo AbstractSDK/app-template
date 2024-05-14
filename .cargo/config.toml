@@ -1,0 +1,9 @@
+[alias]
+wasm = "build --release --target wasm32-unknown-unknown"
+unit-test = "test --lib"
+
+# In case your project have multiple contracts 
+# you may end up having multiple packages with those example binaries.
+# You can specify your package with `--package` option
+schema = "run --example schema --features schema"
+publish_module = "run --example publish --features daemon"

@@ -19,16 +19,16 @@
       "description": "custom migrate msg",
       "allOf": [
         {
-          "$ref": "#/definitions/AppMigrateMsg"
+          "$ref": "#/definitions/MyAppMigrateMsg"
         }
       ]
     }
   },
   "additionalProperties": false,
   "definitions": {
-    "AppMigrateMsg": {
-      "type": "string",
-      "enum": []
+    "MyAppMigrateMsg": {
+      "type": "object",
+      "additionalProperties": false
     },
     "BaseMigrateMsg": {
       "type": "object",

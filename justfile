@@ -58,9 +58,9 @@ wasm:
   rm -rf ./artifacts/*.wasm
 
   if [[ $(arch) == "arm64" ]]; then
-    image="cosmwasm/rust-optimizer-arm64"
+    image="cosmwasm/workspace-optimizer-arm64"
   else
-    image="cosmwasm/rust-optimizer"
+    image="cosmwasm/workspace-optimizer"
   fi
 
   # Optimized builds
@@ -121,4 +121,12 @@ run-script script +CHAINS:
   cargo run --example {{script}} --features="daemon" -- --network-ids {{CHAINS}}
 
 publish +CHAINS:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+
+  if [ -d "artifacts" ]; then
+    echo "Build found ✅";
+  else
+    just wasm
+  fi
   just run-script publish {{CHAINS}}

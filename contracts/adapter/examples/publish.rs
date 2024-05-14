@@ -7,17 +7,14 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
-use abstract_app::objects::namespace::Namespace;
-use abstract_client::{AbstractClient, Publisher};
-use app::{contract::APP_ID, AppInterface};
-use clap::Parser;
-use cw_orch::{
-    anyhow,
-    daemon::{ChainInfo, Daemon},
-    environment::TxHandler,
-    prelude::{networks::parse_network, DaemonBuilder},
-    tokio::runtime::Runtime,
+use my_adapter::{
+    contract::interface::MyAdapterInterface, msg::MyAdapterInstantiateMsg, MY_ADAPTER_ID,
 };
+
+use abstract_adapter::objects::namespace::Namespace;
+use abstract_client::{AbstractClient, Publisher};
+use clap::Parser;
+use cw_orch::{anyhow, daemon::networks::parse_network, prelude::*, tokio::runtime::Runtime};
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network
@@ -29,20 +26,24 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .chain(network)
             .build()?;
 
-        let app_namespace = Namespace::from_id(APP_ID)?;
+        let adapter_namespace = Namespace::from_id(MY_ADAPTER_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;
 
         // Get the [`Publisher`] that owns the namespace, otherwise create a new one and claim the namespace
-        let publisher: Publisher<_> = abstract_client.publisher_builder(app_namespace).build()?;
+        let publisher: Publisher<_> = abstract_client
+            .publisher_builder(adapter_namespace)
+            .build()?;
 
         if publisher.account().owner()? != chain.sender() {
             panic!("The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace.")
         }
 
-        // Publish the App to the Abstract Platform
-        publisher.publish_app::<AppInterface<Daemon>>()?;
+        // Publish the Adapter to the Abstract Platform
+        publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<Daemon>>(
+            MyAdapterInstantiateMsg {},
+        )?;
     }
     Ok(())
 }
