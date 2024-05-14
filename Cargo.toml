@@ -36,5 +36,5 @@ my-adapter = { path = "contracts/adapter" }
 speculoos = "0.11.0"
 semver = "1.0"
 dotenv = "0.15.0"
-env_logger = "0.10.0"
+env_logger = "0.11.3"
 clap = { version = "4.3.7" }
