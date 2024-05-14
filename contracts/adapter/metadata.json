@@ -1,0 +1,9 @@
+{
+  "name": "Adapter",
+  "description": "Adapter description.",
+  "website": "",
+  "docs": "",
+  "type": "adapter",
+  "icon": "GiTrade",
+  "enabled": true
+}

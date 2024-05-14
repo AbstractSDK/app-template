@@ -2,7 +2,7 @@
 
 The Abstract Module Template is a starting point for developing composable smart-contracts, or "Apps" on the Abstract platform. An App is instantiated for each Account individually and is migratable. Apps are allowed to perform actions on Abstract Accounts and can integrate with other Apps and Adapters installed on the Account. To learn more about Abstract Accounts, please see the [abstract accounts documentation](https://docs.abstract.money/3_framework/3_architecture.html). To read more about apps, please see the [app module documentation](https://docs.abstract.money/3_framework/6_module_types.html).
 
-This template includes examples for both an app and adapter in a workspace. It also creates a separate package for all apps / adapters developed under your Abstract namespace for an easy monorepo setup.
+This template includes examples for both an app and adapter in a workspace.
 
 ## Getting Started
 
@@ -48,16 +48,14 @@ To fully make use of the `justfile`, you need to install a few tools first. You 
 Here are some of the tasks available in the `justfile`:
 
 - `install-tools`: Install all the tools needed to run the tasks.
-- `build`: Build everything with all features.
+- `wasm`: Optimize the contract.
 - `test`: Run all tests.
-- `watch-test`: Watch the codebase and run tests on changes.
 - `fmt`: Format the codebase (including .toml).
 - `lint`: Lint-check the codebase.
 - `lintfix`: Fix linting errors automatically.
 - `watch`: Watch the codebase and run `cargo check` on changes.
-- `check`: Check the codebase for issues.
+- `watch-test`: Watch the codebase and run tests on changes.
 - `publish {{chain-id}}`: Publish the App to a network.
-- `wasm`: Optimize the contract.
 - `schema`: Generate the json schemas for the contract
 <!-- - `ts-codegen`: Generate the typescript app code for the contract -->
 <!-- - `ts-publish`: Publish the typescript app code to npm -->
@@ -67,29 +65,29 @@ You can see the full list of tasks available by running `just --list`.
 
 ### Compiling
 
-Best to run `cargo update` to have synced versions just in case.
+You can compile your module(s) by running the following command:
 
-You can compile your module by running the following command:
 ```sh
 just wasm
 ```
+
 This should result in an artifacts directory being created in your project root. Inside you will find a `my_module.wasm` file that is your module’s binary.
 
 ### Testing
 
 You can test the module using the different provided methods.
 
-1. **Integration testing:** We provide an integration testing setup [here](./tests/integration.rs). You should use this to set up your environment and test the different execution and query entry-points of your module. Once you are satisfied with the results you can try publishing it to a real chain.
-2. **Local Daemon:** Once you have confirmed that your module works as expected you can spin up a local node and deploy Abstract + your app onto the chain. You need [Docker](https://www.docker.com/) installed for this step. You can do this by running the [test-local](./examples/test-local.rs) example, which uses a locally running juno daemon to deploy to. You can setup local juno using `just juno-local` command. At this point you can also test your front-end with the contracts.
+1. **Integration testing:** We provide an integration testing setup in both contracts. The App tests can be found here [here](./contracts/app/tests/integration.rs). You can re-use the setup provided in this file to test different execution and query entry-points of your module. Once you are satisfied with the results you can try publishing it to a real chain.
+2. **Local Daemon (Optional):** Once you have confirmed that your module works as expected you can spin up a local node and deploy Abstract + your app onto the chain. You need [Docker](https://www.docker.com/) installed for this step. You can do this by running the [test-local](./contracts/app/examples/test-local.rs) example, which uses a locally running juno daemon to deploy to. You can setup local juno using `just juno-local` command. At this point you can also test your front-end with the contracts.
 
 Once testing is done you can attempt an actual deployment on test and mainnet.
 
 ### Publishing
 
-Before attempting to publish your app you need to add your mnemonic to the `.env` file. **Don't use a mnemonic that has mainnet funds for this.**
+Before attempting to publish your app you need to add your mnemonic to the `.env` file. **Don't use a mnemonic that has mainnet funds for testing.**
 
 <!-- It's also assumed that you have an account and module namespace claimed with this account before publishing. You can read how to do that [here](https://docs.abstract.money/4_get_started/5_abstract_client.html). -->
-Select from a wide range of [supported chains](https://orchestrator.abstract.money/chains/index.html) before proceeding. Make sure you've some balance enough to pay gas for the transaction. If the chain does not have gas, complete at least 1 transaction with your account before proceeding.
+Select from a wide range of [supported chains](https://orchestrator.abstract.money/chains/index.html) before proceeding. Make sure you've some balance enough to pay gas for the transaction.
 
 You can now use `just publish {{chain-id}}` to run the [`examples/publish.rs`](./examples/publish.rs) script. The script will publish the app to the networks that you provided. Make sure you have enough funds in your wallet on the different networks you aim to publish on.
 
@@ -124,6 +122,7 @@ In the example above, `my-namespace` is the namespace, `my-module` is the module
 We welcome contributions to the Abstract App Module Template! To contribute, fork this repository and submit a pull request with your changes. If you have any questions or issues, please open an issue in the repository and we will be happy to assist you.
 
 ## Community
+
 Check out the following places for support, discussions & feedback:
 
 - Join our [Discord server](https://discord.com/invite/uch3Tq3aym)
