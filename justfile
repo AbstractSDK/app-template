@@ -58,9 +58,9 @@ wasm:
   rm -rf ./artifacts/*.wasm
 
   if [[ $(arch) == "arm64" ]]; then
-    image="cosmwasm/rust-optimizer-arm64"
+    image="cosmwasm/workspace-optimizer-arm64"
   else
-    image="cosmwasm/rust-optimizer"
+    image="cosmwasm/workspace-optimizer"
   fi
 
   # Optimized builds
