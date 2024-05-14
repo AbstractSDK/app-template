@@ -1,5 +1,5 @@
 use crate::{
-    contract::{AppResult, MyAdapter},
+    contract::{AdapterResult, MyAdapter},
     msg::MyAdapterInstantiateMsg,
     state::{Config, CONFIG},
 };
@@ -12,7 +12,7 @@ pub fn instantiate_handler(
     _info: MessageInfo,
     _adapter: MyAdapter,
     _msg: MyAdapterInstantiateMsg,
-) -> AppResult {
+) -> AdapterResult {
     let config: Config = Config {};
 
     CONFIG.save(deps.storage, &config)?;

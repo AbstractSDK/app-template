@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `cargo run --example local_daemon`
+//! `RUST_LOG=info cargo run --example local_daemon --package my-app`
 use my_app::MY_APP_ID;
 
 use abstract_app::objects::namespace::Namespace;
@@ -15,7 +15,7 @@ use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
 use my_app::{msg::MyAppInstantiateMsg, MyAppInterface, APP_VERSION};
 use semver::Version;
 
-const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue app foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
+const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
 fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
@@ -34,7 +34,9 @@ fn main() -> anyhow::Result<()> {
     let app_namespace = Namespace::from_id(MY_APP_ID)?;
 
     // Create an [`AbstractClient`]
-    let abstract_client: AbstractClient<Daemon> = AbstractClient::new(daemon.clone())?;
+    // Note: AbstractClient Builder used because Abstract is not yet deployed on the chain
+    let abstract_client: AbstractClient<Daemon> =
+        AbstractClient::builder(daemon.clone()).build()?;
 
     // Get the [`Publisher`] that owns the namespace.
     // If there isn't one, it creates an Account and claims the namespace.
@@ -52,20 +54,19 @@ fn main() -> anyhow::Result<()> {
 
     let account = abstract_client.account_builder().build()?;
     // Installs the app on the Account
-    let _app = account.install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg {}, &[])?;
+    let app = account.install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg { count: 0 }, &[])?;
 
-    // // Import app's endpoint function traits for easy interactions.
-    // use my_app::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
-    // assert_that!(app.count()?.count).is_equal_to(0);
-    //
-    // // Execute the App
-    // app.increment()?;
-    //
-    // // Query the App again
-    // assert_that!(app.count()?.count).is_equal_to(1);
-    //
-    // // Note: the App is installed on a sub-account of the main account!
-    // assert_ne!(account.id()?, app.account().id()?);
+    // Import app's endpoint function traits for easy interactions.
+    use my_app::msg::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
+    assert_eq!(app.count()?.count, 0);
+    // Execute the App
+    app.increment()?;
+
+    // Query the App again
+    assert_eq!(app.count()?.count, 1);
+
+    // Note: the App is installed on a sub-account of the main account!
+    assert_ne!(account.id()?, app.account().id()?);
 
     Ok(())
 }

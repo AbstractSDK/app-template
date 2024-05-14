@@ -37,8 +37,6 @@ thiserror = { workspace = true }
 schemars = { workspace = true }
 cw-asset = { workspace = true }
 abstract-adapter = { workspace = true }
-abstract-sdk = { workspace = true }
-abstract-std = { workspace = true }
 const_format = { workspace = true }
 
 # Dependencies for interface

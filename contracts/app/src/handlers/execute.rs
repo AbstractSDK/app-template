@@ -1,7 +1,7 @@
 use crate::{
     contract::{MyApp, MyAppResult},
     msg::MyAppExecuteMsg,
-    state::CONFIG,
+    state::{CONFIG, COUNT},
 };
 
 use abstract_app::traits::AbstractResponse;
@@ -16,6 +16,8 @@ pub fn execute_handler(
 ) -> MyAppResult {
     match msg {
         MyAppExecuteMsg::UpdateConfig {} => update_config(deps, info, app),
+        MyAppExecuteMsg::Increment {} => increment(deps, app),
+        MyAppExecuteMsg::Reset { count } => reset(deps, info, count, app),
     }
 }
 
@@ -26,4 +28,17 @@ fn update_config(deps: DepsMut, msg_info: MessageInfo, app: MyApp) -> MyAppResul
     let mut _config = CONFIG.load(deps.storage)?;
 
     Ok(app.response("update_config"))
+}
+
+fn increment(deps: DepsMut, app: MyApp) -> MyAppResult {
+    COUNT.update(deps.storage, |count| MyAppResult::Ok(count + 1))?;
+
+    Ok(app.response("increment"))
+}
+
+fn reset(deps: DepsMut, info: MessageInfo, count: i32, app: MyApp) -> MyAppResult {
+    app.admin.assert_admin(deps.as_ref(), &info.sender)?;
+    COUNT.save(deps.storage, &count)?;
+
+    Ok(app.response("reset"))
 }

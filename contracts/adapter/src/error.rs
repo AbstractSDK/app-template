@@ -26,4 +26,7 @@ pub enum MyAdapterError {
 
     #[error("{0} are not implemented")]
     NotImplemented(String),
+
+    #[error("Unauthorized")]
+    Unauthorized {},
 }

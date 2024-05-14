@@ -7,4 +7,3 @@ unit-test = "test --lib"
 # You can specify your package with `--package` option
 schema = "run --example schema --features schema"
 publish_module = "run --example publish --features daemon"
-local_daemon = "run --example local_daemon --features daemon"

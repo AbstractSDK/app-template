@@ -1,7 +1,7 @@
 use crate::{
     contract::{MyApp, MyAppResult},
     msg::MyAppInstantiateMsg,
-    state::{Config, CONFIG},
+    state::{Config, CONFIG, COUNT},
 };
 
 use cosmwasm_std::{DepsMut, Env, MessageInfo, Response};
@@ -11,12 +11,11 @@ pub fn instantiate_handler(
     _env: Env,
     _info: MessageInfo,
     _app: MyApp,
-    _msg: MyAppInstantiateMsg,
+    msg: MyAppInstantiateMsg,
 ) -> MyAppResult {
     let config: Config = Config {};
 
     CONFIG.save(deps.storage, &config)?;
-
-    // Example instantiation that doesn't do anything
+    COUNT.save(deps.storage, &msg.count)?;
     Ok(Response::new())
 }

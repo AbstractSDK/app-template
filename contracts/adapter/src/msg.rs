@@ -1,5 +1,6 @@
 use crate::contract::MyAdapter;
 
+use abstract_adapter::objects::AccountId;
 use cosmwasm_schema::QueryResponses;
 
 // This is used for type safety and re-exporting the contract endpoint structs.
@@ -14,7 +15,9 @@ pub struct MyAdapterInstantiateMsg {}
 #[derive(cw_orch::ExecuteFns)]
 #[impl_into(ExecuteMsg)]
 pub enum MyAdapterExecuteMsg {
-    /// Update the configuration of the adapter
+    /// Set status of your account
+    SetStatus { status: String },
+    /// Admin method: Update the configuration of the adapter
     UpdateConfig {},
 }
 
@@ -23,9 +26,16 @@ pub enum MyAdapterExecuteMsg {
 #[derive(QueryResponses, cw_orch::QueryFns)]
 #[impl_into(QueryMsg)]
 pub enum MyAdapterQueryMsg {
+    #[returns(StatusResponse)]
+    Status { account_id: AccountId },
     #[returns(ConfigResponse)]
     Config {},
 }
 
 #[cosmwasm_schema::cw_serde]
 pub struct ConfigResponse {}
+
+#[cosmwasm_schema::cw_serde]
+pub struct StatusResponse {
+    pub status: Option<String>,
+}

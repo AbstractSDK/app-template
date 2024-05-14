@@ -8,15 +8,15 @@ use crate::{
 use abstract_adapter::AdapterContract;
 use cosmwasm_std::Response;
 
-/// The type of the adapter that is used to build your app and access the Abstract SDK features.
+/// The type of the adapter that is used to build your Adapter and access the Abstract SDK features.
 pub type MyAdapter = AdapterContract<
     MyAdapterError,
     MyAdapterInstantiateMsg,
     MyAdapterExecuteMsg,
     MyAdapterQueryMsg,
 >;
-/// The type of the result returned by your app's entry points.
-pub type AppResult<T = Response> = Result<T, MyAdapterError>;
+/// The type of the result returned by your Adapter's entry points.
+pub type AdapterResult<T = Response> = Result<T, MyAdapterError>;
 
 const MY_ADAPTER: MyAdapter = MyAdapter::new(MY_ADAPTER_ID, ADAPTER_VERSION, None)
     .with_instantiate(handlers::instantiate_handler)
