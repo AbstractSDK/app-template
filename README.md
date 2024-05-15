@@ -25,15 +25,14 @@ The setup will suggest you to install a few tools that are used in the template.
 
 We recommend updating the names of the packages and variables to be custom to your application. You should be able to do this easily with a global replace.
 
-For example: 
-- ~~my-package~~ -> ibcmail
+For example:
+
 - ~~my-app~~ -> ibcmail-client
 - ~~my_app~~ -> ibcmail_client
 - ~~MyApp~~ -> IbcMailClient
 - ~~my-adapter~~ -> ibcmail-server
 - ~~my_adapter~~ -> ibcmail_server
-- ~~MyApp~~ -> IbcMailServer
-- 
+- ~~MyAdapter~~ -> IbcMailServer
 
 ## Using the Justfile
 
