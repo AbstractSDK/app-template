@@ -12,8 +12,6 @@ pub struct MyAdapterInstantiateMsg {}
 
 /// Adapter execute messages
 #[cosmwasm_schema::cw_serde]
-#[derive(cw_orch::ExecuteFns)]
-#[impl_into(ExecuteMsg)]
 pub enum MyAdapterExecuteMsg {
     /// Set status of your account
     SetStatus { status: String },
@@ -23,8 +21,7 @@ pub enum MyAdapterExecuteMsg {
 
 /// Adapter query messages
 #[cosmwasm_schema::cw_serde]
-#[derive(QueryResponses, cw_orch::QueryFns)]
-#[impl_into(QueryMsg)]
+#[derive(QueryResponses)]
 pub enum MyAdapterQueryMsg {
     #[returns(StatusResponse)]
     Status { account_id: AccountId },
