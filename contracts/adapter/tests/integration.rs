@@ -1,16 +1,17 @@
 use my_adapter::{
     contract::interface::MyAdapterInterface,
-    msg::{ConfigResponse, MyAdapterExecuteMsgFns, MyAdapterInstantiateMsg, MyAdapterQueryMsgFns},
-    MyAdapterExecuteMsg, MY_NAMESPACE,
+    msg::{ConfigResponse, ExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsgFns},
+    MyAdapterExecuteMsg, MY_ADAPTER_ID, MY_NAMESPACE,
 };
 
 use abstract_adapter::std::{adapter::AdapterRequestMsg, objects::namespace::Namespace};
-use abstract_client::{AbstractClient, Application};
+use abstract_client::{AbstractClient, Application, Publisher};
 use cosmwasm_std::coins;
 // Use prelude to get all the necessary imports
 use cw_orch::{anyhow, prelude::*};
 
 struct TestEnv<Env: CwEnv> {
+    publisher: Publisher<Env>,
     abs: AbstractClient<Env>,
     adapter: Application<Env, MyAdapterInterface<Env>>,
 }
@@ -41,6 +42,7 @@ impl TestEnv<MockBech32> {
 
         Ok(TestEnv {
             abs: abs_client,
+            publisher,
             adapter,
         })
     }
@@ -105,9 +107,17 @@ fn set_status() -> anyhow::Result<()> {
     let first_status = "my_status".to_owned();
     let second_status = "my_status".to_owned();
 
-    adapter
-        .call_as(&adapter.account().manager()?)
-        .set_status(first_status.clone())?;
+    let subaccount = &env.publisher.account().sub_accounts()?[0];
+
+    subaccount.as_ref().manager.execute_on_module(
+        MY_ADAPTER_ID,
+        ExecuteMsg::Module(AdapterRequestMsg {
+            proxy_address: Some(subaccount.proxy()?.to_string()),
+            request: MyAdapterExecuteMsg::SetStatus {
+                status: first_status.clone(),
+            },
+        }),
+    )?;
 
     let new_account = env
         .abs
@@ -115,10 +125,15 @@ fn set_status() -> anyhow::Result<()> {
         .install_adapter::<MyAdapterInterface<MockBech32>>()?
         .build()?;
 
-    // For adapters can use same object across accounts
-    adapter
-        .call_as(&new_account.manager()?)
-        .set_status(second_status.clone())?;
+    new_account.as_ref().manager.execute_on_module(
+        MY_ADAPTER_ID,
+        ExecuteMsg::Module(AdapterRequestMsg {
+            proxy_address: Some(new_account.proxy()?.to_string()),
+            request: MyAdapterExecuteMsg::SetStatus {
+                status: second_status.clone(),
+            },
+        }),
+    )?;
 
     let status_response = adapter.status(adapter.account().id()?)?;
     assert_eq!(status_response.status, Some(first_status));
