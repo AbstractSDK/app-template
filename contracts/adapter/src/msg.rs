@@ -21,7 +21,8 @@ pub enum MyAdapterExecuteMsg {
 
 /// Adapter query messages
 #[cosmwasm_schema::cw_serde]
-#[derive(QueryResponses)]
+#[derive(QueryResponses, cw_orch::QueryFns)]
+#[impl_into(QueryMsg)]
 pub enum MyAdapterQueryMsg {
     #[returns(StatusResponse)]
     Status { account_id: AccountId },
