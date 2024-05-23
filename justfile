@@ -110,10 +110,10 @@ publish-schemas namespace name version: schema
 
 ## Exection commands ##
 
-run-script script +CHAINS:
-  cargo run --example {{script}} --features="daemon" -- --network-ids {{CHAINS}}
+run-script script name +CHAINS:
+  cargo run --bin {{script}} --package {{name}} --features="daemon-cli" -- --network-ids {{CHAINS}}
 
-publish +CHAINS:
+publish name +CHAINS:
   #!/usr/bin/env bash
   set -euxo pipefail
 
@@ -122,4 +122,4 @@ publish +CHAINS:
   else
     just wasm
   fi
-  just run-script publish {{CHAINS}}
+  just run-script publish {{name}} {{CHAINS}}
