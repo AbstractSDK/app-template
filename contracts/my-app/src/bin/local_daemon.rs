@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin --features="daemon-cli" local_daemon --package my-app`
+//! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package my-app`
 use my_app::MY_APP_ID;
 
 use abstract_app::objects::namespace::Namespace;

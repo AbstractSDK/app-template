@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-cli" --package my-adapter`
+//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
 use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, MY_ADAPTER_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};

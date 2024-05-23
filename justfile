@@ -110,7 +110,7 @@ publish-schemas namespace name version: schema
 ## Exection commands ##
 
 run-script script name +CHAINS:
-  cargo run --bin {{script}} --package {{name}} --features="daemon-cli" -- --network-ids {{CHAINS}}
+  cargo run --bin {{script}} --package {{name}} --features="daemon-bin" -- --network-ids {{CHAINS}}
 
 publish name +CHAINS:
   #!/usr/bin/env bash
