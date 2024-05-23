@@ -4,6 +4,19 @@
   "description": "App execute messages",
   "oneOf": [
     {
+      "type": "object",
+      "required": [
+        "update_config"
+      ],
+      "properties": {
+        "update_config": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
       "description": "Increment count by 1",
       "type": "object",
       "required": [
@@ -36,19 +49,6 @@
               "format": "int32"
             }
           },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "required": [
-        "update_config"
-      ],
-      "properties": {
-        "update_config": {
-          "type": "object",
           "additionalProperties": false
         }
       },

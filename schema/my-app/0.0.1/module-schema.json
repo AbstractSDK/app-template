@@ -1,6 +1,6 @@
 {
   "contract_name": "module-schema",
-  "contract_version": "0.21.0",
+  "contract_version": "0.22.2",
   "idl_version": "1.0.0",
   "instantiate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
@@ -12,7 +12,6 @@
     ],
     "properties": {
       "count": {
-        "description": "Initial count",
         "type": "integer",
         "format": "int32"
       }
@@ -24,6 +23,19 @@
     "title": "ExecuteMsg",
     "description": "App execute messages",
     "oneOf": [
+      {
+        "type": "object",
+        "required": [
+          "update_config"
+        ],
+        "properties": {
+          "update_config": {
+            "type": "object",
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
       {
         "description": "Increment count by 1",
         "type": "object",
@@ -57,19 +69,6 @@
                 "format": "int32"
               }
             },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      {
-        "type": "object",
-        "required": [
-          "update_config"
-        ],
-        "properties": {
-          "update_config": {
-            "type": "object",
             "additionalProperties": false
           }
         },

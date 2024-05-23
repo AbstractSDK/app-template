@@ -8,7 +8,6 @@
   ],
   "properties": {
     "count": {
-      "description": "Initial count",
       "type": "integer",
       "format": "int32"
     }

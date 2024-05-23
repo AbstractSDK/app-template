@@ -23,44 +23,13 @@
       ],
       "properties": {
         "module": {
-          "$ref": "#/definitions/AppQueryMsg"
+          "$ref": "#/definitions/MyAppQueryMsg"
         }
       },
       "additionalProperties": false
     }
   ],
   "definitions": {
-    "AppQueryMsg": {
-      "description": "App query messages",
-      "oneOf": [
-        {
-          "type": "object",
-          "required": [
-            "config"
-          ],
-          "properties": {
-            "config": {
-              "type": "object",
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "required": [
-            "count"
-          ],
-          "properties": {
-            "count": {
-              "type": "object",
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        }
-      ]
-    },
     "BaseQueryMsg": {
       "oneOf": [
         {
@@ -113,6 +82,37 @@
           ],
           "properties": {
             "top_level_owner": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "MyAppQueryMsg": {
+      "description": "App query messages",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "config"
+          ],
+          "properties": {
+            "config": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "count"
+          ],
+          "properties": {
+            "count": {
               "type": "object",
               "additionalProperties": false
             }

@@ -62,9 +62,9 @@ wasm:
     --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
     ${image}:0.15.0
 
-# Generate the schemas for the app contract
+# Generate the schemas for the contracts
 schema:
-  cargo schema
+  sh scripts/schema.sh
 
 # Generate the schemas for this app and publish them to the schemas repository for access in the Abstract frontend
 publish-schemas namespace name version: schema
@@ -77,7 +77,7 @@ publish-schemas namespace name version: schema
   fi
 
   # check that the metadata exists
-  if [ ! -e "./metadata.json" ]; then \
+  if [ ! -e "./contracts/{{name}}/metadata.json" ]; then \
     echo "Please create metadata.json for module metadata"; exit; \
   fi
 
@@ -90,10 +90,10 @@ publish-schemas namespace name version: schema
 
   # Create target directory structure and copy schemas
   mkdir -p "$schema_out_dir"
-  cp -a "./schema/." "$schema_out_dir"
+  cp -a "./schema/{{name}}/{{version}}" "$schema_out_dir"
 
   # Copy metadata.json to the target directory
-  cp "./metadata.json" "$metadata_out_dir"
+  cp "./contracts/{{name}}/metadata.json" "$metadata_out_dir"
 
   # Create a new branch with a name based on the inputs
   cd "$tmp_dir"
