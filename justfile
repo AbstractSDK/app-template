@@ -83,6 +83,7 @@ publish-schemas namespace name version: schema
 
   tmp_dir="$(mktemp -d)"
   schema_out_dir="$tmp_dir/{{namespace}}/{{name}}/"
+  contract_path="$(cargo tree -e normal -i {{name}} | cut -d '(' -f2 | cut -d ')' -f1)"
 
   # Clone the repository to the temporary directory
   git clone https://github.com/AbstractSDK/schemas "$tmp_dir"
@@ -92,7 +93,7 @@ publish-schemas namespace name version: schema
   cp -a "./schema/{{name}}/{{version}}" "$schema_out_dir"
 
   # Copy metadata.json to the target directory
-  cp "./contracts/{{name}}/metadata.json" "$schema_out_dir"
+  cp "$contract_path/metadata.json" "$schema_out_dir"
 
   # Create a new branch with a name based on the inputs
   cd "$tmp_dir"
