@@ -22,14 +22,17 @@ crate-type = ["cdylib", "rlib"]
 [[bin]]
 name = "schema"
 required-features = ["schema"]
+doc = false
 
 [[bin]]
 name = "publish"
 required-features = ["daemon-bin"]
+doc = false
 
 [[bin]]
 name = "local_daemon"
 required-features = ["daemon-bin"]
+doc = false
 
 [features]
 default = ["export"]
