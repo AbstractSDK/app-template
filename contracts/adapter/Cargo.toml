@@ -19,13 +19,28 @@ exclude = ["contract.wasm", "hash.txt"]
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[[example]]
+[[bin]]
 name = "schema"
 required-features = ["schema"]
+
+[[bin]]
+name = "publish"
+required-features = ["daemon-bin"]
+
+[[bin]]
+name = "local_daemon"
+required-features = ["daemon-bin"]
 
 [features]
 default = ["export"]
 export = []
+daemon-bin = [
+  "cw-orch/daemon",
+  "dep:clap",
+  "dep:abstract-client",
+  "dep:dotenv",
+  "dep:env_logger",
+]
 schema = ["abstract-adapter/schema"]
 
 [dependencies]
@@ -43,13 +58,13 @@ const_format = { workspace = true }
 cw-orch = { workspace = true }
 abstract-interface = { workspace = true }
 
+# Dependencies for bins
+clap = { workspace = true, optional = true, features = ["derive"] }
+abstract-client = { workspace = true, optional = true }
+dotenv = { workspace = true, optional = true }
+env_logger = { workspace = true, optional = true }
+
 [dev-dependencies]
 my-adapter = { workspace = true }
 abstract-client = { workspace = true }
 abstract-adapter = { workspace = true, features = ["test-utils"] }
-speculoos = { workspace = true }
-semver = { workspace = true }
-dotenv = { workspace = true }
-env_logger = { workspace = true }
-cw-orch = { workspace = true, features = ["daemon"] }
-clap = { workspace = true, features = ["derive"] }

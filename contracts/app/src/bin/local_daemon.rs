@@ -12,8 +12,7 @@ use my_app::MY_APP_ID;
 use abstract_app::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_app::{msg::MyAppInstantiateMsg, MyAppInterface, APP_VERSION};
-use semver::Version;
+use my_app::{msg::MyAppInstantiateMsg, MyAppInterface};
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -21,7 +20,6 @@ fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
 
-    let _version: Version = APP_VERSION.parse().unwrap();
     let runtime = Runtime::new()?;
 
     let daemon = Daemon::builder()

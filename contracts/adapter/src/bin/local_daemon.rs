@@ -12,8 +12,7 @@ use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, M
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_adapter::{msg::MyAdapterInstantiateMsg, ADAPTER_VERSION};
-use semver::Version;
+use my_adapter::msg::MyAdapterInstantiateMsg;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -21,7 +20,6 @@ fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
 
-    let _version: Version = ADAPTER_VERSION.parse().unwrap();
     let runtime = Runtime::new()?;
 
     let daemon = Daemon::builder()
