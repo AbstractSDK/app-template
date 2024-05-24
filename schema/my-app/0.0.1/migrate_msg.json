@@ -26,11 +26,11 @@
   },
   "additionalProperties": false,
   "definitions": {
-    "MyAppMigrateMsg": {
+    "BaseMigrateMsg": {
       "type": "object",
       "additionalProperties": false
     },
-    "BaseMigrateMsg": {
+    "MyAppMigrateMsg": {
       "type": "object",
       "additionalProperties": false
     }

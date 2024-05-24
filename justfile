@@ -62,9 +62,9 @@ wasm:
     --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
     ${image}:0.15.0
 
-# Generate the schemas for the app contract
+# Generate the schemas for the contracts
 schema:
-  cargo schema
+  sh scripts/schema.sh
 
 # Generate the schemas for this app and publish them to the schemas repository for access in the Abstract frontend
 publish-schemas namespace name version: schema
@@ -77,23 +77,23 @@ publish-schemas namespace name version: schema
   fi
 
   # check that the metadata exists
-  if [ ! -e "./metadata.json" ]; then \
+  if [ ! -e "./contracts/{{name}}/metadata.json" ]; then \
     echo "Please create metadata.json for module metadata"; exit; \
   fi
 
   tmp_dir="$(mktemp -d)"
-  schema_out_dir="$tmp_dir/{{namespace}}/{{name}}/{{version}}"
-  metadata_out_dir="$tmp_dir/{{namespace}}/{{name}}"
+  schema_out_dir="$tmp_dir/{{namespace}}/{{name}}/"
+  contract_path="$(cargo tree -e normal -i {{name}} | cut -d '(' -f2 | cut -d ')' -f1)"
 
   # Clone the repository to the temporary directory
   git clone https://github.com/AbstractSDK/schemas "$tmp_dir"
 
   # Create target directory structure and copy schemas
   mkdir -p "$schema_out_dir"
-  cp -a "./schema/." "$schema_out_dir"
+  cp -a "./schema/{{name}}/{{version}}" "$schema_out_dir"
 
   # Copy metadata.json to the target directory
-  cp "./metadata.json" "$metadata_out_dir"
+  cp "$contract_path/metadata.json" "$schema_out_dir"
 
   # Create a new branch with a name based on the inputs
   cd "$tmp_dir"
@@ -110,10 +110,10 @@ publish-schemas namespace name version: schema
 
 ## Exection commands ##
 
-run-script script +CHAINS:
-  cargo run --example {{script}} --features="daemon" -- --network-ids {{CHAINS}}
+run-script script name +CHAINS:
+  cargo run --bin {{script}} --package {{name}} --features="daemon-bin" -- --network-ids {{CHAINS}}
 
-publish +CHAINS:
+publish name +CHAINS:
   #!/usr/bin/env bash
   set -euxo pipefail
 
@@ -122,4 +122,4 @@ publish +CHAINS:
   else
     just wasm
   fi
-  just run-script publish {{CHAINS}}
+  just run-script publish {{name}} {{CHAINS}}

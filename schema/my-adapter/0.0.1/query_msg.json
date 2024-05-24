@@ -1,0 +1,183 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QueryMsg",
+  "oneOf": [
+    {
+      "description": "A query to the base.",
+      "type": "object",
+      "required": [
+        "base"
+      ],
+      "properties": {
+        "base": {
+          "$ref": "#/definitions/BaseQueryMsg"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "description": "Custom query",
+      "type": "object",
+      "required": [
+        "module"
+      ],
+      "properties": {
+        "module": {
+          "$ref": "#/definitions/MyAdapterQueryMsg"
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "AccountId": {
+      "description": "Unique identifier for an account. On each chain this is unique.",
+      "type": "object",
+      "required": [
+        "seq",
+        "trace"
+      ],
+      "properties": {
+        "seq": {
+          "description": "Unique identifier for the accounts create on a local chain. Is reused when creating an interchain account.",
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "trace": {
+          "description": "Sequence of the chain that triggered the IBC account creation `AccountTrace::Local` if the account was created locally Example: Account created on Juno which has an abstract interchain account on Osmosis, which in turn creates an interchain account on Terra -> `AccountTrace::Remote(vec![\"juno\", \"osmosis\"])`",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AccountTrace"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "AccountTrace": {
+      "description": "The identifier of chain that triggered the account creation",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "local"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "remote"
+          ],
+          "properties": {
+            "remote": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChainName"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "BaseQueryMsg": {
+      "description": "Query adapter message",
+      "oneOf": [
+        {
+          "description": "Returns [`AdapterConfigResponse`].",
+          "type": "object",
+          "required": [
+            "base_config"
+          ],
+          "properties": {
+            "base_config": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "description": "Returns [`AuthorizedAddressesResponse`].",
+          "type": "object",
+          "required": [
+            "authorized_addresses"
+          ],
+          "properties": {
+            "authorized_addresses": {
+              "type": "object",
+              "required": [
+                "proxy_address"
+              ],
+              "properties": {
+                "proxy_address": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "description": "Returns module data Returns [`ModuleDataResponse`].",
+          "type": "object",
+          "required": [
+            "module_data"
+          ],
+          "properties": {
+            "module_data": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ChainName": {
+      "description": "The name of a chain, aka the chain-id without the post-fix number. ex. `cosmoshub-4` -> `cosmoshub`, `juno-1` -> `juno`",
+      "type": "string"
+    },
+    "MyAdapterQueryMsg": {
+      "description": "Adapter query messages",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "object",
+              "required": [
+                "account_id"
+              ],
+              "properties": {
+                "account_id": {
+                  "$ref": "#/definitions/AccountId"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "config"
+          ],
+          "properties": {
+            "config": {
+              "type": "object",
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-//! Deploys Abstract and the Adapter module to a local Junod instance. See how to spin up a local chain here: https://docs.junonetwork.io/developer-guides/junod-local-dev-setup
+//! Deploys Abstract and the Adapter module to a local Junod instance. See how to spin up a local chain here: <https://docs.junonetwork.io/developer-guides/junod-local-dev-setup>
 //! You can also start a juno container by running `just juno-local`.
 //!
 //! Ensure the local juno is running before executing this script.
@@ -6,14 +6,13 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --example local_daemon --package my-adapter`
+//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
 use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, MY_ADAPTER_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_adapter::{msg::MyAdapterInstantiateMsg, ADAPTER_VERSION};
-use semver::Version;
+use my_adapter::msg::MyAdapterInstantiateMsg;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -21,7 +20,6 @@ fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
 
-    let _version: Version = ADAPTER_VERSION.parse().unwrap();
     let runtime = Runtime::new()?;
 
     let daemon = Daemon::builder()
