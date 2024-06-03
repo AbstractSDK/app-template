@@ -14,4 +14,4 @@ pub use contract::interface::{{app_name | upper_camel_case}}Interface;
 
 pub const {{project-name | shouty_snake_case}}_NAMESPACE: &str = "{{project-name}}";
 pub const {{app_name | shouty_snake_case}}_NAME: &str = "{{app_name | kebab_case}}";
-pub const {{app_name | shouty_snake_case}}_ID: &str = const_format::formatcp!("{{project-name | append: app_name | shouty_snake_case}}");
+pub const {{app_name | shouty_snake_case}}_ID: &str = const_format::concatcp!("{{project-name| shouty_snake_case}}", ":", "{{app_name | shouty_snake_case}}");

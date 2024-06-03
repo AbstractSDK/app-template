@@ -16,4 +16,4 @@ pub const ADAPTER_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub const {{project-name | shouty_snake_case}}_NAMESPACE: &str = "{{project-name | kebab_case}}";
 pub const {{adapter_name | shouty_snake_case}}_NAME: &str = "{{adapter_name | kebab_case}}";
-pub const {{adapter_name | shouty_snake_case}}_ID: &str = const_format::formatcp!("{{project-name | append: adapter_name | shouty_snake_case}}");
+pub const {{adapter_name | shouty_snake_case}}_ID: &str = const_format::concatcp!("{{project-name| shouty_snake_case}}", ":", "{{adapter_name | shouty_snake_case}}");
