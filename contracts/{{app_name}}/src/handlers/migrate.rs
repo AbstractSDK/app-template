@@ -1,6 +1,6 @@
 use crate::{
-    contract::{MyApp, MyAppResult},
-    msg::MyAppMigrateMsg,
+    contract::{{{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result},
+    msg::{{app_name | upper_camel_case}}MigrateMsg,
 };
 
 use abstract_app::traits::AbstractResponse;
@@ -11,8 +11,8 @@ use cosmwasm_std::{DepsMut, Env};
 pub fn migrate_handler(
     _deps: DepsMut,
     _env: Env,
-    app: MyApp,
-    _msg: MyAppMigrateMsg,
-) -> MyAppResult {
+    app: {{app_name | upper_camel_case}},
+    _msg: {{app_name | upper_camel_case}}MigrateMsg,
+) -> {{app_name | upper_camel_case}}Result {
     Ok(app.response("migrate"))
 }

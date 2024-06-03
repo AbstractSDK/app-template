@@ -1,5 +1,5 @@
 {
-  "name": "App",
+  "name": "{{app_name | upper_camel_case}}",
   "description": "App description.",
   "website": "",
   "docs": "",

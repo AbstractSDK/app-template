@@ -1,5 +1,5 @@
 use cosmwasm_schema::remove_schemas;
-use my_adapter::contract::MyAdapter;
+use {{adapter_name | snake_case}}::contract::{{adapter_name | upper_camel_case}};
 use std::env::current_dir;
 use std::fs::create_dir_all;
 
@@ -10,5 +10,5 @@ fn main() {
     remove_schemas(&out_dir).unwrap();
 
     #[cfg(feature = "schema")]
-    MyAdapter::export_schema(&out_dir);
+    {{adapter_name | upper_camel_case}}::export_schema(&out_dir);
 }

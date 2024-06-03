@@ -1,6 +1,6 @@
 use crate::{
-    contract::{MyApp, MyAppResult},
-    msg::MyAppInstantiateMsg,
+    contract::{{{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result},
+    msg::{{app_name | upper_camel_case}}InstantiateMsg,
     state::{Config, CONFIG, COUNT},
 };
 
@@ -10,9 +10,9 @@ pub fn instantiate_handler(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _app: MyApp,
-    msg: MyAppInstantiateMsg,
-) -> MyAppResult {
+    _app: {{app_name | upper_camel_case}},
+    msg: {{app_name | upper_camel_case}}InstantiateMsg,
+) -> {{app_name | upper_camel_case}}Result {
     let config: Config = Config {};
 
     CONFIG.save(deps.storage, &config)?;

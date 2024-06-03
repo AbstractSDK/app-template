@@ -7,12 +7,12 @@
 //! # Run
 //!
 //! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package my-app`
-use my_app::MY_APP_ID;
+use {{app_name | snake_case}}::{{app_name | shouty_snake_case}}_ID;
 
 use abstract_app::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_app::{msg::MyAppInstantiateMsg, MyAppInterface};
+use {{app_name | snake_case}}::{msg::{{app_name | upper_camel_case}}InstantiateMsg, {{app_name | upper_camel_case}}Interface};
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -29,7 +29,7 @@ fn main() -> anyhow::Result<()> {
         .build()
         .unwrap();
 
-    let app_namespace = Namespace::from_id(MY_APP_ID)?;
+    let app_namespace = Namespace::from_id({{app_name | shouty_snake_case}}_ID)?;
 
     // Create an [`AbstractClient`]
     // Note: AbstractClient Builder used because Abstract is not yet deployed on the chain
@@ -46,16 +46,16 @@ fn main() -> anyhow::Result<()> {
     }
 
     // Publish the App to the Abstract Platform
-    publisher.publish_app::<MyAppInterface<Daemon>>()?;
+    publisher.publish_app::<{{app_name | upper_camel_case}}Interface<Daemon>>()?;
 
     // Install the App on a new account
 
     let account = abstract_client.account_builder().build()?;
     // Installs the app on the Account
-    let app = account.install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg { count: 0 }, &[])?;
+    let app = account.install_app::<{{app_name | upper_camel_case}}Interface<_>>(&{{app_name | upper_camel_case}}InstantiateMsg { count: 0 }, &[])?;
 
     // Import app's endpoint function traits for easy interactions.
-    use my_app::msg::{MyAppExecuteMsgFns, MyAppQueryMsgFns};
+    use {{app_name | snake_case}}::msg::{{{app_name | upper_camel_case}}ExecuteMsgFns, {{app_name | upper_camel_case}}QueryMsgFns};
     assert_eq!(app.count()?.count, 0);
     // Execute the App
     app.increment()?;

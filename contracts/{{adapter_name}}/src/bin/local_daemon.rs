@@ -7,12 +7,12 @@
 //! # Run
 //!
 //! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
-use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, {{adapter_name | shouty_snake_case}}_ID};
+use {{adapter_name | snake_case}}::{contract::interface::{{adapter_name | upper_camel_case}}Interface, {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
 use abstract_client::{AbstractClient, Publisher};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_adapter::msg::MyAdapterInstantiateMsg;
+use {{adapter_name | snake_case}}::msg::{{adapter_name | upper_camel_case}}InstantiateMsg;
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -50,18 +50,18 @@ fn main() -> anyhow::Result<()> {
     );
 
     // Publish the Adapter to the Abstract Platform
-    publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<Daemon>>(
-        MyAdapterInstantiateMsg {},
+    publisher.publish_adapter::<{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}Interface<Daemon>>(
+        {{adapter_name | upper_camel_case}}InstantiateMsg {},
     )?;
 
     // Install the Adapter on a new account
 
     let account = abstract_client.account_builder().build()?;
     // Installs the adapter on the Account
-    let adapter = account.install_adapter::<MyAdapterInterface<_>>(&[])?;
+    let adapter = account.install_adapter::<{{adapter_name | upper_camel_case}}Interface<_>>(&[])?;
 
     // // Import adapter's endpoint function traits for easy interactions.
-    use my_adapter::msg::MyAdapterQueryMsgFns;
+    use {{adapter_name | snake_case}}::msg::{{adapter_name | upper_camel_case}}QueryMsgFns;
     let status_response = adapter.status(adapter.account().id()?)?;
     assert!(status_response.status.is_none());
 
@@ -70,7 +70,7 @@ fn main() -> anyhow::Result<()> {
         &AdapterRequestMsg {
             // Adapter need to know on which account action is performed
             proxy_address: Some(adapter.account().proxy()?.to_string()),
-            request: MyAdapterExecuteMsg::SetStatus {
+            request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: "new_status".to_owned(),
             },
         }

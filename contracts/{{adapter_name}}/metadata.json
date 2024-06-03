@@ -1,5 +1,5 @@
 {
-  "name": "Adapter",
+  "name": "{{adapter_name | upper_camel_case}}",
   "description": "Adapter description.",
   "website": "",
   "docs": "",

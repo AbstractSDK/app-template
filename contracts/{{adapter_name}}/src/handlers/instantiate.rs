@@ -1,6 +1,6 @@
 use crate::{
-    contract::{AdapterResult, MyAdapter},
-    msg::MyAdapterInstantiateMsg,
+    contract::{AdapterResult, {{adapter_name | upper_camel_case}}},
+    msg::{{adapter_name | upper_camel_case}}InstantiateMsg,
     state::{Config, CONFIG},
 };
 
@@ -10,8 +10,8 @@ pub fn instantiate_handler(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _adapter: MyAdapter,
-    _msg: MyAdapterInstantiateMsg,
+    _adapter: {{adapter_name | upper_camel_case}},
+    _msg: {{adapter_name | upper_camel_case}}InstantiateMsg,
 ) -> AdapterResult {
     let config: Config = Config {};
 

@@ -1,6 +1,6 @@
 use crate::{
-    contract::{AdapterResult, MyAdapter},
-    msg::{ConfigResponse, MyAdapterQueryMsg, StatusResponse},
+    contract::{AdapterResult, {{adapter_name | upper_camel_case}}},
+    msg::{ConfigResponse, {{adapter_name | upper_camel_case}}QueryMsg, StatusResponse},
     state::{CONFIG, STATUS},
 };
 
@@ -10,12 +10,12 @@ use cosmwasm_std::{to_json_binary, Binary, Deps, Env, StdResult};
 pub fn query_handler(
     deps: Deps,
     _env: Env,
-    _adapter: &MyAdapter,
-    msg: MyAdapterQueryMsg,
+    _adapter: &{{adapter_name | upper_camel_case}},
+    msg: {{adapter_name | upper_camel_case}}QueryMsg,
 ) -> AdapterResult<Binary> {
     match msg {
-        MyAdapterQueryMsg::Config {} => to_json_binary(&query_config(deps)?),
-        MyAdapterQueryMsg::Status { account_id } => {
+        {{adapter_name | upper_camel_case}}QueryMsg::Config {} => to_json_binary(&query_config(deps)?),
+        {{adapter_name | upper_camel_case}}QueryMsg::Status { account_id } => {
             to_json_binary(&query_status(deps, account_id)?)
         }
     }

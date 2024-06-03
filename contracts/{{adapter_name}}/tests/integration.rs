@@ -1,7 +1,7 @@
-use my_adapter::{
-    contract::interface::MyAdapterInterface,
-    msg::{ConfigResponse, ExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsgFns},
-    MyAdapterExecuteMsg, {{adapter_name | shouty_snake_case}}_ID, MY_NAMESPACE,
+use {{adapter_name | snake_case}}::{
+    contract::interface::{{adapter_name | upper_camel_case}}Interface,
+    msg::{ConfigResponse, ExecuteMsg, {{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}QueryMsgFns},
+    {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID, {{project_name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_adapter::std::{adapter::AdapterRequestMsg, objects::namespace::Namespace};
@@ -13,7 +13,7 @@ use cw_orch::{anyhow, prelude::*};
 struct TestEnv<Env: CwEnv> {
     publisher: Publisher<Env>,
     abs: AbstractClient<Env>,
-    adapter: Application<Env, MyAdapterInterface<Env>>,
+    adapter: Application<Env, {{adapter_name | upper_camel_case}}Interface<Env>>,
 }
 
 impl TestEnv<MockBech32> {
@@ -23,7 +23,7 @@ impl TestEnv<MockBech32> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
         let sender = mock.sender();
-        let namespace = Namespace::new(MY_NAMESPACE)?;
+        let namespace = Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.
         let abs_client = AbstractClient::builder(mock).build()?;
@@ -32,13 +32,13 @@ impl TestEnv<MockBech32> {
 
         // Publish the adapter
         let publisher = abs_client.publisher_builder(namespace).build()?;
-        publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<_>>(
-            MyAdapterInstantiateMsg {},
+        publisher.publish_adapter::<{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}Interface<_>>(
+            {{adapter_name | upper_camel_case}}InstantiateMsg {},
         )?;
 
         let adapter = publisher
             .account()
-            .install_adapter::<MyAdapterInterface<_>>(&[])?;
+            .install_adapter::<{{adapter_name | upper_camel_case}}Interface<_>>(&[])?;
 
         Ok(TestEnv {
             abs: abs_client,
@@ -67,20 +67,20 @@ fn update_config() -> anyhow::Result<()> {
     // Note that it's not a requirement to have it installed in this case
     let publisher_account = env
         .abs
-        .publisher_builder(Namespace::new(MY_NAMESPACE).unwrap())
+        .publisher_builder(Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE).unwrap())
         .build()?;
 
     adapter.execute(
         &AdapterRequestMsg {
             proxy_address: Some(publisher_account.account().proxy()?.to_string()),
-            request: MyAdapterExecuteMsg::UpdateConfig {},
+            request: {{adapter_name | upper_camel_case}}ExecuteMsg::UpdateConfig {},
         }
         .into(),
         None,
     )?;
 
     let config = adapter.config()?;
-    let expected_response = my_adapter::msg::ConfigResponse {};
+    let expected_response = {{adapter_name | snake_case}}::msg::ConfigResponse {};
     assert_eq!(config, expected_response);
 
     // Adapter installed on sub-account of the publisher so this should error
@@ -88,7 +88,7 @@ fn update_config() -> anyhow::Result<()> {
         .execute(
             &AdapterRequestMsg {
                 proxy_address: Some(adapter.account().proxy()?.to_string()),
-                request: MyAdapterExecuteMsg::UpdateConfig {},
+                request: {{adapter_name | upper_camel_case}}ExecuteMsg::UpdateConfig {},
             }
             .into(),
             None,
@@ -113,7 +113,7 @@ fn set_status() -> anyhow::Result<()> {
         {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
             proxy_address: Some(subaccount.proxy()?.to_string()),
-            request: MyAdapterExecuteMsg::SetStatus {
+            request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: first_status.clone(),
             },
         }),
@@ -122,14 +122,14 @@ fn set_status() -> anyhow::Result<()> {
     let new_account = env
         .abs
         .account_builder()
-        .install_adapter::<MyAdapterInterface<MockBech32>>()?
+        .install_adapter::<{{adapter_name | upper_camel_case}}Interface<MockBech32>>()?
         .build()?;
 
     new_account.as_ref().manager.execute_on_module(
         {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
             proxy_address: Some(new_account.proxy()?.to_string()),
-            request: MyAdapterExecuteMsg::SetStatus {
+            request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: second_status.clone(),
             },
         }),

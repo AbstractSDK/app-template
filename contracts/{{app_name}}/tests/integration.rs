@@ -1,9 +1,9 @@
-use my_app::{
-    contract::interface::MyAppInterface,
+use {{app_name | snake_case}}::{
+    contract::interface::{{app_name | upper_camel_case}}Interface,
     msg::{
-        ConfigResponse, CountResponse, MyAppExecuteMsgFns, MyAppInstantiateMsg, MyAppQueryMsgFns,
+        ConfigResponse, CountResponse, {{app_name | upper_camel_case}}ExecuteMsgFns, {{app_name | upper_camel_case}}InstantiateMsg, {{app_name | upper_camel_case}}QueryMsgFns,
     },
-    MyAppError, MY_NAMESPACE,
+    {{app_name | upper_camel_case}}Error, {{project_name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_app::objects::namespace::Namespace;
@@ -15,7 +15,7 @@ use cw_orch::{anyhow, prelude::*};
 
 struct TestEnv<Env: CwEnv> {
     abs: AbstractClient<Env>,
-    app: Application<Env, MyAppInterface<Env>>,
+    app: Application<Env, {{app_name | upper_camel_case}}Interface<Env>>,
 }
 
 impl TestEnv<MockBech32> {
@@ -24,7 +24,7 @@ impl TestEnv<MockBech32> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
         let sender = mock.sender();
-        let namespace = Namespace::new(MY_NAMESPACE)?;
+        let namespace = Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.
         let abs_client = AbstractClient::builder(mock).build()?;
@@ -33,11 +33,11 @@ impl TestEnv<MockBech32> {
 
         // Publish the app
         let publisher = abs_client.publisher_builder(namespace).build()?;
-        publisher.publish_app::<MyAppInterface<_>>()?;
+        publisher.publish_app::<{{app_name | upper_camel_case}}Interface<_>>()?;
 
         let app = publisher
             .account()
-            .install_app::<MyAppInterface<_>>(&MyAppInstantiateMsg { count: 0 }, &[])?;
+            .install_app::<{{app_name | upper_camel_case}}Interface<_>>(&{{app_name | upper_camel_case}}InstantiateMsg { count: 0 }, &[])?;
 
         Ok(TestEnv {
             abs: abs_client,
@@ -83,13 +83,13 @@ fn failed_reset() -> anyhow::Result<()> {
     let env = TestEnv::setup()?;
     let app = env.app;
 
-    let err: MyAppError = app
+    let err: {{app_name | upper_camel_case}}Error = app
         .call_as(&Addr::unchecked("NotAdmin"))
         .reset(9)
         .unwrap_err()
         .downcast()
         .unwrap();
-    assert_eq!(err, MyAppError::Admin(AdminError::NotAdmin {}));
+    assert_eq!(err, {{app_name | upper_camel_case}}Error::Admin(AdminError::NotAdmin {}));
     Ok(())
 }
 
@@ -100,7 +100,7 @@ fn update_config() -> anyhow::Result<()> {
 
     app.update_config()?;
     let config = app.config()?;
-    let expected_response = my_app::msg::ConfigResponse {};
+    let expected_response = {{app_name | snake_case}}::msg::ConfigResponse {};
     assert_eq!(config, expected_response);
     Ok(())
 }

@@ -7,8 +7,8 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
-use my_adapter::{
-    contract::interface::MyAdapterInterface, msg::MyAdapterInstantiateMsg, {{adapter_name | shouty_snake_case}}_ID,
+use {{adapter_name | snake_case}}::{
+    contract::interface::{{adapter_name | upper_camel_case}}Interface, msg::{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | shouty_snake_case}}_ID,
 };
 
 use abstract_adapter::objects::namespace::Namespace;
@@ -41,8 +41,8 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
         }
 
         // Publish the Adapter to the Abstract Platform
-        publisher.publish_adapter::<MyAdapterInstantiateMsg, MyAdapterInterface<Daemon>>(
-            MyAdapterInstantiateMsg {},
+        publisher.publish_adapter::<{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}Interface<Daemon>>(
+            {{adapter_name | upper_camel_case}}InstantiateMsg {},
         )?;
     }
     Ok(())

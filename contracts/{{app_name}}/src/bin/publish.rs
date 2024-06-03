@@ -7,13 +7,13 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
-use my_app::MY_APP_ID;
+use {{app_name | snake_case}}::{{app_name | shouty_snake_case}}_ID;
 
 use abstract_app::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
 use clap::Parser;
 use cw_orch::{anyhow, daemon::networks::parse_network, prelude::*, tokio::runtime::Runtime};
-use my_app::MyAppInterface;
+use {{app_name | snake_case}}::{{app_name | upper_camel_case}}Interface;
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network
@@ -25,7 +25,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .chain(network)
             .build()?;
 
-        let app_namespace = Namespace::from_id(MY_APP_ID)?;
+        let app_namespace = Namespace::from_id({{app_name | shouty_snake_case}}_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;
@@ -38,7 +38,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
         }
 
         // Publish the App to the Abstract Platform
-        publisher.publish_app::<MyAppInterface<Daemon>>()?;
+        publisher.publish_app::<{{app_name | upper_camel_case}}Interface<Daemon>>()?;
     }
     Ok(())
 }

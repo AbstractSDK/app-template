@@ -1,13 +1,13 @@
-use crate::contract::MyApp;
+use crate::contract::{{app_name | upper_camel_case}};
 
 use cosmwasm_schema::QueryResponses;
 
 // This is used for type safety and re-exporting the contract endpoint structs.
-abstract_app::app_msg_types!(MyApp, MyAppExecuteMsg, MyAppQueryMsg);
+abstract_app::app_msg_types!({{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}ExecuteMsg, {{app_name | upper_camel_case}}QueryMsg);
 
 /// App instantiate message
 #[cosmwasm_schema::cw_serde]
-pub struct MyAppInstantiateMsg {
+pub struct {{app_name | upper_camel_case}}InstantiateMsg {
     pub count: i32,
 }
 
@@ -15,7 +15,7 @@ pub struct MyAppInstantiateMsg {
 #[cosmwasm_schema::cw_serde]
 #[derive(cw_orch::ExecuteFns)]
 #[impl_into(ExecuteMsg)]
-pub enum MyAppExecuteMsg {
+pub enum {{app_name | upper_camel_case}}ExecuteMsg {
     UpdateConfig {},
     /// Increment count by 1
     Increment {},
@@ -27,13 +27,13 @@ pub enum MyAppExecuteMsg {
 }
 
 #[cosmwasm_schema::cw_serde]
-pub struct MyAppMigrateMsg {}
+pub struct {{app_name | upper_camel_case}}MigrateMsg {}
 
 /// App query messages
 #[cosmwasm_schema::cw_serde]
 #[derive(QueryResponses, cw_orch::QueryFns)]
 #[impl_into(QueryMsg)]
-pub enum MyAppQueryMsg {
+pub enum {{app_name | upper_camel_case}}QueryMsg {
     #[returns(ConfigResponse)]
     Config {},
     #[returns(CountResponse)]
