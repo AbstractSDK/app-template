@@ -1,25 +1,3 @@
-[template]
-# Don't include any contracts by default
-ignore = ["contracts/*"]
-
 [placeholders]
-include_app = { prompt = "Generate app?", choices = [
-    "Yes",
-    "No",
-], default = "Yes", type = "string" }
-include_adapter = { prompt = "Generate adapter?", choices = [
-    "Yes",
-    "No",
-], default = "Yes", type = "string" }
-
-# If app included add files and ask for name
-[conditional.'include_app == "Yes"']
-include = ["contracts/{{app_name | kebab_case}}"]
-[conditional.'include_app == "Yes"'.placeholders]
 app_name = { prompt = "Enter app name", default = "my_app", type = "string" }
-
-# If adapter included add files and ask for name
-[conditional.'include_adapter == "Yes"']
-include = ["contracts/{{adapter_name | kebab_case}}"]
-[conditional.'include_adapter == "Yes"'.placeholders]
 adapter_name = { prompt = "Enter adapter name", default = "my_adapter", type = "string" }

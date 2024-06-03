@@ -14,3 +14,4 @@ state.json
 typescript/node_modules
 
 contracts/**/schema
+schema/
