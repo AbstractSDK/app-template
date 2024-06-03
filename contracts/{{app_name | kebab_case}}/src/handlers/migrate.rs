@@ -1,5 +1,7 @@
 use crate::{
-    contract::{{{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result},
+    contract::{
+        {{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result
+    },
     msg::{{app_name | upper_camel_case}}MigrateMsg,
 };
 

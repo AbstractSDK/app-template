@@ -55,7 +55,9 @@ fn main() -> anyhow::Result<()> {
     let app = account.install_app::<{{app_name | upper_camel_case}}Interface<_>>(&{{app_name | upper_camel_case}}InstantiateMsg { count: 0 }, &[])?;
 
     // Import app's endpoint function traits for easy interactions.
-    use {{app_name | snake_case}}::msg::{{{app_name | upper_camel_case}}ExecuteMsgFns, {{app_name | upper_camel_case}}QueryMsgFns};
+    use {{app_name | snake_case}}::msg::{
+        {{app_name | upper_camel_case}}ExecuteMsgFns, {{app_name | upper_camel_case}}QueryMsgFns
+    };
     assert_eq!(app.count()?.count, 0);
     // Execute the App
     app.increment()?;

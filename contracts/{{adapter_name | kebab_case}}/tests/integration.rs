@@ -1,7 +1,7 @@
 use {{adapter_name | snake_case}}::{
     contract::interface::{{adapter_name | upper_camel_case}}Interface,
     msg::{ConfigResponse, ExecuteMsg, {{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}QueryMsgFns},
-    {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID, {{project_name | shouty_snake_case}}_NAMESPACE,
+    {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID, {{project-name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_adapter::std::{adapter::AdapterRequestMsg, objects::namespace::Namespace};
@@ -23,7 +23,7 @@ impl TestEnv<MockBech32> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
         let sender = mock.sender();
-        let namespace = Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE)?;
+        let namespace = Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.
         let abs_client = AbstractClient::builder(mock).build()?;
@@ -67,7 +67,7 @@ fn update_config() -> anyhow::Result<()> {
     // Note that it's not a requirement to have it installed in this case
     let publisher_account = env
         .abs
-        .publisher_builder(Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE).unwrap())
+        .publisher_builder(Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE).unwrap())
         .build()?;
 
     adapter.execute(

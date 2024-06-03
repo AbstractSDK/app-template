@@ -3,7 +3,7 @@ use {{app_name | snake_case}}::{
     msg::{
         ConfigResponse, CountResponse, {{app_name | upper_camel_case}}ExecuteMsgFns, {{app_name | upper_camel_case}}InstantiateMsg, {{app_name | upper_camel_case}}QueryMsgFns,
     },
-    {{app_name | upper_camel_case}}Error, {{project_name | shouty_snake_case}}_NAMESPACE,
+    {{app_name | upper_camel_case}}Error, {{project-name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_app::objects::namespace::Namespace;
@@ -24,7 +24,7 @@ impl TestEnv<MockBech32> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
         let sender = mock.sender();
-        let namespace = Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE)?;
+        let namespace = Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.
         let abs_client = AbstractClient::builder(mock).build()?;

@@ -2,7 +2,7 @@ use crate::{
     contract::{AdapterResult, {{adapter_name | upper_camel_case}}},
     msg::{{adapter_name | upper_camel_case}}ExecuteMsg,
     state::{CONFIG, STATUS},
-    {{adapter_name | upper_camel_case}}Error, {{project_name | shouty_snake_case}}_NAMESPACE,
+    {{adapter_name | upper_camel_case}}Error, {{project-name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_adapter::{
@@ -30,7 +30,7 @@ fn update_config(deps: DepsMut, _msg_info: MessageInfo, adapter: {{adapter_name 
     // Only admin(namespace owner) can change recipient address
     let namespace = adapter
         .module_registry(deps.as_ref())?
-        .query_namespace(Namespace::new({{project_name | shouty_snake_case}}_NAMESPACE)?)?;
+        .query_namespace(Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE)?)?;
 
     // unwrap namespace, since it's unlikely to have unclaimed namespace as this adapter installed
     let namespace_info = namespace.unwrap();

@@ -1,5 +1,7 @@
 use crate::{
-    contract::{{{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result},
+    contract::{
+        {{app_name | upper_camel_case}}, {{app_name | upper_camel_case}}Result
+    },
     msg::{ConfigResponse, CountResponse, {{app_name | upper_camel_case}}QueryMsg},
     state::{CONFIG, COUNT},
 };

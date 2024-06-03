@@ -1,5 +1,7 @@
 use crate::{
-    msg::{{{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | upper_camel_case}}QueryMsg},
+    msg::{
+        {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | upper_camel_case}}QueryMsg
+    },
     {{adapter_name | shouty_snake_case}}_ID,
 };
 

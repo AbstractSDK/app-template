@@ -1,3 +1,4 @@
 [placeholders]
+# project_name = { prompt = "Enter project name", default = "my_project", type = "string" }
 app_name = { prompt = "Enter app name", default = "my_app", type = "string" }
 adapter_name = { prompt = "Enter adapter name", default = "my_adapter", type = "string" }

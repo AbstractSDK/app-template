@@ -1,7 +1,9 @@
 use crate::{
     error::{{adapter_name | upper_camel_case}}Error,
     handlers,
-    msg::{{{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}QueryMsg},
+    msg::{
+        {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | upper_camel_case}}QueryMsg
+    },
     ADAPTER_VERSION, {{adapter_name | shouty_snake_case}}_ID,
 };
 
