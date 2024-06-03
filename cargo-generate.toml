@@ -8,7 +8,8 @@ include_adapter = { prompt = "Generate adapter?", choices = [
     "No",
 ], default = "Yes", type = "string" }
 
-[conditional.'include_app == "Yes"']
+[conditional.'include_app == "Yes"'.placeholders]
 app_name = { prompt = "Enter app name", default = "my_app", type = "string" }
-[conditional.'include_adapter == "Yes"']
+
+[conditional.'include_adapter == "Yes"'.placeholders]
 adapter_name = { prompt = "Enter adapter name", default = "my_adapter", type = "string" }
