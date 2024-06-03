@@ -14,8 +14,12 @@ panic = 'abort'
 incremental = false
 
 [workspace.dependencies]
-{{app_name | kebab_case}} = { path = "contracts/{{app_name | kebab_case}}" }
-{{adapter_name | kebab_case}} = { path = "contracts/{{adapter_name | kebab_case}}" }
+{% if include_app == "Yes" %}
+    {{app_name | kebab_case}} = { path = "contracts/{{app_name | kebab_case}}" }
+{% endif %}
+{% if include_adapter == "Yes" %}
+    {{adapter_name | kebab_case}} = { path = "contracts/{{adapter_name | kebab_case}}" }
+{% endif %}
 cosmwasm-std = { version = "1.5.3" }
 cosmwasm-schema = { version = "1.5.3" }
 cw-controllers = { version = "1.1.2" }

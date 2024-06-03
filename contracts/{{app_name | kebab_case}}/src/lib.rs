@@ -8,7 +8,7 @@ pub mod state;
 pub use error::{{app_name | upper_camel_case}}Error;
 
 /// The version of your app
-pub const {{app_name | shouty_snake_case}}_VERSION: &str = env!("CARGO_PKG_VERSION");
+pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub use contract::interface::{{app_name | upper_camel_case}}Interface;
 

@@ -1,4 +1,14 @@
 [placeholders]
-# project_name = { prompt = "Enter project name", default = "my_project", type = "string" }
+include_app = { prompt = "Generate app?", choices = [
+    "Yes",
+    "No",
+], default = "Yes", type = "string" }
+include_adapter = { prompt = "Generate adapter?", choices = [
+    "Yes",
+    "No",
+], default = "Yes", type = "string" }
+
+[conditional.'include_app == "Yes"']
 app_name = { prompt = "Enter app name", default = "my_app", type = "string" }
+[conditional.'include_adapter == "Yes"']
 adapter_name = { prompt = "Enter adapter name", default = "my_adapter", type = "string" }
