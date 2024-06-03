@@ -1,5 +1,5 @@
 [package]
-name = "my-app"
+name = "{{app_name}}"
 version = "0.0.1"
 authors = [
   "CyberHoward <cyberhoward@protonmail.com>",
@@ -65,6 +65,6 @@ dotenv = { workspace = true, optional = true }
 env_logger = { workspace = true, optional = true }
 
 [dev-dependencies]
-my-app = { workspace = true }
+{{app_name}} = { workspace = true }
 abstract-client = { workspace = true }
 abstract-app = { workspace = true, features = ["test-utils"] }
