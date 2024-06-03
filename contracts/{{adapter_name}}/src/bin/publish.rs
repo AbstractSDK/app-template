@@ -8,7 +8,7 @@
 //! $ just publish uni-6 osmo-test-5
 //! ```
 use my_adapter::{
-    contract::interface::MyAdapterInterface, msg::MyAdapterInstantiateMsg, MY_ADAPTER_ID,
+    contract::interface::MyAdapterInterface, msg::MyAdapterInstantiateMsg, {{adapter_name | shouty_snake_case}}_ID,
 };
 
 use abstract_adapter::objects::namespace::Namespace;
@@ -26,7 +26,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .chain(network)
             .build()?;
 
-        let adapter_namespace = Namespace::from_id(MY_ADAPTER_ID)?;
+        let adapter_namespace = Namespace::from_id({{adapter_name | shouty_snake_case}}_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;

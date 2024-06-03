@@ -2,7 +2,7 @@ use crate::{
     error::MyAdapterError,
     handlers,
     msg::{MyAdapterExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsg},
-    ADAPTER_VERSION, MY_ADAPTER_ID,
+    ADAPTER_VERSION, {{adapter_name | shouty_snake_case}}_ID,
 };
 
 use abstract_adapter::AdapterContract;
@@ -18,7 +18,7 @@ pub type MyAdapter = AdapterContract<
 /// The type of the result returned by your Adapter's entry points.
 pub type AdapterResult<T = Response> = Result<T, MyAdapterError>;
 
-const MY_ADAPTER: MyAdapter = MyAdapter::new(MY_ADAPTER_ID, ADAPTER_VERSION, None)
+const MY_ADAPTER: MyAdapter = MyAdapter::new({{adapter_name | shouty_snake_case}}_ID, ADAPTER_VERSION, None)
     .with_instantiate(handlers::instantiate_handler)
     .with_execute(handlers::execute_handler)
     .with_query(handlers::query_handler);

@@ -1,6 +1,6 @@
 use crate::{
     msg::{MyAdapterExecuteMsg, MyAdapterQueryMsg},
-    MY_ADAPTER_ID,
+    {{adapter_name | shouty_snake_case}}_ID,
 };
 
 use abstract_adapter::sdk::{
@@ -19,7 +19,7 @@ pub trait MyAdapterApi: AccountIdentification + Dependencies + ModuleIdentificat
         MyAdapter {
             base: self,
             deps,
-            module_id: MY_ADAPTER_ID,
+            module_id: {{adapter_name | shouty_snake_case}}_ID,
         }
     }
 }

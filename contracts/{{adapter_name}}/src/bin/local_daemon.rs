@@ -7,7 +7,7 @@
 //! # Run
 //!
 //! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
-use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, MY_ADAPTER_ID};
+use my_adapter::{contract::interface::MyAdapterInterface, MyAdapterExecuteMsg, {{adapter_name | shouty_snake_case}}_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
 use abstract_client::{AbstractClient, Publisher};
@@ -29,7 +29,7 @@ fn main() -> anyhow::Result<()> {
         .build()
         .unwrap();
 
-    let adapter_namespace = Namespace::from_id(MY_ADAPTER_ID)?;
+    let adapter_namespace = Namespace::from_id({{adapter_name | shouty_snake_case}}_ID)?;
 
     // Create an [`AbstractClient`]
     // Note: AbstractClient Builder used because Abstract is not yet deployed on the chain

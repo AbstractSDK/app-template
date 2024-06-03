@@ -1,7 +1,7 @@
 use my_adapter::{
     contract::interface::MyAdapterInterface,
     msg::{ConfigResponse, ExecuteMsg, MyAdapterInstantiateMsg, MyAdapterQueryMsgFns},
-    MyAdapterExecuteMsg, MY_ADAPTER_ID, MY_NAMESPACE,
+    MyAdapterExecuteMsg, {{adapter_name | shouty_snake_case}}_ID, MY_NAMESPACE,
 };
 
 use abstract_adapter::std::{adapter::AdapterRequestMsg, objects::namespace::Namespace};
@@ -110,7 +110,7 @@ fn set_status() -> anyhow::Result<()> {
     let subaccount = &env.publisher.account().sub_accounts()?[0];
 
     subaccount.as_ref().manager.execute_on_module(
-        MY_ADAPTER_ID,
+        {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
             proxy_address: Some(subaccount.proxy()?.to_string()),
             request: MyAdapterExecuteMsg::SetStatus {
@@ -126,7 +126,7 @@ fn set_status() -> anyhow::Result<()> {
         .build()?;
 
     new_account.as_ref().manager.execute_on_module(
-        MY_ADAPTER_ID,
+        {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
             proxy_address: Some(new_account.proxy()?.to_string()),
             request: MyAdapterExecuteMsg::SetStatus {
