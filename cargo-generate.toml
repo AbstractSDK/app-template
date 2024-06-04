@@ -1,3 +1,9 @@
+[template]
+ignore = [".github"]
+
+[hooks]
+post = ["post-script.rhai"]
+
 [placeholders]
 app_name = { prompt = "Enter App Name", default = "my_app", type = "string" }
 adapter_name = { prompt = "Enter Adapter Name", default = "my_adapter", type = "string" }
