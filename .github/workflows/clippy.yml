@@ -1,0 +1,23 @@
+permissions:
+  contents: read
+on:
+  push:
+    branches: [main]
+  pull_request:
+name: check
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    name: stable / fmt
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - name: install cargo-generate
+        run: cargo install cargo-generate --locked
+      - name: cargo clippy
+        run: CARGO_GENERATE_TEST_CMD="cargo clippy --all-features -- -D warnings" cargo generate --test
