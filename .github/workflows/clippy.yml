@@ -20,4 +20,4 @@ jobs:
       - name: install cargo-generate
         run: cargo install cargo-generate --locked
       - name: cargo clippy
-        run: CARGO_GENERATE_TEST_CMD="cargo clippy --all-features -- -D warnings" cargo generate --test
+        run: CARGO_GENERATE_TEST_CMD="cargo clippy --all-features -- -D warnings" cargo generate -d app_name=my_app -d adapter_name=my_adapter --test

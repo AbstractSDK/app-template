@@ -20,8 +20,7 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.toolchain }}
-      - name: cargo generate-lockfile
-        if: hashFiles('Cargo.lock') == ''
-        run: cargo generate-lockfile
+      - name: install cargo-generate
+        run: cargo install cargo-generate --locked
       - name: cargo test --locked
-        run: cargo test --locked --all-features --all-targets
+        run: CARGO_GENERATE_TEST_CMD="cargo test --locked --all-features --all-targets" cargo generate -d app_name=my_app -d adapter_name=my_adapter --test
