@@ -21,4 +21,6 @@ jobs:
       - name: install cargo-generate
         run: cargo install cargo-generate --locked
       - name: cargo test --locked
-        run: CARGO_GENERATE_TEST_CMD="cargo test --all-features --all-targets" cargo generate -d app_name=my_app -d adapter_name=my_adapter --test
+        run: |
+          CARGO_GENERATE_TEST_CMD="cargo test --all-features --all-targets" \
+          cargo generate -d include_app=true -d include_adapter=true -d app_name=my_app -d adapter_name=my_adapter --test

@@ -1,9 +1,21 @@
 [template]
-ignore = [".github"]
+ignore = [".github", "artifacts", "target"]
 
 [hooks]
 post = ["post-script.rhai"]
 
 [placeholders]
+include_app = { prompt = "Include App", default = true, type = "bool" }
+include_adapter = { prompt = "Include Adapter", default = true, type = "bool" }
+
+[conditional.'include_app'.placeholders]
 app_name = { prompt = "Enter App Name", default = "my_app", type = "string" }
+
+[conditional.'include_adapter'.placeholders]
 adapter_name = { prompt = "Enter Adapter Name", default = "my_adapter", type = "string" }
+
+# Ignore files if not included
+[conditional.'!include_app']
+ignore = ["contracts/{{app_name}}"]
+[conditional.'!include_adapter']
+ignore = ["contracts/{{adapter_name}}"]
