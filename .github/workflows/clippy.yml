@@ -6,9 +6,9 @@ on:
   pull_request:
 name: check
 jobs:
-  fmt:
+  clippy:
     runs-on: ubuntu-latest
-    name: stable / fmt
+    name: stable / clippy
     steps:
       - uses: actions/checkout@v4
         with:

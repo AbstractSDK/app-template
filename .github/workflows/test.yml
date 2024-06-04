@@ -22,5 +22,5 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
       - name: install cargo-generate
         run: cargo install cargo-generate --locked
-      - name: cargo test --locked
-        run: CARGO_GENERATE_TEST_CMD="cargo test --locked --all-features --all-targets" cargo generate -d app_name=my_app -d adapter_name=my_adapter --test
+      - name: cargo test
+        run: CARGO_GENERATE_TEST_CMD="cargo test --all-features --all-targets" cargo generate -d app_name=my_app -d adapter_name=my_adapter --test
