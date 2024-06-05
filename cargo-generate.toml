@@ -5,8 +5,8 @@ ignore = [".github", "artifacts", "target"]
 post = ["post-script.rhai"]
 
 [placeholders]
-include_app = { prompt = "Include App", default = true, type = "bool" }
-include_adapter = { prompt = "Include Adapter", default = true, type = "bool" }
+include_app = { prompt = "Include App Module", default = true, type = "bool" }
+include_adapter = { prompt = "Include Adapter Module", default = true, type = "bool" }
 
 [conditional.'include_app'.placeholders]
 app_name = { prompt = "Enter App Name", default = "my_app", type = "string" }
