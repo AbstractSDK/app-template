@@ -8,31 +8,31 @@ This template includes examples for both an app and adapter in a workspace.
 
 ### Requirements
 
+[cargo-generate](https://github.com/cargo-generate/cargo-generate)
+
 Learn more about the requirements for developing Abstract apps in the [getting started documentation](https://docs.abstract.money/4_get_started/1_index.html).
 
 ### Setup
 
-To get started, clone this repository and run the following command:
+To get started, the following commands:
 
 ```shell
-chmod +x ./template-setup.sh
+cargo generate --git https://github.com/AbstractSDK/app-template.git
+```
+
+It will prompt Project Name(will be used for namespace), App Name and Adapter Name.
+
+```shell
+cd {{project-name}}
+```
+
+to go to your newly created project and finish setup by running the following command:
+
+```shell
 ./template-setup.sh
 ```
 
 The setup will suggest you to install a few tools that are used in the template. You can skip this step if you already have them installed or if you're not planning on using them.
-
-### Updating Names
-
-We recommend updating the names of the packages and variables to be custom to your application. You should be able to do this easily with a global replace.
-
-For example:
-
-- ~~my-app~~ -> ibcmail-client
-- ~~my_app~~ -> ibcmail_client
-- ~~MyApp~~ -> IbcMailClient
-- ~~my-adapter~~ -> ibcmail-server
-- ~~my_adapter~~ -> ibcmail_server
-- ~~MyAdapter~~ -> IbcMailServer
 
 ## Using the Justfile
 
@@ -54,7 +54,7 @@ Here are some of the tasks available in the `justfile`:
 - `lintfix`: Fix linting errors automatically.
 - `watch`: Watch the codebase and run `cargo check` on changes.
 - `watch-test`: Watch the codebase and run tests on changes.
-- `publish {{chain-id}}`: Publish the App to a network.
+- `publish CHAIN_ID`: Publish the App to a network.
 - `schema`: Generate the json schemas for the contract
 <!-- - `ts-codegen`: Generate the typescript app code for the contract -->
 <!-- - `ts-publish`: Publish the typescript app code to npm -->
@@ -88,7 +88,7 @@ Before attempting to publish your app you need to add your mnemonic to the `.env
 <!-- It's also assumed that you have an account and module namespace claimed with this account before publishing. You can read how to do that [here](https://docs.abstract.money/4_get_started/5_abstract_client.html). -->
 Select from a wide range of [supported chains](https://orchestrator.abstract.money/chains/index.html) before proceeding. Make sure you've some balance enough to pay gas for the transaction.
 
-You can now use `just publish {{chain-id}}` to run the [`examples/publish.rs`](./examples/publish.rs) script. The script will publish the app to the networks that you provided. Make sure you have enough funds in your wallet on the different networks you aim to publish on.
+You can now use `just publish CHAIN_ID` to run the [`examples/publish.rs`](./examples/publish.rs) script. The script will publish the app to the networks that you provided. Make sure you have enough funds in your wallet on the different networks you aim to publish on.
 
 ### Publishing Module Schemas
 
@@ -100,7 +100,7 @@ Please install [github cli](https://cli.github.com/) before proceeding. Also log
 just publish-schemas <namespace> <name> <version>
 ```
 
-- `namespace`: Your module's namespace
+- `namespace`: Your module's namespace({{project-name}})
 - `name`: Your module's name
 - `version`: Your module's version. Note that if you only include the minor version (e.g., `0.1`), you don't have to reupload the schemas for every patch version.
 

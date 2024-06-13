@@ -1,0 +1,9 @@
+{
+  "name": "{{adapter_name | upper_camel_case}}",
+  "description": "Adapter description.",
+  "website": "",
+  "docs": "",
+  "type": "adapter",
+  "icon": "GiTrade",
+  "enabled": true
+}
