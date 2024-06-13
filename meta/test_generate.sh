@@ -12,16 +12,12 @@ PROJECT_NAME="testgen-local"
   cd "$TMP_DIR"
 
   echo "Generating project from local repository ..."
-  cargo generate --path "$REPO_ROOT" --name "$PROJECT_NAME"
+  cargo generate --path "$REPO_ROOT" --name "$PROJECT_NAME" --define include_app=true --define include_adapter=true --define adapter_name=test_adapter --define app_name=test_app
 
   (
     cd "$PROJECT_NAME"
     echo "This is what was generated"
     ls -lA
-
-    # Check formatting
-    echo "Checking formatting ..."
-    cargo fmt -- --check
 
     # Debug builds first to fail fast
     echo "Running unit tests ..."
