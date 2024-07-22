@@ -7,13 +7,13 @@
 //! ```bash
 //! $ just publish uni-6 osmo-test-5
 //! ```
-use my_standalone::MY_STANDALONE_ID;
+use {{standalone_name | snake_case}}::{{standalone_name | shouty_snake_case}}_ID;
 
 use abstract_client::{AbstractClient, Publisher};
 use abstract_standalone::objects::namespace::Namespace;
 use clap::Parser;
 use cw_orch::{anyhow, daemon::networks::parse_network, prelude::*, tokio::runtime::Runtime};
-use my_standalone::MyStandaloneInterface;
+use {{standalone_name | snake_case}}::{{standalone_name | upper_camel_case}}Interface;
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network
@@ -25,7 +25,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .chain(network)
             .build()?;
 
-        let standalone_namespace = Namespace::from_id(MY_STANDALONE_ID)?;
+        let standalone_namespace = Namespace::from_id({{standalone_name | shouty_snake_case}}_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;
@@ -40,7 +40,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
         }
 
         // Publish the Standalone to the Abstract Platform
-        publisher.publish_standalone::<MyStandaloneInterface<Daemon>>()?;
+        publisher.publish_standalone::<{{standalone_name | upper_camel_case}}Interface<Daemon>>()?;
     }
     Ok(())
 }

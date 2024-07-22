@@ -6,7 +6,7 @@ use cosmwasm_schema::QueryResponses;
 
 /// Standalone instantiate message
 #[cosmwasm_schema::cw_serde]
-pub struct MyStandaloneInstantiateMsg {
+pub struct {{standalone_name | upper_camel_case}}InstantiateMsg {
     // This field will get auto-filled by module factory
     pub base: standalone::StandaloneInstantiateMsg,
     pub count: i32,
@@ -15,7 +15,7 @@ pub struct MyStandaloneInstantiateMsg {
 /// Standalone execute messages
 #[cosmwasm_schema::cw_serde]
 #[derive(cw_orch::ExecuteFns)]
-pub enum MyStandaloneExecuteMsg {
+pub enum {{standalone_name | upper_camel_case}}ExecuteMsg {
     UpdateConfig {},
     /// Increment count by 1
     Increment {},
@@ -35,12 +35,12 @@ pub enum MyStandaloneExecuteMsg {
 }
 
 #[cosmwasm_schema::cw_serde]
-pub struct MyStandaloneMigrateMsg {}
+pub struct {{standalone_name | upper_camel_case}}MigrateMsg {}
 
 /// Standalone query messages
 #[cosmwasm_schema::cw_serde]
 #[derive(QueryResponses, cw_orch::QueryFns)]
-pub enum MyStandaloneQueryMsg {
+pub enum {{standalone_name | upper_camel_case}}QueryMsg {
     #[returns(ConfigResponse)]
     Config {},
     #[returns(CountResponse)]

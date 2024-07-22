@@ -6,7 +6,7 @@ use cw_controllers::AdminError;
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq)]
-pub enum MyStandaloneError {
+pub enum {{standalone_name | upper_camel_case}}Error {
     #[error("{0}")]
     Std(#[from] StdError),
 

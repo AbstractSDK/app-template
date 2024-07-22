@@ -1,10 +1,10 @@
 use cw_controllers::AdminError;
-use my_standalone::{
+use {{standalone_name | snake_case}}::{
     msg::{
-        ConfigResponse, CountResponse, MyStandaloneExecuteMsgFns, MyStandaloneInstantiateMsg,
-        MyStandaloneQueryMsgFns,
+        ConfigResponse, CountResponse, {{standalone_name | upper_camel_case}}ExecuteMsgFns, {{standalone_name | upper_camel_case}}InstantiateMsg,
+        {{standalone_name | upper_camel_case}}QueryMsgFns,
     },
-    MyStandaloneError, MyStandaloneInterface, MY_NAMESPACE,
+    {{standalone_name | upper_camel_case}}Error, {{standalone_name | upper_camel_case}}Interface, {{project-name | shouty_snake_case}}_NAMESPACE,
 };
 
 use abstract_client::{AbstractClient, Application, Environment};
@@ -15,7 +15,7 @@ use cw_orch::{anyhow, prelude::*};
 
 struct TestEnv<Env: CwEnv> {
     abs: AbstractClient<Env>,
-    standalone: Application<Env, MyStandaloneInterface<Env>>,
+    standalone: Application<Env, {{standalone_name | upper_camel_case}}Interface<Env>>,
 }
 
 impl TestEnv<MockBech32> {
@@ -23,8 +23,8 @@ impl TestEnv<MockBech32> {
     fn setup() -> anyhow::Result<TestEnv<MockBech32>> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
-        let sender = mock.sender();
-        let namespace = Namespace::new(MY_NAMESPACE)?;
+        let sender = mock.sender_addr();
+        let namespace = Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.
         let abs_client = AbstractClient::builder(mock).build()?;
@@ -33,12 +33,12 @@ impl TestEnv<MockBech32> {
 
         // Publish the standalone
         let publisher = abs_client.publisher_builder(namespace).build()?;
-        publisher.publish_standalone::<MyStandaloneInterface<_>>()?;
+        publisher.publish_standalone::<{{standalone_name | upper_camel_case}}Interface<_>>()?;
 
         let standalone = publisher
             .account()
-            .install_standalone::<MyStandaloneInterface<_>>(
-                &MyStandaloneInstantiateMsg {
+            .install_standalone::<{{standalone_name | upper_camel_case}}Interface<_>>(
+                &{{standalone_name | upper_camel_case}}InstantiateMsg {
                     base: standalone::StandaloneInstantiateMsg {
                         ans_host_address: abs_client.name_service().addr_str()?,
                         version_control_address: abs_client.version_control().addr_str()?,
@@ -94,7 +94,7 @@ fn update_config() -> anyhow::Result<()> {
 
     standalone.update_config()?;
     let config = standalone.config()?;
-    let expected_response = my_standalone::msg::ConfigResponse {};
+    let expected_response = {{standalone_name | snake_case}}::msg::ConfigResponse {};
     assert_eq!(config, expected_response);
     Ok(())
 }
@@ -125,12 +125,12 @@ fn failed_reset() -> anyhow::Result<()> {
     let env = TestEnv::setup()?;
     let standalone = env.standalone;
 
-    let err: MyStandaloneError = standalone
+    let err: {{standalone_name | upper_camel_case}}Error = standalone
         .call_as(&Addr::unchecked("NotAdmin"))
         .reset(9)
         .unwrap_err()
         .downcast()
         .unwrap();
-    assert_eq!(err, MyStandaloneError::Admin(AdminError::NotAdmin {}));
+    assert_eq!(err, {{standalone_name | upper_camel_case}}Error::Admin(AdminError::NotAdmin {}));
     Ok(())
 }

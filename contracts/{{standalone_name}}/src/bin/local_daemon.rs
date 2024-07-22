@@ -6,13 +6,13 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package my-standalone`
-use my_standalone::MY_STANDALONE_ID;
+//! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package "{{standalone_name | kebab_case}}"`
+use {{standalone_name | snake_case}}::{{standalone_name | shouty_snake_case}}_ID;
 
 use abstract_client::{AbstractClient, Publisher};
 use abstract_standalone::{objects::namespace::Namespace, std::standalone};
 use cw_orch::{anyhow, prelude::*, tokio::runtime::Runtime};
-use my_standalone::{msg::MyStandaloneInstantiateMsg, MyStandaloneInterface};
+use {{standalone_name | snake_case}}::{msg::{{standalone_name | upper_camel_case}}InstantiateMsg, {{standalone_name | upper_camel_case}}Interface};
 
 const LOCAL_MNEMONIC: &str = "clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose";
 
@@ -29,7 +29,7 @@ fn main() -> anyhow::Result<()> {
         .build()
         .unwrap();
 
-    let standalone_namespace = Namespace::from_id(MY_STANDALONE_ID)?;
+    let standalone_namespace = Namespace::from_id({{standalone_name | shouty_snake_case}}_ID)?;
 
     // Create an [`AbstractClient`]
     // Note: AbstractClient Builder used because Abstract is not yet deployed on the chain
@@ -48,14 +48,14 @@ fn main() -> anyhow::Result<()> {
     }
 
     // Publish the Standalone to the Abstract Platform
-    publisher.publish_standalone::<MyStandaloneInterface<Daemon>>()?;
+    publisher.publish_standalone::<{{standalone_name | upper_camel_case}}Interface<Daemon>>()?;
 
     // Install the Standalone on a new account
 
     let account = abstract_client.account_builder().build()?;
     // Installs the standalone on the Account
-    let standalone = account.install_standalone::<MyStandaloneInterface<_>>(
-        &MyStandaloneInstantiateMsg {
+    let standalone = account.install_standalone::<{{standalone_name | upper_camel_case}}Interface<_>>(
+        &{{standalone_name | upper_camel_case}}InstantiateMsg {
             base: standalone::StandaloneInstantiateMsg {
                 ans_host_address: abstract_client.name_service().addr_str()?,
                 version_control_address: abstract_client.version_control().addr_str()?,
@@ -66,7 +66,9 @@ fn main() -> anyhow::Result<()> {
     )?;
 
     // Import standalone's endpoint function traits for easy interactions.
-    use my_standalone::msg::{MyStandaloneExecuteMsgFns, MyStandaloneQueryMsgFns};
+    use {{standalone_name | snake_case}}::msg::{
+        {{standalone_name | upper_camel_case}}ExecuteMsgFns, {{standalone_name | upper_camel_case}}QueryMsgFns
+    };
 
     assert_eq!(standalone.count()?.count, 0);
     // Execute the Standalone
