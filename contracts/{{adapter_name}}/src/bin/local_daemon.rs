@@ -22,8 +22,7 @@ fn main() -> anyhow::Result<()> {
 
     let runtime = Runtime::new()?;
 
-    let daemon = Daemon::builder()
-        .chain(networks::LOCAL_JUNO)
+    let daemon = Daemon::builder(networks::LOCAL_JUNO)
         .mnemonic(LOCAL_MNEMONIC)
         .handle(runtime.handle())
         .build()
@@ -45,7 +44,7 @@ fn main() -> anyhow::Result<()> {
     // Ensure the current sender owns the namespace
     assert_eq!(
         publisher.account().owner()?,
-        daemon.sender(),
+        daemon.sender_addr(),
         "The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace."
     );
 

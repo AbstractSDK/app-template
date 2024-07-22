@@ -22,7 +22,6 @@ pub enum {{adapter_name | upper_camel_case}}ExecuteMsg {
 /// Adapter query messages
 #[cosmwasm_schema::cw_serde]
 #[derive(QueryResponses, cw_orch::QueryFns)]
-#[impl_into(QueryMsg)]
 pub enum {{adapter_name | upper_camel_case}}QueryMsg {
     #[returns(StatusResponse)]
     Status { account_id: AccountId },

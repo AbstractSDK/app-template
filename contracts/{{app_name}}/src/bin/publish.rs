@@ -20,9 +20,8 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     for network in networks {
         // Setup
         let rt = Runtime::new()?;
-        let chain = DaemonBuilder::default()
+        let chain = DaemonBuilder::new(network)
             .handle(rt.handle())
-            .chain(network)
             .build()?;
 
         let app_namespace = Namespace::from_id({{app_name | shouty_snake_case}}_ID)?;
@@ -33,7 +32,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
         // Get the [`Publisher`] that owns the namespace, otherwise create a new one and claim the namespace
         let publisher: Publisher<_> = abstract_client.publisher_builder(app_namespace).build()?;
 
-        if publisher.account().owner()? != chain.sender() {
+        if publisher.account().owner()? != chain.sender_addr() {
             panic!("The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace.")
         }
 
