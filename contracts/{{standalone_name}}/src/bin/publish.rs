@@ -5,7 +5,7 @@
 //! ## Example
 //!
 //! ```bash
-//! $ just publish uni-6 osmo-test-5
+//! $ just publish {{standalone_name | kebab_case}} uni-6 osmo-test-5
 //! ```
 use {{standalone_name | snake_case}}::{{standalone_name | shouty_snake_case}}_ID;
 

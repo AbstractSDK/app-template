@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package my-app`
+//! `RUST_LOG=info cargo run --bin --features="daemon-bin" local_daemon --package {{app_name | kebab_case}}`
 use {{app_name | snake_case}}::{{app_name | shouty_snake_case}}_ID;
 
 use abstract_app::objects::namespace::Namespace;

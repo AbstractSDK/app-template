@@ -5,7 +5,7 @@
 //! ## Example
 //!
 //! ```bash
-//! $ just publish uni-6 osmo-test-5
+//! $ just publish {{adapter_name | kebab_case}} uni-6 osmo-test-5
 //! ```
 use {{adapter_name | snake_case}}::{
     contract::interface::{{adapter_name | upper_camel_case}}Interface, msg::{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | shouty_snake_case}}_ID,

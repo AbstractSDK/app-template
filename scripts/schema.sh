@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Generates the schemas for each module and copies them to ./schema/<contract-name>/<version>
-package_dir="cargo pkgid | awk -F '/' '{print \$NF}'| tr '#' '/'"
+package_dir="cargo pkgid | awk -F '/' '{print \$NF}'| tr '#@' '/'"
 SCHEMA_OUT_DIR=$(echo "$PWD"/schema)
 
 for dir in contracts/*; do 

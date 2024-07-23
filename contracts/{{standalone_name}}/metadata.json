@@ -1,0 +1,9 @@
+{
+  "name": "{{standalone_name | upper_camel_case}}",
+  "description": "Standalone description.",
+  "website": "",
+  "docs": "",
+  "type": "standalone",
+  "icon": "GiTrade",
+  "enabled": true
+}

@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
+//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package {{adapter_name | kebab_case}}`
 use {{adapter_name | snake_case}}::{contract::interface::{{adapter_name | upper_camel_case}}Interface, {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
