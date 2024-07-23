@@ -1,5 +1,6 @@
 [template]
 ignore = [".github", "artifacts", "target"]
+exclude = ["justfile"]
 
 [hooks]
 post = ["post-script.rhai"]
