@@ -5,7 +5,7 @@
 //! ## Example
 //!
 //! ```bash
-//! $ just publish uni-6 osmo-test-5
+//! $ just publish {{adapter_name | kebab_case}} uni-6 osmo-test-5
 //! ```
 use {{adapter_name | snake_case}}::{
     contract::interface::{{adapter_name | upper_camel_case}}Interface, msg::{{adapter_name | upper_camel_case}}InstantiateMsg, {{adapter_name | shouty_snake_case}}_ID,
@@ -21,9 +21,8 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     for network in networks {
         // Setup
         let rt = Runtime::new()?;
-        let chain = DaemonBuilder::default()
+        let chain = DaemonBuilder::new(network)
             .handle(rt.handle())
-            .chain(network)
             .build()?;
 
         let adapter_namespace = Namespace::from_id({{adapter_name | shouty_snake_case}}_ID)?;
@@ -36,7 +35,7 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .publisher_builder(adapter_namespace)
             .build()?;
 
-        if publisher.account().owner()? != chain.sender() {
+        if publisher.account().owner()? != chain.sender_addr() {
             panic!("The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace.")
         }
 

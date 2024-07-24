@@ -14,12 +14,6 @@ panic = 'abort'
 incremental = false
 
 [workspace.dependencies]
-{% if include_app %}
-{{app_name | kebab_case}} = { path = "contracts/{{app_name}}" }
-{% endif %}
-{% if include_adapter %}
-{{adapter_name | kebab_case}} = { path = "contracts/{{adapter_name}}" }
-{% endif %}
 cosmwasm-std = { version = "1.5.3" }
 cosmwasm-schema = { version = "1.5.3" }
 cw-controllers = { version = "1.1.2" }
@@ -27,15 +21,25 @@ cw-storage-plus = "1.2.0"
 thiserror = { version = "1.0.50" }
 schemars = "0.8"
 cw-asset = { version = "3.0.0" }
-abstract-app = { version = "0.22.2" }
-abstract-adapter = { version = "0.22.2" }
-abstract-interface = { version = "0.22.0" }
-abstract-client = { version = "0.22.0" }
+abstract-app = { version = "0.23.0" }
+abstract-adapter = { version = "0.23.0" }
+abstract-standalone = { version = "0.23.0" }
+abstract-interface = { version = "0.23.0" }
+abstract-client = { version = "0.23.0" }
 lazy_static = "1.4.0"
-cw-orch = { version = "0.22.2" }
+cw-orch = { version = "0.24.1" }
 const_format = "0.2.32"
 speculoos = "0.11.0"
 semver = "1.0"
 dotenv = "0.15.0"
 env_logger = "0.11.3"
 clap = { version = "4.3.7" }
+{% if include_app %}
+{{app_name | kebab_case}} = { path = "contracts/{{app_name}}" }
+{% endif %}
+{% if include_adapter %}
+{{adapter_name | kebab_case}} = { path = "contracts/{{adapter_name}}" }
+{% endif %}
+{% if include_standalone %}
+{{standalone_name | kebab_case}} = { path = "contracts/{{standalone_name}}" }
+{% endif %}

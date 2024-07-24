@@ -16,7 +16,7 @@ PROJECT_NAME="testgen-local"
   cd "$TMP_DIR"
 
   echo "Generating project from local repository ..."
-  cargo generate --path "$REPO_ROOT" --name "$PROJECT_NAME" --define include_app=true --define include_adapter=true --define adapter_name=test_adapter --define app_name=test_app
+  cargo generate --path "$REPO_ROOT" --name "$PROJECT_NAME" --define include_app=true --define include_adapter=true --define include_standalone=true --define adapter_name=test_adapter --define app_name=test_app --define standalone_name=test_standalone
 
   (
     cd "$PROJECT_NAME"

@@ -9,6 +9,5 @@ fn main() {
     create_dir_all(&out_dir).unwrap();
     remove_schemas(&out_dir).unwrap();
 
-    #[cfg(feature = "schema")]
     {{adapter_name | upper_camel_case}}::export_schema(&out_dir);
 }

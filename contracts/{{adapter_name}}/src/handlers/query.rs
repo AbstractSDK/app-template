@@ -1,5 +1,7 @@
 use crate::{
-    contract::{AdapterResult, {{adapter_name | upper_camel_case}}},
+    contract::{
+        AdapterResult, {{adapter_name | upper_camel_case}}
+    },
     msg::{ConfigResponse, {{adapter_name | upper_camel_case}}QueryMsg, StatusResponse},
     state::{CONFIG, STATUS},
 };

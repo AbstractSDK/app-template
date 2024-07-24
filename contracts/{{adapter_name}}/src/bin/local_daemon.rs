@@ -6,7 +6,7 @@
 //!
 //! # Run
 //!
-//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package my-adapter`
+//! `RUST_LOG=info cargo run --bin local_daemon --features="daemon-bin" --package {{adapter_name | kebab_case}}`
 use {{adapter_name | snake_case}}::{contract::interface::{{adapter_name | upper_camel_case}}Interface, {{adapter_name | upper_camel_case}}ExecuteMsg, {{adapter_name | shouty_snake_case}}_ID};
 
 use abstract_adapter::{objects::namespace::Namespace, std::adapter::AdapterRequestMsg};
@@ -22,8 +22,7 @@ fn main() -> anyhow::Result<()> {
 
     let runtime = Runtime::new()?;
 
-    let daemon = Daemon::builder()
-        .chain(networks::LOCAL_JUNO)
+    let daemon = Daemon::builder(networks::LOCAL_JUNO)
         .mnemonic(LOCAL_MNEMONIC)
         .handle(runtime.handle())
         .build()
@@ -45,7 +44,7 @@ fn main() -> anyhow::Result<()> {
     // Ensure the current sender owns the namespace
     assert_eq!(
         publisher.account().owner()?,
-        daemon.sender(),
+        daemon.sender_addr(),
         "The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace."
     );
 

@@ -23,7 +23,7 @@ impl TestEnv<MockBech32> {
     fn setup() -> anyhow::Result<TestEnv<MockBech32>> {
         // Create a sender and mock env
         let mock = MockBech32::new("mock");
-        let sender = mock.sender();
+        let sender = mock.sender_addr();
         let namespace = Namespace::new({{project-name | shouty_snake_case}}_NAMESPACE)?;
 
         // You can set up Abstract with a builder.

@@ -5,15 +5,15 @@
 //! ## Example
 //!
 //! ```bash
-//! $ just publish {{app_name | kebab_case}} uni-6 osmo-test-5
+//! $ just publish {{standalone_name | kebab_case}} uni-6 osmo-test-5
 //! ```
-use {{app_name | snake_case}}::{{app_name | shouty_snake_case}}_ID;
+use {{standalone_name | snake_case}}::{{standalone_name | shouty_snake_case}}_ID;
 
-use abstract_app::objects::namespace::Namespace;
 use abstract_client::{AbstractClient, Publisher};
+use abstract_standalone::objects::namespace::Namespace;
 use clap::Parser;
 use cw_orch::{anyhow, daemon::networks::parse_network, prelude::*, tokio::runtime::Runtime};
-use {{app_name | snake_case}}::{{app_name | upper_camel_case}}Interface;
+use {{standalone_name | snake_case}}::{{standalone_name | upper_camel_case}}Interface;
 
 fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
     // run for each requested network
@@ -24,20 +24,22 @@ fn publish(networks: Vec<ChainInfo>) -> anyhow::Result<()> {
             .handle(rt.handle())
             .build()?;
 
-        let app_namespace = Namespace::from_id({{app_name | shouty_snake_case}}_ID)?;
+        let standalone_namespace = Namespace::from_id({{standalone_name | shouty_snake_case}}_ID)?;
 
         // Create an [`AbstractClient`]
         let abstract_client: AbstractClient<Daemon> = AbstractClient::new(chain.clone())?;
 
         // Get the [`Publisher`] that owns the namespace, otherwise create a new one and claim the namespace
-        let publisher: Publisher<_> = abstract_client.publisher_builder(app_namespace).build()?;
+        let publisher: Publisher<_> = abstract_client
+            .publisher_builder(standalone_namespace)
+            .build()?;
 
         if publisher.account().owner()? != chain.sender_addr() {
             panic!("The current sender can not publish to this namespace. Please use the wallet that owns the Account that owns the Namespace.")
         }
 
-        // Publish the App to the Abstract Platform
-        publisher.publish_app::<{{app_name | upper_camel_case}}Interface<Daemon>>()?;
+        // Publish the Standalone to the Abstract Platform
+        publisher.publish_standalone::<{{standalone_name | upper_camel_case}}Interface<Daemon>>()?;
     }
     Ok(())
 }
