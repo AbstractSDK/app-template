@@ -13,8 +13,8 @@ use cosmwasm_std::{DepsMut, Env};
 pub fn migrate_handler(
     _deps: DepsMut,
     _env: Env,
-    app: {{app_name | upper_camel_case}},
+    module: {{app_name | upper_camel_case}},
     _msg: {{app_name | upper_camel_case}}MigrateMsg,
 ) -> {{app_name | upper_camel_case}}Result {
-    Ok(app.response("migrate"))
+    Ok(module.response("migrate"))
 }

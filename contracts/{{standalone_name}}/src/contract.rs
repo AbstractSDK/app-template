@@ -66,33 +66,33 @@ pub fn execute(
 }
 
 /// Update the configuration of the standalone
-fn update_config(deps: DepsMut, info: MessageInfo, standalone: {{standalone_name | upper_camel_case}}) -> {{standalone_name | upper_camel_case}}Result {
+fn update_config(deps: DepsMut, info: MessageInfo, module: {{standalone_name | upper_camel_case}}) -> {{standalone_name | upper_camel_case}}Result {
     {{standalone_name | shouty_snake_case}}
         .admin
         .assert_admin(deps.as_ref(), &info.sender)?;
     let mut _config = CONFIG.load(deps.storage)?;
 
-    Ok(standalone.response("update_config"))
+    Ok(module.response("update_config"))
 }
 
-fn increment(deps: DepsMut, standalone: {{standalone_name | upper_camel_case}}) -> {{standalone_name | upper_camel_case}}Result {
+fn increment(deps: DepsMut, module: {{standalone_name | upper_camel_case}}) -> {{standalone_name | upper_camel_case}}Result {
     COUNT.update(deps.storage, |count| {{standalone_name | upper_camel_case}}Result::Ok(count + 1))?;
 
-    Ok(standalone.response("increment"))
+    Ok(module.response("increment"))
 }
 
 fn reset(
     deps: DepsMut,
     info: MessageInfo,
     count: i32,
-    standalone: {{standalone_name | upper_camel_case}},
+    module: {{standalone_name | upper_camel_case}},
 ) -> {{standalone_name | upper_camel_case}}Result {
     {{standalone_name | shouty_snake_case}}
         .admin
         .assert_admin(deps.as_ref(), &info.sender)?;
     COUNT.save(deps.storage, &count)?;
 
-    Ok(standalone.response("reset"))
+    Ok(module.response("reset"))
 }
 
 #[cfg_attr(feature = "export", cosmwasm_std::entry_point)]

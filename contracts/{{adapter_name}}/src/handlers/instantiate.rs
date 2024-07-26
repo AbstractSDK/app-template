@@ -12,7 +12,7 @@ pub fn instantiate_handler(
     deps: DepsMut,
     _env: Env,
     _info: MessageInfo,
-    _adapter: {{adapter_name | upper_camel_case}},
+    _module: {{adapter_name | upper_camel_case}},
     _msg: {{adapter_name | upper_camel_case}}InstantiateMsg,
 ) -> AdapterResult {
     let config: Config = Config {};
