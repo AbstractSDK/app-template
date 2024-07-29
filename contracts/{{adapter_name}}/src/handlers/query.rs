@@ -12,7 +12,7 @@ use cosmwasm_std::{to_json_binary, Binary, Deps, Env, StdResult};
 pub fn query_handler(
     deps: Deps,
     _env: Env,
-    _adapter: &{{adapter_name | upper_camel_case}},
+    _module: &{{adapter_name | upper_camel_case}},
     msg: {{adapter_name | upper_camel_case}}QueryMsg,
 ) -> AdapterResult<Binary> {
     match msg {
