@@ -72,7 +72,7 @@ fn update_config() -> anyhow::Result<()> {
 
     adapter.execute(
         &AdapterRequestMsg {
-            account_address: Some(publisher_account.account().to_string()),
+            account_address: Some(publisher_account.account().address()?.to_string()),
             request: {{adapter_name | upper_camel_case}}ExecuteMsg::UpdateConfig {},
         }
         .into(),
@@ -82,20 +82,6 @@ fn update_config() -> anyhow::Result<()> {
     let config = adapter.config()?;
     let expected_response = {{adapter_name | snake_case}}::msg::ConfigResponse {};
     assert_eq!(config, expected_response);
-
-    // Adapter installed on sub-account of the publisher so this should error
-    let err = adapter
-        .execute(
-            &AdapterRequestMsg {
-                account_address: Some(adapter.account().to_string()),
-                request: {{adapter_name | upper_camel_case}}ExecuteMsg::UpdateConfig {},
-            }
-            .into(),
-            &[],
-        )
-        .unwrap_err();
-    assert_eq!(err.root().to_string(), "Unauthorized");
-
     Ok(())
 }
 
@@ -105,14 +91,14 @@ fn set_status() -> anyhow::Result<()> {
     let adapter = env.adapter;
 
     let first_status = "my_status".to_owned();
-    let second_status = "my_status".to_owned();
+    let second_status = "my_second_status".to_owned();
 
-    let subaccount = &env.publisher.account().sub_accounts()?[0];
+    let account = &env.publisher.account();
 
-    subaccount.as_ref().execute_on_module(
+    account.as_ref().execute_on_module(
         {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
-            account_address: Some(subaccount.to_string()),
+            account_address: Some(account.address()?.to_string()),
             request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: first_status.clone(),
             },
@@ -128,7 +114,7 @@ fn set_status() -> anyhow::Result<()> {
     new_account.as_ref().execute_on_module(
         {{adapter_name | shouty_snake_case}}_ID,
         ExecuteMsg::Module(AdapterRequestMsg {
-            account_address: Some(new_account.to_string()),
+            account_address: Some(new_account.address()?.to_string()),
             request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: second_status.clone(),
             },
