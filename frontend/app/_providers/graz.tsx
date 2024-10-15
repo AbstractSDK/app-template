@@ -1,7 +1,8 @@
 'use client'
 
 import { GrazProvider as Provider } from 'graz'
-import { mainnetChains } from 'graz/chains'
+import { testnetChains } from 'graz/chains'
+
 import type { ComponentProps } from 'react'
 
 export function GrazProvider(
@@ -11,20 +12,17 @@ export function GrazProvider(
     <Provider
       client={props.client}
       grazOptions={{
-        chains: [
-          { ...mainnetChains.neutron, rpc: 'https://neutron-rpc.polkachu.com' },
-          mainnetChains.osmosis,
-        ],
+        chains: Object.values(testnetChains),
         chainsConfig: {
-          [mainnetChains.osmosis.chainId]: {
+          [testnetChains.osmosistestnet.chainId]: {
             gas: {
               price: '0.25',
-              denom: 'osmo',
+              denom: 'uosmo',
             },
           },
-          [mainnetChains.neutron.chainId]: {
+          [testnetChains.neutrontestnet.chainId]: {
             gas: {
-              price: '0.1',
+              price: '0.5',
               denom: 'untrn',
             },
           },

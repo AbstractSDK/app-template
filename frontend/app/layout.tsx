@@ -32,25 +32,20 @@ const poppins = Poppins({
 
 const abstractConfig = createConfig({
   provider: grazProvider,
-  apiUrl: 'https://api.abstract.money/graphql',
+  apiUrl: process.env.NEXT_PUBLIC_ABSTRACT_SUBGRAPH_URL || 'https://testnet.api.abstract.money/graphql',
 })
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  bets: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body className={cn(inter.variable, poppins.variable)}>
         <GrazProvider client={client}>
           <AbstractProvider config={abstractConfig}>
-            <main className="flex flex-col items-center p-24 min-h-screen">
-              <section className="mt-10">
-                <div className="mt-10">{children}</div>
-              </section>
-            </main>
+            {children}
           </AbstractProvider>
         </GrazProvider>
       </body>
