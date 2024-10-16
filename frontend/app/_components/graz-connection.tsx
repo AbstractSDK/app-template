@@ -1,9 +1,10 @@
 import { useActiveWalletType, useChainInfos, useDisconnect, useSuggestChainAndConnect, useAccount } from 'graz'
+import { mainnetChains } from 'graz/chains';
 import { useCallback } from 'react'
-import { appChains } from '../_constants/chains';
+
 
 export const GrazConnection: React.FC = () => {
-  const chainsIds = Object.values(appChains).map((chain) => chain.chainId)
+  const chainsIds = Object.values(mainnetChains).map((chain) => chain.chainId)
 
   const { disconnect } = useDisconnect();
   const { suggestAndConnect: connect, isLoading } = useSuggestChainAndConnect()

@@ -1,9 +1,8 @@
 'use client'
 
 import { GrazProvider as Provider } from 'graz'
-import { testnetChains } from 'graz/chains'
-
 import type { ComponentProps } from 'react'
+import { appChain } from '../_utils/chains'
 
 export function GrazProvider(
   props: Pick<ComponentProps<typeof Provider>, 'children' | 'client'>,
@@ -12,12 +11,12 @@ export function GrazProvider(
     <Provider
       client={props.client}
       grazOptions={{
-        chains: Object.values(testnetChains),
+        chains: [appChain],
         chainsConfig: {
-          [testnetChains.osmosistestnet.chainId]: {
+          [appChain.chainId]: {
             gas: {
-              price: '0.25',
-              denom: 'uosmo',
+              price: '0.1',
+              denom: 'ujuno',
             },
           },
         },

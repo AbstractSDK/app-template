@@ -1,15 +1,15 @@
 import { useAccount } from 'graz';
 import { useAccountsMetadataGraphQLQuery } from '../_hooks/useQueryAccountsById';
-import { appChains } from '../_constants/chains';
 import { useAccounts } from '@abstract-money/react';
+import { appChain } from '../_utils/chains';
 
 export const AbstractSubgraphAPI: React.FC = () => {
-  const chainId = appChains.osmosistestnet.chainId;
+  const chainId = appChain.chainId;
   const { data: cosmosAccount } = useAccount({ chainId });
   const { data: accounts } = useAccounts({
     args: {
       owner: cosmosAccount?.bech32Address ?? '',
-      chains: [appChains.osmosistestnet.chainName],
+      chains: [appChain.chainName],
     },
     query: {
       enabled: !!cosmosAccount?.bech32Address,

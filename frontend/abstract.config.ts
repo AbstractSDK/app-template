@@ -6,7 +6,7 @@ export default defineConfig({
   contracts: [
     {
       name: "board", // name of adapter
-      path: "./contracts/board/schema/", // path to the schema of the adapter
+      path: "./_contracts/board/schema/", // path to the schema of the adapter
       namespace: "rugspaceandcandles", // namespace
       version: "0.1.0",
       moduleType: "adapter",
@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [
     react(),
     vanilla({
-      enableAppstractAppFor: ['controller', 'board']
+      enableAppstractAppFor: ['board']
     }),
     registry({
       contracts: [{
