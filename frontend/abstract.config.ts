@@ -1,19 +1,27 @@
 import { defineConfig } from '@abstract-money/cli'
-import { react, registry } from '@abstract-money/cli/plugins'
+import { react, registry, vanilla } from '@abstract-money/cli/plugins'
 
 export default defineConfig({
   out: 'app/_generated/generated-abstract',
-  contracts: [],
-  plugins: [react(), registry({
-    contracts: [{
-      namespace: 'cw-plus',
-      name: 'cw721-base',
-      version: '0.18'
-    },
+  contracts: [
     {
-      namespace: 'abstract',
-      name: 'evm-note',
-      version: '0.0.2'
-    }]
+      name: "board", // name of adapter
+      path: "./contracts/board/schema/", // path to the schema of the adapter
+      namespace: "rugspaceandcandles", // namespace
+      version: "0.1.0",
+      moduleType: "adapter",
+    }
+  ],
+  plugins: [
+    react(),
+    vanilla({
+      enableAppstractAppFor: ['controller', 'board']
+    }),
+    registry({
+      contracts: [{
+        namespace: 'cw-plus',
+        name: 'cw20-base',
+        version: '1.0.1'
+      }]
   })],
 })
