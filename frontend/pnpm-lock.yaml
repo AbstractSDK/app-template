@@ -30,7 +30,7 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.9.0)
       '@keplr-wallet/types':
-        specifier: ^0.12.137
+        specifier: ^0.12.57
         version: 0.12.137(starknet@6.11.0)
       '@tanstack/react-query':
         specifier: ^4.36.1

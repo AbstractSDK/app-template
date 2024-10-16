@@ -7,25 +7,31 @@ import { useAccount } from 'graz';
 import { useAccountsMetadataGraphQLQuery } from '../_hooks/useQueryAccountsById';
 import { appChain } from '../_utils/chains';
 
-export function useGetBalance(address: string) {
+export function useGetBalance(ownerAddress: string, contractAddress: string) {
   const { data: client } = useQuery(
     cosmWasmClientQueryOptions(appChain.chainName),
   );
 
+  console.log({ ownerAddress, contractAddress });
+
   const { data: balance } = useCw20BaseBalanceQuery(
     {
       client: client
-        ? new Cw20BaseQueryClient(client, address)
+        ? new Cw20BaseQueryClient(client, contractAddress)
         : undefined,
-      args: { address },
-      options: { enabled: !!client }
+      args: { address: ownerAddress },
+      options: { enabled: !!client && !!ownerAddress && !!contractAddress }
     }
   );
 
-  console.log(balance);
+  console.log({ balance });
 }
 
-export const BalanceComponent: React.FC = () => {
+type BalanceComponentProps = {
+  contractAddress: string;
+}
+
+export const BalanceComponent: React.FC<BalanceComponentProps> = ({ contractAddress }) => {
   const chainId = appChain.chainId;
   const { data: cosmosAccount } = useAccount({ chainId });
   const { data: accounts } = useAccounts({
@@ -40,7 +46,7 @@ export const BalanceComponent: React.FC = () => {
 
   const { data: accountsMetadata } = useAccountsMetadataGraphQLQuery({ accountIds: accounts });
 
-  useGetBalance(accountsMetadata?.[0].proxy ?? '');
+  useGetBalance(accountsMetadata?.[0].proxy ?? '', contractAddress);
 
   return (
     <div>

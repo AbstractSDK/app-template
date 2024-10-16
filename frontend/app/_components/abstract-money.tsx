@@ -10,15 +10,15 @@ export const AbstractMoney: React.FC = () => {
   const { mutate: createAccount, isLoading: isCreating } = useCreateAccountMonarchy({
     chainName,
   });
-  // const { data: accounts } = useAccounts({
-  //   args: {
-  //     owner: cosmosAccount?.bech32Address ?? '',
-  //     chains: [chainName],
-  //   },
-  //   query: {
-  //     enabled: !!cosmosAccount?.bech32Address,
-  //   }
-  // });
+  const { data: accounts } = useAccounts({
+    args: {
+      owner: cosmosAccount?.bech32Address ?? '',
+      chains: [chainName],
+    },
+    query: {
+      enabled: !!cosmosAccount?.bech32Address,
+    }
+  });
 
   const handleCreateAccount = async () => {
     if (!cosmosAccount) {
@@ -48,7 +48,7 @@ export const AbstractMoney: React.FC = () => {
         >
           {isCreating ? 'Creating...' : 'Create Account'}
         </button>
-        {/* {accounts && accounts.length > 0 ? (
+        {accounts && accounts.length > 0 ? (
           <div className="bg-gray-800 p-3 rounded-md">
             <h3 className="font-semibold mb-2">Abstract Accounts:</h3>
             {accounts.map((account) => (
@@ -60,7 +60,7 @@ export const AbstractMoney: React.FC = () => {
           </div>
         ) : (
           <p>No Abstract Accounts found.</p>
-        )} */}
+        )}
       </div>
     </div>
   );
