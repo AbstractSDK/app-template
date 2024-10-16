@@ -30,7 +30,7 @@ export const AbstractMoney: React.FC = () => {
 
     try {
       createAccount({
-        args: { name: 'My New Account', owner: cosmosAccount.bech32Address },
+        args: { name: 'Felipe test account', owner: cosmosAccount.bech32Address },
         fee: 'auto',
       });
     } catch (error) {
