@@ -1,20 +1,17 @@
 import { useCreateAccountMonarchy } from '@abstract-money/react';
 import { useAccount as graz_useAccount } from 'graz';
-import { chainNameToId } from '@abstract-money/core';
+import { appChains } from '../_constants/chains';
 
 export const CreateAccount: React.FC = () => {
-  const chainName = 'osmosistestnet';
-  const chainId = chainNameToId(chainName);
+  const chainName = appChains.osmosistestnet.chainName
+  const chainId = appChains.osmosistestnet.chainId;
+
+
   const { data: cosmosAccount } = graz_useAccount({ chainId });
 
-  const { mutate: createAccount, isLoading, data: account } = useCreateAccountMonarchy({
+  const { mutate: createAccount, isLoading } = useCreateAccountMonarchy({
     chainName,
   });
-
-  console.log({
-    cosmosAccount,
-    account
-  })
 
   const handleCreateAccount = async () => {
     if (!cosmosAccount) {
