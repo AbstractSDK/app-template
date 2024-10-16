@@ -1,7 +1,7 @@
 schema: "https://testnet.api.abstract.money/graphql" # This can be the API URL or the schema document
 # schema: "https://api.abstract.money/graphql"
 
-documents: ["./src/**/*.{tsx,ts}", "!src/common/interfaces/generated-graphql/**/*"]
+documents: ["./app/**/*.{tsx,ts}", "!./app/_generated/generated-graphql/**/*"]
 
 generates:
   ./app/_generated/generated-graphql/:
