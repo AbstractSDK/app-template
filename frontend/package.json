@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "npm run generate:graz && npm run generate:gql",
+    "generate": "npm run generate:graz && npm run generate:gql && npm run generate:abstract",
     "generate:graz": "graz generate -g -M osmosis -T osmosistestnet",
-    "generate:gql": "gql-gen --config codegen.yml"
+    "generate:gql": "gql-gen --config codegen.yml",
+    "generate:abstract": "abstract generate"
   },
   "dependencies": {
+    "@abstract-money/cli": "^0.4.4",
     "@abstract-money/core": "^1.4.0",
     "@abstract-money/provider-graz": "^5.0.8",
     "@abstract-money/react": "^1.4.0",
@@ -20,6 +22,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@tanstack/react-query": "^4.36.1",
     "clsx": "^2.1.1",
+    "generate": "^0.14.0",
     "graphql-request": "^5.1.0",
     "graz": "^0.1.25",
     "next": "14.2.15",
