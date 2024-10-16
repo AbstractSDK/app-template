@@ -4,7 +4,7 @@ import { cn } from '../app/_utils'
 import { GrazProvider } from './_providers/graz'
 import { grazProvider } from '@abstract-money/provider-graz'
 import { AbstractProvider, createConfig } from '@abstract-money/react'
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Inter, Poppins } from 'next/font/google'
 import "./globals.css";
 
@@ -43,11 +43,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.variable, poppins.variable)}>
-        <GrazProvider client={client}>
-          <AbstractProvider config={abstractConfig}>
-            {children}
-          </AbstractProvider>
-        </GrazProvider>
+        <QueryClientProvider client={client}>
+          <GrazProvider client={client}>
+            <AbstractProvider config={abstractConfig}>
+              {children}
+            </AbstractProvider>
+          </GrazProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )

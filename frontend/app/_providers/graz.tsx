@@ -20,12 +20,6 @@ export function GrazProvider(
               denom: 'uosmo',
             },
           },
-          [testnetChains.neutrontestnet.chainId]: {
-            gas: {
-              price: '0.5',
-              denom: 'untrn',
-            },
-          },
         },
       }}
       {...props}

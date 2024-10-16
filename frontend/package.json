@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "graz:generate": "graz generate -g -M neutron,osmosis -T neutrontestnet,osmosistestnet"
+    "graz:generate": "graz generate -g -M osmosis -T osmosistestnet"
   },
   "dependencies": {
     "@abstract-money/core": "^1.4.0",
