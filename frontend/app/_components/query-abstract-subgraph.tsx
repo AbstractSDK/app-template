@@ -46,12 +46,6 @@ export const QueryAbstractSubgraph: React.FC = () => {
                     <strong>Chain ID:</strong> {account.info.chainId}
                   </p>
                   <p>
-                    <strong>Description:</strong> {account.info.description || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Link:</strong> {account.info.link || "N/A"}
-                  </p>
-                  <p>
                     <strong>Proxy:</strong> {account.proxy}
                   </p>
                   <p>
