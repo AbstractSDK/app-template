@@ -5,9 +5,9 @@ export default defineConfig({
   out: 'app/_generated/generated-abstract',
   contracts: [
     {
-      name: "board", // name of adapter
-      path: "./contracts/board/schema/", // path to the schema of the adapter
-      namespace: "rugspaceandcandles", // namespace
+      name: "{{app_name}}", 
+      path: "../contracts/{{app_name}}/schema/", 
+      namespace: "{{project-name}}", 
       version: "0.1.0",
       moduleType: "adapter",
     }
