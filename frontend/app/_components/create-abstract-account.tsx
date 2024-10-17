@@ -2,9 +2,8 @@ import { useCreateAccountMonarchy, useAccounts } from '@abstract-money/react';
 import { useAccount as graz_useAccount } from 'graz';
 import { appChain } from '../_utils/chains';
 
-export const AbstractMoney: React.FC = () => {
-  const chainName = appChain.chainName;
-  const chainId = appChain.chainId;
+export const CreateAbstractAccount: React.FC = () => {
+  const { chainName, chainId } = appChain;
 
   const { data: cosmosAccount } = graz_useAccount({ chainId });
   const { mutate: createAccount, isLoading: isCreating } = useCreateAccountMonarchy({

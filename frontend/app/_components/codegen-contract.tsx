@@ -4,7 +4,7 @@ import { useAccount } from 'graz';
 import { useAccountsMetadataGraphQLQuery } from '../_hooks/useQueryAccountsById';
 import { appChain } from '../_utils/chains';
 
-export const BalanceComponent: React.FC = () => {
+export const CodegenContract: React.FC = () => {
   const contractAddress = "juno1ju8k8sqwsqu5k6umrypmtyqu2wqcpnrkf4w4mntvl0javt4nma7s8lzgss";
   const chainId = appChain.chainId;
 

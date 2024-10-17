@@ -2,7 +2,7 @@ import { useActiveWalletType, useDisconnect, useSuggestChainAndConnect, useAccou
 import { useCallback } from 'react'
 import { appChain } from '../_utils/chains';
 
-export const GrazConnection: React.FC = () => {
+export const WalletConnection: React.FC = () => {
   const { disconnect } = useDisconnect();
   const { suggestAndConnect: connect, isLoading } = useSuggestChainAndConnect()
   const { data: account } = useAccount()

@@ -3,8 +3,9 @@ import { useAccountsMetadataGraphQLQuery } from '../_hooks/useQueryAccountsById'
 import { useAccounts } from '@abstract-money/react';
 import { appChain } from '../_utils/chains';
 
-export const AbstractSubgraphAPI: React.FC = () => {
+export const QueryAbstractSubgraph: React.FC = () => {
   const chainId = appChain.chainId;
+
   const { data: cosmosAccount } = useAccount({ chainId });
   const { data: accounts } = useAccounts({
     args: {
@@ -15,7 +16,6 @@ export const AbstractSubgraphAPI: React.FC = () => {
       enabled: !!cosmosAccount?.bech32Address,
     }
   });
-
   const { data: accountsMetadata, isLoading } = useAccountsMetadataGraphQLQuery({ accountIds: accounts });
 
   return (
