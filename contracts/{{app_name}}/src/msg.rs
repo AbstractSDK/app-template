@@ -45,3 +45,12 @@ pub struct ConfigResponse {}
 pub struct CountResponse {
     pub count: i32,
 }
+
+#[cosmwasm_schema::cw_serde]
+pub enum IbcCallbackMsg {
+    Empty {},
+}
+
+#[cosmwasm_schema::cw_serde]
+pub struct IbcMsg {
+}
