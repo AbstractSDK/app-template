@@ -22,7 +22,8 @@ PROJECT_NAME="testgen-local"
     cd "$PROJECT_NAME"
     echo "This is what was generated"
     ls -lA
-
+    echo "Running cargo update ..."
+    cargo update
     # Debug builds first to fail fast
     echo "Running unit tests ..."
     cargo unit-test

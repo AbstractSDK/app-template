@@ -68,7 +68,7 @@ fn main() -> anyhow::Result<()> {
     adapter.execute(
         &AdapterRequestMsg {
             // Adapter need to know on which account action is performed
-            proxy_address: Some(adapter.account().proxy()?.to_string()),
+            account_address: Some(adapter.account().to_string()),
             request: {{adapter_name | upper_camel_case}}ExecuteMsg::SetStatus {
                 status: "new_status".to_owned(),
             },

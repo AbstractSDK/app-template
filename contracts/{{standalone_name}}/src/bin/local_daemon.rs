@@ -57,7 +57,7 @@ fn main() -> anyhow::Result<()> {
         &{{standalone_name | upper_camel_case}}InstantiateMsg {
             base: standalone::StandaloneInstantiateMsg {
                 ans_host_address: abstract_client.name_service().addr_str()?,
-                version_control_address: abstract_client.version_control().addr_str()?,
+                registry_address: abstract_client.registry().addr_str()?,
             },
             count: 0,
         },
