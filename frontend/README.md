@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abstract Account App
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+The Abstract Account App is a Next.js-based application that interacts with the
+Abstract Account system on the blockchain. It enables users to connect their
+wallets, create and manage Abstract Accounts, query account information, and
+interact with smart contracts in a type-safe manner using Abstract Codegen.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- Wallet connection and management using Graz
+- Creation of Abstract Accounts
+- Querying Abstract Account information via the Abstract Subgraph GraphQL API
+- Code generation for type-safe interactions with smart contracts using Abstract
+  Codegen
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- pnpm
+- A compatible wallet (e.g., Keplr for Cosmos-based chains)
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone git@github.com:AbstractSDK/templates.git
+   ```
+
+2. Navigate to the project directory:
+   ```
+   cd templates/frontend
+   ```
+
+3. Install the dependencies:
+   ```
+   pnpm install
+   ```
+
+## Configuration
+
+1. Create a `.env` file in the root directory and add the following:
+   ```
+   ABSTRACT_SUBGRAPH_URL=https://api.abstract.money/graphql
+   ```
+
+## Code Generation
+
+This project uses code generation for type-safe interactions with smart
+contracts and GraphQL queries. To generate the necessary code, run:
+
+```
+pnpm generate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This command will execute the following scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. `generate:graz`: Generates chain information for Graz
+2. `generate:gql`: Generates TypeScript types for GraphQL queries using the
+   GraphQL Code Generator
+3. `generate:abstract`: Generates TypeScript types, methods, and hooks for smart
+   contract interactions using Abstract CLI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
 
-## Learn More
+To start the development server, run:
 
-To learn more about Next.js, take a look at the following resources:
+```
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Navigate to `http://localhost:3000` in your web browser to use the application.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key Components
 
-## Deploy on Vercel
+### WalletConnection
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Handles wallet connection using Graz.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### CreateAbstractAccount
+
+Allows users to create new Abstract Accounts.
+
+### QueryAbstractSubgraph
+
+Queries and displays Abstract Account information using Abstract Subgraph
+GraphQL API.
+
+### CodegenContract
+
+Demonstrates interaction with a CW20 token contract using generated code.
