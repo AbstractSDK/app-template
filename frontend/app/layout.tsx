@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '../app/_utils'
+import { cn } from '../utils'
 import { GrazProvider } from './_providers/graz'
 import { grazProvider } from '@abstract-money/provider-graz'
 import { AbstractProvider, createConfig } from '@abstract-money/react'

@@ -2,7 +2,7 @@
 
 import { GrazProvider as Provider } from 'graz'
 import type { ComponentProps } from 'react'
-import { appChain } from '../_utils/chains'
+import { appChain } from '../../utils/chains'
 
 export function GrazProvider(
   props: Pick<ComponentProps<typeof Provider>, 'children' | 'client'>,

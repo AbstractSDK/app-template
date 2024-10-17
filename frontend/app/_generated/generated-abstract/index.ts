@@ -1248,5 +1248,4 @@ export { BoardTypes }
 export * from './cosmwasm-codegen/Cw20Base.client'
 export * from './cosmwasm-codegen/Cw20Base.message-builder'
 export * from './cosmwasm-codegen/Cw20Base.message-composer'
-import * as Cw20BaseTypes from './cosmwasm-codegen/Cw20Base.types'
 export { Cw20BaseTypes }

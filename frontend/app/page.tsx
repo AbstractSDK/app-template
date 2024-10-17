@@ -7,11 +7,14 @@ import { WalletConnection } from "./_components/wallet-connection"
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <WalletConnection />
-      <CreateAbstractAccount />
-      <QueryAbstractSubgraph />
-      <CodegenContract />
+    <div className="w-full p-4 bg-white text-black">
+      <h1 className="text-2xl font-bold mb-6">Abstract Account App</h1>
+      <div className="flex flex-col gap-6">
+        <WalletConnection />
+        <CreateAbstractAccount />
+        <QueryAbstractSubgraph />
+        <CodegenContract />
+      </div>
     </div>
   )
 }

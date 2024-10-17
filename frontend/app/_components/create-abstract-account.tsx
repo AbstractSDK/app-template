@@ -1,66 +1,83 @@
-import { useCreateAccountMonarchy, useAccounts } from '@abstract-money/react';
-import { useAccount as graz_useAccount } from 'graz';
-import { appChain } from '../_utils/chains';
+'use client'
+
+import { useCreateAccountMonarchy, useAccounts } from "@abstract-money/react"
+import { useAccount as graz_useAccount } from "graz"
+import { appChain } from "../../utils/chains"
+import { Button } from "../../components/button"
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/card"
+import { Alert, AlertDescription, AlertTitle } from "../../components/alert"
+import { AlertCircle } from "lucide-react"
 
 export const CreateAbstractAccount: React.FC = () => {
-  const { chainName, chainId } = appChain;
+  const { chainName, chainId } = appChain
 
-  const { data: cosmosAccount } = graz_useAccount({ chainId });
+  const { data: cosmosAccount } = graz_useAccount({ chainId })
   const { mutate: createAccount, isLoading: isCreating } = useCreateAccountMonarchy({
     chainName,
-  });
-  const { data: accounts } = useAccounts({
+  })
+  const { data: accounts, isLoading: isLoadingAccounts } = useAccounts({
     args: {
-      owner: cosmosAccount?.bech32Address ?? '',
+      owner: cosmosAccount?.bech32Address ?? "",
       chains: [chainName],
     },
     query: {
       enabled: !!cosmosAccount?.bech32Address,
-    }
-  });
+    },
+  })
 
   const handleCreateAccount = async () => {
     if (!cosmosAccount) {
-      console.error('No Cosmos account found');
-      return;
+      console.error("No Cosmos account found")
+      return
     }
 
     try {
       createAccount({
-        args: { name: 'Felipe test account', owner: cosmosAccount.bech32Address },
-        fee: 'auto',
-      });
+        args: { name: "Felipe test account", owner: cosmosAccount.bech32Address },
+        fee: "auto",
+      })
     } catch (error) {
-      console.error('Error creating account:', error);
+      console.error("Error creating account:", error)
     }
-  };
+  }
 
   return (
-    <div className="bg-black text-white">
-      <h2 className="text-xl font-bold mb-4">Abstract Account Info</h2>
-      <div className="flex flex-col gap-4">
-        <button
-          type='button'
-          onClick={handleCreateAccount}
-          disabled={isCreating}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          {isCreating ? 'Creating...' : 'Create Account'}
-        </button>
-        {accounts && accounts.length > 0 ? (
-          <div className="bg-gray-800 p-3 rounded-md">
-            <h3 className="font-semibold mb-2">Abstract Accounts:</h3>
-            {accounts.map((account) => (
-              <div key={account.seq} className="mb-2">
-                <p><strong>Chain Name:</strong> {account.chainName}</p>
-                <p><strong>Sequence:</strong> {account.seq}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No Abstract Accounts found.</p>
-        )}
-      </div>
-    </div>
-  );
-};
+    <Card>
+      <CardHeader>
+        <CardTitle>Create Abstract Account Example</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col gap-4">
+          <Button onClick={handleCreateAccount} disabled={isCreating}>
+            {isCreating ? "Creating..." : "Create Account"}
+          </Button>
+          {isLoadingAccounts ? (
+            <p>Loading accounts...</p>
+          ) : accounts && accounts.length > 0 ? (
+            <div className="bg-gray-100 p-3 rounded-md">
+              <h3 className="font-semibold mb-2">Abstract Accounts:</h3>
+              {accounts.map((account) => (
+                <div key={account.seq} className="mb-2">
+                  <p>
+                    <strong>Chain Name:</strong> {account.chainName}
+                  </p>
+                  <p>
+                    <strong>Sequence:</strong> {account.seq}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>No Abstract Accounts found</AlertTitle>
+              <AlertDescription>
+                Connect your wallet and create an account to get started.
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
