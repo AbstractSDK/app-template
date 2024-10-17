@@ -46,6 +46,7 @@ pub struct CountResponse {
     pub count: i32,
 }
 
+{% if with_ibc %}
 #[cosmwasm_schema::cw_serde]
 pub enum IbcCallbackMsg {
     Empty {},
@@ -54,3 +55,4 @@ pub enum IbcCallbackMsg {
 #[cosmwasm_schema::cw_serde]
 pub struct IbcMsg {
 }
+{% endif %}

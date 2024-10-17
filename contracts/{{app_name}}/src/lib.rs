@@ -5,7 +5,7 @@ pub mod msg;
 mod replies;
 pub mod state;
 
-{% unless with_ibc %}pub mod ibc;{% endunless %}
+{% if with_ibc %}pub mod ibc;{% endif %}
 
 pub use error::{{app_name | upper_camel_case}}Error;
 
