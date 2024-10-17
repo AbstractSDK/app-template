@@ -11,7 +11,7 @@ export default function Home() {
       <GrazConnection />
       <AbstractMoney />
       <AbstractSubgraphAPI />
-      <BalanceComponent contractAddress="juno1ju8k8sqwsqu5k6umrypmtyqu2wqcpnrkf4w4mntvl0javt4nma7s8lzgss" />
+      <BalanceComponent />
     </div>
   )
 }
