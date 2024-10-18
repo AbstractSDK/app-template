@@ -70,21 +70,3 @@ pnpm dev
 
 Navigate to `http://localhost:3000` in your web browser to use the application.
 
-## Key Components
-
-### WalletConnection
-
-Handles wallet connection using Graz.
-
-### CreateAbstractAccount
-
-Allows users to create new Abstract Accounts.
-
-### QueryAbstractSubgraph
-
-Queries and displays Abstract Account information using Abstract Subgraph
-GraphQL API.
-
-### CodegenContract
-
-Demonstrates interaction with a CW20 token contract using generated code.
