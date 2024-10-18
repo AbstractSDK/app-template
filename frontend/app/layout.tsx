@@ -41,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={cn(inter.variable, poppins.variable)}>
+    <html lang="en" className='h-full w-full'>
+      <body className={cn(inter.variable, poppins.variable, 'h-full w-full bg-white')}>
         <QueryClientProvider client={client}>
           <GrazProvider client={client}>
             <AbstractProvider config={abstractConfig}>

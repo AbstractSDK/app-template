@@ -7,10 +7,9 @@ import { WalletConnection } from "./_components/wallet-connection"
 
 export default function Home() {
   return (
-    <div className="w-full p-4 bg-white text-black">
-      <h1 className="text-2xl font-bold mb-6">Abstract Account App</h1>
+    <div className="h-full w-full p-4 text-black space-y-4">
+      <WalletConnection />
       <div className="flex flex-col gap-6">
-        <WalletConnection />
         <CreateAbstractAccount />
         <QueryAbstractSubgraph />
         <CodegenContract />

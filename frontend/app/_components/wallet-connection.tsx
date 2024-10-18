@@ -4,7 +4,6 @@ import { useActiveWalletType, useDisconnect, useSuggestChainAndConnect, useAccou
 import { useCallback } from "react"
 import { appChain } from "../../utils/chains"
 import { Button } from "../../components/button"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/card"
 
 export const WalletConnection: React.FC = () => {
   const { disconnect } = useDisconnect()
@@ -26,33 +25,24 @@ export const WalletConnection: React.FC = () => {
   }, [disconnect])
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Wallet Connection Example</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-2">
+    <header>
+      <div className="mx-auto flex justify-between items-center">
+        <h1 className="text-xl font-bold">Abstract Template App</h1>
+        <div>
+          {account ? (
+            <div className="flex items-center gap-4">
+              <span className="text-sm">{account.bech32Address}</span>
+              <Button variant="outline" onClick={onDisconnect}>
+                Disconnect
+              </Button>
+            </div>
+          ) : (
             <Button onClick={onConnect} disabled={isLoading}>
               {isLoading ? "Connecting..." : "Connect Wallet"}
             </Button>
-            <Button variant="destructive" onClick={onDisconnect}>
-              Disconnect
-            </Button>
-          </div>
-          {account && (
-            <div className="bg-gray-100 p-3 rounded-md">
-              <h3 className="font-semibold mb-2">Connected Wallet Info:</h3>
-              <p>
-                <strong>Address:</strong> {account.bech32Address}
-              </p>
-              <p>
-                <strong>Wallet Type:</strong> {walletType?.walletType}
-              </p>
-            </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </header>
   )
 }
