@@ -2,10 +2,8 @@
 
 ## Introduction
 
-The Abstract Account App is a Next.js-based application that interacts with the
-Abstract Account system on the blockchain. It enables users to connect their
-wallets, create and manage Abstract Accounts, query account information, and
-interact with smart contracts in a type-safe manner using Abstract Codegen.
+This Abstract App Template App is a Next.js-based application that demonstrates
+interaction with Abstract Accounts on a CosmWasm-enabled chain. It includes logic for wallet connection, Account creation & queries, and shows interaction with general CosmWasm smart-contracts using Abstract.js codegen.
 
 ## Features
 
