@@ -2,31 +2,24 @@
 
 ## Introduction
 
-This Abstract App Template is a modern web application that demonstrates
-interaction with Abstract Accounts on a CosmWasm-enabled chain. It leverages a
-powerful tech stack:
+This Abstract App Template is a web application that demonstrates interaction
+with Abstract Accounts on a CosmWasm-enabled blockchain. It leverages the
+following technology stack:
 
-- [React](https://reactjs.org/docs/getting-started.html): A JavaScript library
-  for building user interfaces
-- [TypeScript](https://www.typescriptlang.org/docs/): Typed superset of
-  JavaScript
+- [React](https://react.dev/): A JavaScript library for building user interfaces
+- [TypeScript](https://www.typescriptlang.org/): Typed superset of JavaScript
 - [Next.js](https://nextjs.org/docs): React framework for production-grade
   applications
-- [shadcn/ui](https://ui.shadcn.com/docs): Beautifully designed components built
-  with Radix UI and Tailwind CSS
 - [Tailwind CSS](https://tailwindcss.com/docs): Utility-first CSS framework
+- [GraphQL](https://graphql.org/): A query language for APIs
+- [React Query](https://tanstack.com/query/latest/docs/react/overview): Data
+  synchronization for React
 
 For blockchain interactions:
 
 - [Graz](https://graz.sh/docs): React hooks for Cosmos blockchain
-- [React Query](https://tanstack.com/query/latest/docs/react/overview): Data
-  synchronization for React
-- [Abstract.js](https://docs.abstract.money/abstract-js/): SDK for interacting
-  with Abstract Protocol
-
-The app includes logic for wallet connection, Account creation & queries, and
-demonstrates interaction with CosmWasm smart contracts using Abstract.js code
-generation.
+- [Abstract.js](https://js.abstract.money/): SDK for interacting with Abstract
+  Protocol
 
 ## Features
 
@@ -34,7 +27,7 @@ generation.
 - Creation of Abstract Accounts
 - Querying Abstract Account information via the Abstract GraphQL API
 - Code generation for type-safe interactions with smart contracts using
-  [Abstract.js](https://abstract.js.abstract.money)
+  [Abstract.js](https://js.abstract.money/)
 
 ## Prerequisites
 
@@ -78,8 +71,13 @@ Before you begin, ensure you have met the following requirements:
 
 Before running the code generation, follow these steps:
 
-1. Ensure that you have generated the module schema. This step is crucial as it
-   creates the necessary schema files for the code generation process.
+1. Ensure that you have generated the module schema (see the
+   [Rust README](https://github.com/AbstractSDK/templates/blob/main/README.md)).
+   This step is crucial as it creates the necessary schema files for the code
+   generation process.
+
+   a. Verify that the schema file inside the path specified in step 2b is named
+   `module-schema.json`.
 
 2. After generating the module schema, update the `abstract.config.ts` file with
    the proper module name, namespace, and version. Here's how:
@@ -106,9 +104,6 @@ Before running the code generation, follow these steps:
    `path` is correct for your project structure.
 
    c. Save the changes to the `abstract.config.ts` file.
-
-3. Verify that the schema file inside the path specified in step 2b is named
-   `module-schema.json`.
 
 After completing these steps, you can proceed with running the code generation
 command that references the module-generated code.
