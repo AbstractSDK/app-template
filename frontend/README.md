@@ -61,7 +61,7 @@ This command will execute the following scripts:
 3. `generate:abstract`: Generates TypeScript types, methods, and hooks for smart
    contract interactions using Abstract CLI
 
-## Usage
+## Development
 
 To start the development server, run:
 
