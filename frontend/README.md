@@ -134,3 +134,41 @@ pnpm dev
 ```
 
 Navigate to `http://localhost:3000` in your web browser to use the application.
+
+## Troubleshooting
+
+### Error: ENOENT: no such file or directory
+
+If you encounter an error similar to the following:
+
+```bash
+ENOENT: no such file or directory, open '../contracts/{{app_name | snake_case}}/schema/module-schema.json'
+ELIFECYCLE  Command failed with exit code 1.
+```
+
+This error suggests that the contract schema files are not found in the expected
+location. To resolve this:
+
+1. Review your `abstract.config.ts` file.
+2. Ensure that the paths provided for your contract schemas are correct.
+3. Verify that the schema files exist in the specified directories.
+
+### Error: Module parse failed: Identifier 'Cw20BaseTypes' has already been declared
+
+If you encounter an error similar to the following:
+
+```shellscript
+⨯ ./app/_generated/generated-abstract/index.ts
+Module parse failed: Identifier 'Cw20BaseTypes' has already been declared (524:12)
+| export * from "./cosmwasm-codegen/Cw20Base.message-builder";
+| export * from "./cosmwasm-codegen/Cw20Base.message-composer";
+> import * as Cw20BaseTypes from "./cosmwasm-codegen/Cw20Base.types";
+| export { Cw20BaseTypes };
+```
+
+This error occurs due to a duplicate export in the generated code. To resolve
+this:
+
+1. Open the file `./app/_generated/generated-abstract/index.ts`.
+2. Locate and remove the duplicated export line for `Cw20BaseTypes`.
+3. Save the file and restart your development server.
