@@ -18,7 +18,7 @@ interaction with Abstract Accounts on a CosmWasm-enabled chain. It includes logi
 Before you begin, ensure you have met the following requirements:
 
 - pnpm
-- A compatible wallet (e.g., Keplr for Cosmos-based chains)
+- A Cosmos-compatible wallet (e.g., [Keplr](keplr.app))
 
 ## Installation
 
