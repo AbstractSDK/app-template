@@ -5,9 +5,9 @@ export default defineConfig({
   out: 'app/_generated/generated-abstract',
   contracts: [
     {
-      name: "{{app_name}}", 
-      path: "../contracts/{{app_name}}/schema/", 
-      namespace: "{{project-name}}", 
+      name: "{{app_name | snake_case}}", 
+      path: "../contracts/{{app_name | snake_case}}/schema/", 
+      namespace: "{{project-name | kebab_case}}", 
       version: "0.1.0",
       moduleType: "adapter",
     }

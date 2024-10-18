@@ -38,10 +38,17 @@ Before you begin, ensure you have met the following requirements:
 
 ## Configuration
 
-1. Create a `.env` file in the root directory and add the following:
+1. Duplicate the `.env.example` file and rename it to `.env`:
+   ```
+   cp .env.example .env
+   ```
+
+2. Open the `.env` file and ensure it contains the following:
    ```
    ABSTRACT_SUBGRAPH_URL=https://api.abstract.money/graphql
    ```
+
+   You can modify the values if needed.
 
 ## Code Generation
 
