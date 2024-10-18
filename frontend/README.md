@@ -10,8 +10,7 @@ interaction with Abstract Accounts on a CosmWasm-enabled chain. It includes logi
 - Wallet connection and management using Graz
 - Creation of Abstract Accounts
 - Querying Abstract Account information via the Abstract GraphQL API
-- Code generation for type-safe interactions with smart contracts using Abstract
-  Codegen
+- Code generation for type-safe interactions with smart contracts using [Abstract.js](https://abstract.js.abstract.money)
 
 ## Prerequisites
 
