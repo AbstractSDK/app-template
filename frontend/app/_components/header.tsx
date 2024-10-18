@@ -5,7 +5,7 @@ import { useCallback } from "react"
 import { appChain } from "../../utils/chains"
 import { Button } from "../../components/button"
 
-export const WalletConnection: React.FC = () => {
+export const Header: React.FC = () => {
   const { disconnect } = useDisconnect()
   const { suggestAndConnect: connect, isLoading } = useSuggestChainAndConnect()
   const { data: account } = useAccount()
